@@ -170,7 +170,11 @@ return [
         /*
          * Caffeinated Shinobi (Permissions)
          */
-        Caffeinated\Shinobi\ShinobiServiceProvider::class
+        Caffeinated\Shinobi\ShinobiServiceProvider::class,
+        /*
+         * Datatable Yajra
+         */
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
     ],
 

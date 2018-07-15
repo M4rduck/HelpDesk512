@@ -1,0 +1,11 @@
+.relative{
+    position:relative;
+}
+.absolute {
+    position:absolute;
+}
+.bottom-btn {
+    bottom: 35px;/* half of the button width */
+    left: 100%;
+    margin-left: -77px; /* half of the button width */
+}

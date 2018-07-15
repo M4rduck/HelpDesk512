@@ -6,17 +6,60 @@
     <h1>Controlador</h1>
 @stop
 
-@section('content')
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box">
-                {!! Form::open(['route' => 'controller.store']) !!}
-                <div class="box-header with-border">
-                    <h1 class="box-title">Registrar</h1>
-                </div>
+@push('js')
+    {!! Html::script('./js/system/controller/table.js') !!}
+@endpush
 
-                <!-- Box Body -->
-                <div class="box-body">
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
+
+@section('content')
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Controlador',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#myModal'
+        ]) !!}
+    </div>
+
+    <div class="box">
+        <div class="box-header">
+
+        </div>
+
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="controller-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Contenedor</th>
+                        <th>Prefijo</th>
+                        <th>Estado</th>
+                        <th>Editar</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('modal')
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                {!! Form::open(['route' => 'controller.store']) !!}
+                <div class="modal-header bg-warning">
+                    {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
+                    <h4 class="modal-title">Registrar</h4>
+                </div>
+                <div class="modal-body">
                     <div class="row">
                         <!-- Controlador & Prefijo -->
                         <div class="col-lg-6 col-sm-12">
@@ -85,13 +128,13 @@
                         <!-- /Contenedor & Estado -->
                     </div>
                 </div>
-                <!-- /Box Body -->
-
-                <div class="box-footer">
+                <div class="modal-footer">
+                    {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
                     {!! Form::button('guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
+
         </div>
     </div>
-@stop
+@endsection
