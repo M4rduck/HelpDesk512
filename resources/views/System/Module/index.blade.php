@@ -63,7 +63,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-object-group"></i>
                                     </span>
-                                    {!! Form::text('methods[order]', null, ['class' => 'form-control',
+                                    {!! Form::text('module[order]', null, ['class' => 'form-control',
                                                                             'title' => 'Orden en el cuál se vizualizara el módulo',
                                                                             'placeholder' => 'Ejemplo: 1',
                                                                             'id' => 'order'

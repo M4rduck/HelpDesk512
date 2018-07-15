@@ -24,4 +24,14 @@ class ModuleController extends Controller
 
         return view('System.Module.index')->with(['metodos' => $metodos, 'modulos' => $modulos]);
     }
+
+    public function store(Request $request){
+        try{
+            $modulo = new Module($request->all());
+            $modulo->save();
+        }catch (QueryException $queryException){
+            dd($queryException->getMessage());
+        }
+        return redirect()->route('module.index');
+    }
 }
