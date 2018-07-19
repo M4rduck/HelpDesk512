@@ -23,6 +23,10 @@ Route::group(['prefix' => 'general','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('general', 1);
 });
 
+Route::group(['prefix' => 'reporte','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('reporte', 1);
+});
+
 Route::group(['prefix' => 'incidence','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('incidence', 1);
 });

@@ -26,8 +26,8 @@ class ModuleController extends Controller
     }
 
     public function store(Request $request){
-        try{
-            $modulo = new Module($request->all());
+        try{            
+            $modulo = new Module($request->module);
             $modulo->save();
         }catch (QueryException $queryException){
             dd($queryException->getMessage());
