@@ -17,8 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-
-            $modulos = Module::with(['method', 'modules' => function($join){
+            $items = [];
+            /*$modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)
                         ->orderBy('order')->get();
@@ -49,10 +49,10 @@ class AppServiceProvider extends ServiceProvider
 
                 (isset($submenu) && !empty($submenu)) ?  $items['submenu'] = $submenu : [];
 
-                $submenu = [];
+                $submenu = [];*/
 
                 $event->menu->add($items);
-            }
+            //}
         });
     }
 
