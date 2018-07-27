@@ -24,9 +24,9 @@ class ControllerController extends Controller
     public function getDataController(){
         try{
             $datatable = DataTables::eloquent(ModelController::query())
-            ->editColumn('action', function() {
-                return '<a class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-            })->toJson();
+                            ->editColumn('action', function() {
+                                return '<a class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                            })->toJson();
         }catch (QueryException $queryException){
             dd($queryException->getMessage());
         }catch (\Exception $exception){

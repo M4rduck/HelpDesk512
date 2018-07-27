@@ -3,7 +3,7 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Metodo</h1>
+    <h1>Modulo</h1>
 @stop
 
 @section('content')

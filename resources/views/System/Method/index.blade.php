@@ -6,17 +6,73 @@
     <h1>Metodo</h1>
 @stop
 
+@push('js')
+    {!! Html::script('./js/system/method/table.js') !!}
+@endpush
+
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
+
 @section('content')
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Controlador',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#modalCreateMethod'
+        ]) !!}
+    </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
-                {!! Form::open(['route' => 'method.store']) !!}
+
                 <div class="box-header with-border">
                     <h1 class="box-title">Registrar</h1>
                 </div>
 
                 <!-- Box Body -->
                 <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="method-table" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Controlador</th>
+                                <th>Función</th>
+                                <th>Url</th>
+                                <th>Verbo</th>
+                                <th>Nombre</th>
+                                <th>Opciones</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <!-- /Box Body -->
+
+                <div class="box-footer">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('modal')
+    <!-- modal -->
+    <div id="modalCreateMethod" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                {!! Form::open(['route' => 'method.store']) !!}
+                <div class="modal-header bg-warning">
+                    {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
+                    <h4 class="modal-title">Registrar</h4>
+                </div>
+
+                <div class="modal-body">
                     <div class="row">
                         <!-- Controlador & Url -->
                         <div class="col-lg-6 col-sm-12">
@@ -113,13 +169,15 @@
                         <!-- /Nombre del método-->
                     </div>
                 </div>
-                <!-- /Box Body -->
 
-                <div class="box-footer">
+                <div class="modal-footer">
+                    {!! Form::button('Close', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
                     {!! Form::button('guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
+
         </div>
     </div>
-@stop
+    <!-- /modal -->
+@endsection
