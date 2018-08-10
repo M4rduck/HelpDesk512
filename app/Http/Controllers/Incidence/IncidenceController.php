@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Incidence;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,6 +12,6 @@ class IncidenceController extends Controller
     }
 
     public function create(){
-        return 'crear formulario';
+        return 'crear formulario pepe';
     }
 }
