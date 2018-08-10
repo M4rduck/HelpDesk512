@@ -7,6 +7,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\General\Controller as ModelController;
+use Yajra\DataTables\Facades\DataTables;
 
 class MethodController extends Controller
 {
@@ -23,6 +24,25 @@ class MethodController extends Controller
         }
 
         return view('System.Method.index')->with(['controladores' => $controladores, 'verbos' => $verbos]);
+    }
+
+    public function getDataMethod(){
+        try{
+            $datatable = DataTables::eloquent(Method::with('controller')
+                                                ->whereHas('controller', function ($query){
+                                                    $query->where('status', 1);
+                                                })
+                        )->addColumn('Controlador', function(Method $method){
+                            return $method->controller->name;
+                        })
+                        ->editColumn('action', function(Method $method){
+                            return '<a class="btn btn-xs btn-primary" data-id="'.$method->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.' <a class="btn btn-xs btn-primary" data-id="'.$method->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                        })->toJson();
+        }catch (QueryException $queryException){
+            dd($queryException->getMessage());
+        }
+
+        return $datatable;
     }
 
     public function store(Request $request){
