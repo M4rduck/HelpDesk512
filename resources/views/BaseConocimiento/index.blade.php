@@ -55,7 +55,7 @@
   <div id="software1" class="tab-pane fade">
   <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;"></textarea>         
+<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="SOFTWARE"></textarea>         
            </div>
            <br>
            <br>
@@ -103,7 +103,7 @@
     <div id="hardware2" class="tab-pane fade">
    <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-<textarea  cols=120 id="tx2" rows=4 style="background-color: #eee; border: none;"></textarea>         
+<textarea  cols=120 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWARE"></textarea>         
            </div>
            <br>
            <br>
@@ -149,7 +149,7 @@
   <div id="red3" class="tab-pane fade">
   <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;"></textarea>         
+<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="RED"></textarea>         
            </div>
            <br>
            <br>
@@ -195,10 +195,9 @@
 
   </div>
   <div id="home" class="tab-pane fade in active">
-    <h3>HOME</h3>
-    <p>Some content.</p>
+    
   </div>
-  <div class="row">
+ <!-- <div class="row">
 <div class="row col-xs-12 col-sm--12 col-md-12 col-lg-12 text-center ">
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
@@ -214,7 +213,7 @@
   </ul>
 </nav>
 </div>
-</div>
+</div> -->
 <!-- Libreria de jQuery -->
 <!-- Libreria JavaScript de Bootstrap -->
 </body>
