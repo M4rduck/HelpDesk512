@@ -145,6 +145,55 @@
 </div>
 <br>
   </div>
+   <div class="tab-content">
+  <div id="red3" class="tab-pane fade">
+  <div class="row">
+    <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
+<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;"></textarea>         
+           </div>
+           <br>
+           <br>
+           <br>
+
+ <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
+<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Solucion</button>
+<!-- modal -->   
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ..
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--- fin de modal -->
+</div><br>
+<br>
+ <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
+   <label>Fecha:
+  </label> <label></label>
+</div>
+   <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
+  <label>Prioridad:
+  </label> <label></label>
+ </div>
+<div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
+<hr class='separador_post'/>
+</div>
+</div>
+
+
+  </div>
   <div id="home" class="tab-pane fade in active">
     <h3>HOME</h3>
     <p>Some content.</p>
