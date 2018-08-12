@@ -195,7 +195,7 @@
 
   </div>
   <div id="home" class="tab-pane fade in active">
-    
+    jjjjjjjj
   </div>
  <!-- <div class="row">
 <div class="row col-xs-12 col-sm--12 col-md-12 col-lg-12 text-center ">
