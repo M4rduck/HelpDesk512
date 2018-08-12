@@ -88,7 +88,7 @@
       </div>
   <div id="menu1" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-<textarea  cols=120 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWARE"></textarea>         
+<textarea  cols=115 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWARE"></textarea>         
            </div>
            <br>
            <br>
@@ -130,7 +130,7 @@
   </div>
   <div id="menu2" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-<textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="RED"></textarea>         
+<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="RED"></textarea>         
            </div>
            <br>
            <br>
