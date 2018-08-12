@@ -30,3 +30,7 @@ Route::group(['prefix' => 'reporte','middleware' => ['auth']], function (){
 Route::group(['prefix' => 'incidence','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('incidence', 1);
 });
+
+Route::group(['prefix' => 'baseConocimiento','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('baseConocimiento', 1);
+});

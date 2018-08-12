@@ -1,7 +1,8 @@
+var host = '/HelpDesk512/public';
 $('#controller-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '/general/controller/getData',
+    ajax: host+'/general/controller/getData',
     columns: [
         {data: 'name'},
         {data: 'containerName'},
