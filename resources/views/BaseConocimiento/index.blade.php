@@ -35,16 +35,24 @@
   <div class="container">
     <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-12 col-lg-12 text-center">
-      <label for="">Categorías
+      <label for=""> <font face="decorativa">Base De Conocimiento</font>
       </label><br>
+      <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#software1">Software</a></li>
+    <li><a data-toggle="tab" href="#hardware2">Hardware</a></li>
+    <li><a data-toggle="tab" href="#red3">Red</a></li>
+  </ul>
         
-<a type="button" class="btn btn-primary btn-sm" href="{{route('home')}}">Red</a>
+<!--<a type="button" class="btn btn-primary btn-sm" href="{{route('home')}}">Red</a>
 <a type="button" class="btn btn-secondary btn-sm" href="{{route('home')}}">Software</a>
 <a type="button" class="btn btn-primary btn-sm" href="{{route('home')}}">Hardware</a> <br>
-<br>
+--><br>
 <br>
     </div>
   </div>
+  <div class="tab-content">
+  <div id="software1" class="tab-pane fade">
   <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
 <textarea  cols=120 id="tx1" rows=4 style="background-color: #eee; border: none;"></textarea>         
@@ -88,9 +96,11 @@
 <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
 <hr class='separador_post'/>
 </div>
+</div>
 
 
   </div>
+    <div id="hardware2" class="tab-pane fade">
    <div class="row">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
 <textarea  cols=120 id="tx2" rows=4 style="background-color: #eee; border: none;"></textarea>         
@@ -132,8 +142,12 @@
 <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
 <hr class='separador_post'/>
 </div>
-
-
+</div>
+<br>
+  </div>
+  <div id="home" class="tab-pane fade in active">
+    <h3>HOME</h3>
+    <p>Some content.</p>
   </div>
   <div class="row">
 <div class="row col-xs-12 col-sm--12 col-md-12 col-lg-12 text-center ">
