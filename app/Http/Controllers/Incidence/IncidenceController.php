@@ -8,10 +8,10 @@ use App\Http\Controllers\Controller;
 class IncidenceController extends Controller
 {
     public function index(){
-        return 'hola';
+        return view('incidence.index');
     }
 
     public function create(){
-        return 'crear formulario pepe';
+        return view('incidence.register');
     }
 }
