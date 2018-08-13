@@ -38,6 +38,27 @@
   <li class="active"><a data-toggle="tab" href="#home">Software</a></li>
   <li><a data-toggle="tab" href="#menu1">Hardware</a></li>
   <li><a data-toggle="tab" href="#menu2">Red</a></li>
+  <!--
+  <button type="button" id="tml" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong5">Crear nueva</button>
+<div class="modal fade" id="exampleModalLong5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ..nu
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+-->
 </ul>
 <br>
 
@@ -51,9 +72,9 @@
            <br>
 
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
-<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Solucion</button>
+<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong1">Solucion</button>
 <!-- modal -->   
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -63,7 +84,7 @@
         </button>
       </div>
       <div class="modal-body">
-        ..
+        ..sof
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -94,9 +115,9 @@
            <br>
            <br>
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
-<button type="button" id="tx2b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Solucion</button>
+<button type="button" id="tx2b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong2">Solucion</button>
 <!-- modal -->   
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -106,7 +127,7 @@
         </button>
       </div>
       <div class="modal-body">
-..
+..har
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -137,9 +158,9 @@
            <br>
 
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
-<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong">Solucion</button>
+<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong3">Solucion</button>
 <!-- modal -->   
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -149,7 +170,7 @@
         </button>
       </div>
       <div class="modal-body">
-        ..
+        ..re
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
