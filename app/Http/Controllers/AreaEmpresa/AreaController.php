@@ -7,5 +7,7 @@ use App\Http\Controllers\Controller;
 
 class AreaController extends Controller
 {
-    //
+    function index(){
+    	return view('areaEmpresa.area.index'); 
+    }
 }
