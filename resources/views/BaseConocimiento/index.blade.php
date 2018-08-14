@@ -38,8 +38,7 @@
   <li class="active"><a data-toggle="tab" href="#home">Software</a></li>
   <li><a data-toggle="tab" href="#menu1">Hardware</a></li>
   <li><a data-toggle="tab" href="#menu2">Red</a></li>
-  <!--
-  <button type="button" id="tml" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong5">Crear nueva</button>
+  <button type="button" id="tml" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong5">Crear nueva</button>
 <div class="modal fade" id="exampleModalLong5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -58,7 +57,6 @@
     </div>
   </div>
 </div>
--->
 </ul>
 <br>
 
