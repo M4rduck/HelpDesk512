@@ -35,7 +35,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form id="form_incidence" action="{{ route('incidences-store') }}" method="post" enctype="multipart/form-data">
+                    <form id="form_incidence" action="{{ route('incidence.store') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="contacto">Contacto:</label>
