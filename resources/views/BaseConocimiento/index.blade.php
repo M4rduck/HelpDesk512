@@ -43,14 +43,41 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle" align="center">Crear incidencia</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ..nu
+        <form>
+        <div class="form-group">
+    <label for="exampleFormControlSelect2">Categoria incidencia</label>
+    <select multiple class="form-control" id="exampleFormControlSelect2">
+      <option>Software</option>
+      <option>Hardware</option>
+      <option>Red</option>
+    
+    </select>
+    <br>
+    <input  type="text" placeholder="Nombre Incidencia">  <label>Prioridad</label>
+    <select  id="exampleFormControlSelect1">
+      <option>Alta</option>
+      <option>Media</option>
+      <option>Baja</option>
+      
+    </select> <label>Fecha</label> <input type="date" name="fe"><br>
+    <br>
+    <hr>
+    <textarea placeholder="Descripcion incidencia"  cols=70></textarea>
+<hr>
+<br>
+<textarea placeholder="Solucion incidencia"  cols=70></textarea>
+<br>
+ <input type="submit"  class="btn btn-primary btn-sm" value="Eviar">
+
+  </div>
       </div>
+    </form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
