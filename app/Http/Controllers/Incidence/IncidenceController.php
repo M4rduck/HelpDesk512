@@ -14,4 +14,8 @@ class IncidenceController extends Controller
     public function create(){
         return view('incidence.register');
     }
+
+    public function store(Request $request){
+        dd($request);
+    }
 }

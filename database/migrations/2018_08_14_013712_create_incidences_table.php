@@ -15,6 +15,14 @@ class CreateIncidencesTable extends Migration
     {
         Schema::create('incidences', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('contacto');
+            $table->string('tema');
+            $table->enum('estado', ['abierto', 'pendiente', 'resuelto', 'cerrado']);
+            $table->enum('prioridad', ['bajo', 'medio', 'alto', 'urgente']);
+            $table->string('agente');
+            $table->text('descripcion');
+            $table->string('ruta_evidencia');
+            $table->string('etiquetas');
             $table->timestamps();
         });
     }
