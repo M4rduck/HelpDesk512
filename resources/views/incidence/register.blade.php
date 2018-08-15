@@ -37,10 +37,13 @@
                     @endif
                     <form id="form_incidence" action="{{ route('incidence.store') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="contacto">Contacto:</label>
-                            <select class="form-control" id="contacto" name="contacto">
-                            </select>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="contacto">Contacto:</label>
+                                    <select style="width: 100%;" tabindex="-1" class="form-control" id="contacto" name="contacto"></select>
+                                </div>  
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="tema">Tema:</label>
@@ -80,7 +83,7 @@
                         </div>
                         <div class="form-group">
                             <label for="etiquetas">Etiquetas:</label>
-                            <select class="form-control" id="etiquetas" name="etiquetas[]" multiple="multiple">
+                            <select style="width: 100%;" tabindex="-1" class="form-control" id="etiquetas" name="etiquetas[]" multiple="multiple">
                                 <option value="perro">Perro</option>
                                 <option value="pajaritos">Pajaritos</option>
                             </select>
