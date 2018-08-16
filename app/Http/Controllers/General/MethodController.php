@@ -14,16 +14,19 @@ class MethodController extends Controller
     public function index(){
         try{
             $controladores = ModelController::query()
+                                ->select('id', 'name')
                                 ->where('status', 1)
                                 ->get()
-                                ->pluck('name', 'id');
+                                ->map(function($controlador){
+                                    return ['id' => $controlador->id, 'name' => $controlador->name];
+                                });
+            $controladores->prepend(['id' => 0, 'name' => 'Elige un controlador']);                    
 
-            $verbos = ['post' =>'POST','get' => 'GET','put' => 'PUT','patch' => 'PATCH','delete' => 'DELETE','resource' => 'RESOURCE'];
         }catch (QueryException $queryException){
             return abort(500, $queryException->getMessage());
         }
 
-        return view('System.Method.index')->with(['controladores' => $controladores, 'verbos' => $verbos]);
+        return view('System.Method.index')->with(['controladores' => $controladores]);
     }
 
     public function getDataMethod(){

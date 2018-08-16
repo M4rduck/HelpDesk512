@@ -8,11 +8,20 @@
 
 @push('js')
     {!! Html::script('./js/system/method/table.js') !!}
+    {!! Html::script('./js/system/method/create.js') !!}
 @endpush
 
 @push('css')
     <!-- Estilos para botón flotante -->
     {!! Html::style('./css/button_float.css') !!}
+    <style>
+        .validators {
+            display: inline-block;
+            width: 60%;
+            text-align: center;
+            vertical-align: top;
+        }
+        </style>
 @endpush
 
 @section('content')
@@ -57,16 +66,20 @@
 
             </div>
         </div>
+        <div id = "tableMethod">
+            <table-method></table-method>
+        </div>
     </div>
 @stop
 
 @section('modal')
+
     <!-- modal -->
     <div id="modalCreateMethod" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                {!! Form::open(['route' => 'method.store']) !!}
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" id = "methodCreateVue">
+                <method-create-vue :controllers = "{{ $controladores }}" route = "{{ route('method.store') }}" ></method-create-vue>
+            {{--{!! Form::open(['route' => 'method.store']) !!}
                 <div class="modal-header bg-warning">
                     {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
                     <h4 class="modal-title">Registrar</h4>
@@ -174,7 +187,7 @@
                     {!! Form::button('Close', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
                     {!! Form::button('guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
                 </div>
-                {!! Form::close() !!}
+                {!! Form::close() !!}--}}
             </div>
 
         </div>

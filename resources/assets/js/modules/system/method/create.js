@@ -5,9 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./../../../bootstrap');
 
 window.Vue = require('vue');
+window.vuelidate = require('vuelidate');
+window.vSelect = require('vue-select');
 window.axios = require('axios');
 
 /**
@@ -15,9 +17,12 @@ window.axios = require('axios');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.use(vuelidate.default);
+Vue.component('v-select', vSelect.VueSelect);
+Vue.component('method-create-vue', require('./../../../components/system/method/create.vue'));
 
 const app = new Vue({
-    el: '#app'
+    validations: {},
+    el: '#methodCreateVue'
+    
 });
