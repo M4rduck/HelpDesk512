@@ -66,9 +66,6 @@
 
             </div>
         </div>
-        <div id = "tableMethod">
-            <table-method></table-method>
-        </div>
     </div>
 @stop
 

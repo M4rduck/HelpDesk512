@@ -146,14 +146,16 @@ export default {
         onSubmit(){
             if(!this.$v.$invalid) {
                 const user = { 
-                    controller_id: this.form.controller_id.id,
-                    verbName: this.form.verbName.id,
-                    url: this.form.url,
-                    name_function: this.form.name_function,
-                    name: this.form.name
+                    methods: {
+                        controller_id: this.form.controller_id.id,
+                        verbName: this.form.verbName.id,
+                        url: this.form.url,
+                        name_function: this.form.name_function,
+                        name: this.form.name
+                    }                    
                 }
                 console.log(user);
-                axios.post(this.route)
+                axios.post(this.route, user)
                      .then(function (response) {
                          console.log(response);
                      }).catch(function (error) {
