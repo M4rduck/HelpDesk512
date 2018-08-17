@@ -1,5 +1,17 @@
 let mix = require('laravel-mix');
-
+/*mix.options({
+    chainWebpack: config => {    
+        // add the new one
+        config.module.rule('svg')
+          .test(/\.js$/)
+          .use
+            .loader('babel-loader?cacheDirectory')
+            .include({
+              name: "vue2-datatable-component"
+            })
+           
+      }
+});*/
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management

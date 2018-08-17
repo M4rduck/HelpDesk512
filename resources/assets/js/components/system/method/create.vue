@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form v-bind:action="route"  method="post" @submit.prevent="onSubmit">
+    <form v-bind:action="route" class="loading-parent"  method="post" @submit.prevent="onSubmit">
                 <div class="modal-header bg-warning">                    
                     <button class = "close" data-dismiss = "modal">&times;</button>
                     <h4 class="modal-title">Registrar</h4>
@@ -24,14 +24,16 @@
                             <!-- /Controlador -->
 
                             <!-- Url -->
-                            <div class="form-group">                                
+                            <div class="form-group" :class="{ 'has-error': $v.form.url.$error }">                                
                                 <label for = "url">Url</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-link"></i>
                                     </span>
-                                    <input type = "text" name = "methods[url]" class = "form-control" title = "Url del método" placeholder = "/url" id = "url" v-model="form.url"/>
+                                    <input type = "text" name = "methods[url]" class = "form-control" title = "Url del método" placeholder = "/url" id = "url" @input="$v.form.url.$touch()"  v-model.trim="$v.form.url.$model"/>
                                 </div>
+                                <span class="help-block" v-if="!$v.form.url.required">Debes poner la url</span>
+                                <span class="help-block" v-if="!$v.form.url.minLength">LA url debe tener al menos {{ $v.form.url.$params.minLength.min }} caracteres. </span>
                             </div>
                             <!-- /Verbo -->
                         </div>
@@ -53,16 +55,14 @@
                             <!-- /Verbo -->
 
                             <!-- Nombre de Funcion -->
-                            <div class="form-group " :class="{ 'has-error': $v.form.name_function.$error }">
+                            <div class="form-group ">
                                 <label for = "name_function" >Funcion</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-object-group"></i>
                                     </span>
-                                    <input type = "text" name = "methods[name_function]" class = "form-control" title = "Nombre de la función del método" placeholder = "index" id = "name_function" @input="$v.form.name_function.$touch()"  v-model.trim="$v.form.name_function.$model"/>                                                                        
-                                </div>
-                                <span class="help-block" v-if="!$v.form.name_function.required">Debes poner el nombre de la función</span>
-                                <span class="help-block" v-if="!$v.form.name_function.minLength">El nombre de la función debe tener al menos {{ $v.form.name_function.$params.minLength.min }} caracteres. </span>
+                                    <input type = "text" name = "methods[name_function]" class = "form-control" title = "Nombre de la función del método" placeholder = "index" id = "name_function" v-model="form.name_function" />                                                                        
+                                </div>                                
                             </div>
                             <!-- /Nombre de Funcion -->
                         </div>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>
-                    <button type = "submit" :disabled="$v.$invalid" class = "btn btn-success pull-right">Guardar</button>
+                    <button type = "submit" :disabled="$v.$invalid" class = "btn btn-success pull-right"><vue-element-loading spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
                 </div>
     </form>
 </div>
@@ -99,6 +99,8 @@
 import { required, minLength, helpers } from 'vuelidate/lib/validators';
 const must_be_controller = (value) => value.id != 0 && value != null
 const must_be_verb = (value) => (value.id.indexOf('post') >= 0 || value.id.indexOf('get') >= 0 || value.id.indexOf('put') >= 0 || value.id.indexOf('patch') >= 0 || value.id.indexOf('delete') >= 0 || value.id.indexOf('resource') >= 0) && value != null
+
+
 
 export default {
     props: {
@@ -129,7 +131,7 @@ export default {
     },
     validations:{
         form:{
-            name_function: {
+            url: {
              required,
              minLength: minLength(5)
             },
@@ -157,10 +159,30 @@ export default {
                 console.log(user);
                 axios.post(this.route, user)
                      .then(function (response) {
-                         console.log(response);
+                         let answer = response.data;
+                         console.log(answer);
+                         if(answer.success && !answer.error && !answer.warning){
+                             swal(
+                                answer.title,
+                                answer.msg,
+                                'success'
+                            )
+                         }else if(answer.success && !answer.error && answer.warning){
+                             swal(
+                                 answer.title,
+                                 answer.msg,
+                                 'warning'
+                             )
+                         }else{
+                             swal(
+                                 answer.title,
+                                 answer.msg,
+                                 'error'
+                             )
+                         }
                      }).catch(function (error) {
                          console.log(error);
-                        });
+                     });
             }    
         }
     },
