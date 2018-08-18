@@ -89,10 +89,10 @@
 <br>
 
 <div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
+  <div id="home" class="tab-pane fade ">
 <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
   <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="SOFTWAREee"></textarea>         
+<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="SOFTWARE"></textarea>         
            </div>
            <br>
            <br>
@@ -137,7 +137,7 @@
   <div id="menu1" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
         <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWAREe"></textarea>         
+<textarea  cols=115 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWARE"></textarea>         
            </div>
            <br>
            <br>
@@ -180,7 +180,7 @@
   <div id="menu2" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
         <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="REDee"></textarea>         
+<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="RED"></textarea>         
            </div>
            <br>
            <br>
