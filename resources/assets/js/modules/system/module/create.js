@@ -8,9 +8,6 @@
 require('./../../../bootstrap');
 
 window.Vue = require('vue');
-window.vuelidate = require('vuelidate');
-window.vSelect = require('vue-select');
-window.axios = require('axios');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -18,6 +15,7 @@ window.axios = require('axios');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.use(vuelidate.default);
+Vue.component('vue-element-loading',loading);
 Vue.component('v-select', vSelect.VueSelect);
 Vue.component('method-create-vue', require('./../../../components/system/module/create.vue'));
 

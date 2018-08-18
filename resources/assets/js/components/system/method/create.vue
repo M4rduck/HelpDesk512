@@ -89,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>
-                    <button type = "submit" :disabled="$v.$invalid" class = "btn btn-success pull-right"><vue-element-loading spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
+                    <button type = "submit" :disabled="$v.$invalid" class = "btn btn-success pull-right"><vue-element-loading :active="form.isLoading"  spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
                 </div>
     </form>
 </div>
@@ -124,6 +124,7 @@ export default {
                 controller_id: {id: 0, name: 'Elige un controlador'},
                 url: '',
                 name: '',
+                isLoading: false
                 
             }
             
@@ -156,31 +157,29 @@ export default {
                         name: this.form.name
                     }                    
                 }
-                console.log(user);
+                let form = this.form;
+                form.isLoading = true;
                 axios.post(this.route, user)
                      .then(function (response) {
                          let answer = response.data;
+                         let typeMsg = '';
+                         form.isLoading = false;
                          console.log(answer);
                          if(answer.success && !answer.error && !answer.warning){
-                             swal(
-                                answer.title,
-                                answer.msg,
-                                'success'
-                            )
+                             typeMsg= 'success';
                          }else if(answer.success && !answer.error && answer.warning){
-                             swal(
-                                 answer.title,
-                                 answer.msg,
-                                 'warning'
-                             )
+                             typeMsg = 'warning';
                          }else{
-                             swal(
+                             typeMsg = 'error';                             
+                         }
+
+                         swal(
                                  answer.title,
                                  answer.msg,
-                                 'error'
+                                 typeMsg
                              )
-                         }
                      }).catch(function (error) {
+                         form.isLoading = false;
                          console.log(error);
                      });
             }    
@@ -189,4 +188,4 @@ export default {
     mounted(){
     }
 }
-</script>                
+</script>
