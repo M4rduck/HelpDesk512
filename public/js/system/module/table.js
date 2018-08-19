@@ -1,9 +1,10 @@
+const host = '/HelpDesk512/public';
 const template = Handlebars.compile($("#details-template").html());
 
 const table = $('#module-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '/general/module/getData',
+                ajax: host+'/general/module/getData',
                 columns: [
                     {
                         orderable:      false,
