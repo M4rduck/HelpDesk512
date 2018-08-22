@@ -11,13 +11,19 @@ class Incidence extends Model
      *
      * @var array
      */
-    protected $fillable = ['contacto',
-        'tema',
-        'estado',
-        'prioridad',
-        'agente',
-        'descripcion',
-        'ruta_evidencia',
-        'etiquetas'
+    protected $fillable = ['contact',
+        'subject',
+        'state',
+        'priority',
+        'type',
+        'agent',
+        'description',
+        'file',
     ];
+
+    //one to one relathionship with incidence states
+    public function incidenceState(){
+        return $this->hasOne('App\IncidenceState', 'incidenceState_id');
+    }
+
 }

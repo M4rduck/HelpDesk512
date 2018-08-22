@@ -13,16 +13,18 @@ class CreateIncidencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incidences', function (Blueprint $table) {
+        Schema::create('Incidence', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('contacto');
-            $table->string('tema');
-            $table->enum('estado', ['abierto', 'pendiente', 'resuelto', 'cerrado']);
-            $table->enum('prioridad', ['bajo', 'medio', 'alto', 'urgente']);
-            $table->string('agente');
-            $table->text('descripcion');
-            $table->string('ruta_evidencia');
-            $table->string('etiquetas');
+            $table->unsignedInteger('id_agent'); //crear foreign key
+            $table->unsignedInteger('id_solicitude'); //crear foreign key
+            $table->string('contact', 45);
+            $table->string('theme', 45);
+            $table->unsignedInteger('id_incidenceState');
+            $table->foreign('id_incidenceState')->references('id')->on('IncidenceState');
+            $table->enum('priority', ['low', 'medium', 'high', 'urgent']);
+            $table->text('description');
+            $table->string('evidence_route', 45);
+            $table->string('label', 45);
             $table->timestamps();
         });
     }

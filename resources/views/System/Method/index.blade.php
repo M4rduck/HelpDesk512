@@ -19,11 +19,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
-
                 <div class="box-header with-border">
                     <h1 class="box-title">Registrar</h1>
                 </div>
-
                 <!-- Box Body -->
                 <div class="box-body">
                     <div class="table-responsive">
@@ -42,11 +40,8 @@
                     </div>
                 </div>
                 <!-- /Box Body -->
-
                 <div class="box-footer">
-
                 </div>
-
             </div>
         </div>
     </div>
