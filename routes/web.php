@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
 
+
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 /*Route::group(['prefix' => 'general','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('general', 1);

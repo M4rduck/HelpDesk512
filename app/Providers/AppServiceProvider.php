@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Providers;
-
 use App\Models\General\Module;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -17,12 +14,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $items = [];
-            /*$modulos = Module::with(['method', 'modules' => function($join){
+            $modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)
                         ->orderBy('order')->get();
-
             foreach ($modulos as $modulo) {
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
@@ -37,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
                         ];
                     }
                 }
-
                 $items = [
                     'text' => $modulo->text,
                     'icon' => $modulo->icon,
@@ -46,16 +40,12 @@ class AppServiceProvider extends ServiceProvider
                     'label_color' => $modulo->label_color,
                 ];
                 is_null($modulo->method) ?  [] : $items['url'] = route($modulo->method->name);
-
                 (isset($submenu) && !empty($submenu)) ?  $items['submenu'] = $submenu : [];
-
-                $submenu = [];*/
-
+                $submenu = [];
                 $event->menu->add($items);
-            //}
+            }
         });
     }
-
     /**
      * Register any application services.
      *
