@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIncidenceStatesTable extends Migration
+class CreateSolicitudesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateIncidenceStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('IncidenceState', function (Blueprint $table) {
+        Schema::create('Solicitude', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->unsignedInteger('id_area');
+            $table->text('title', 45)->unique();
             $table->text('description');
             $table->timestamps();
         });
@@ -28,6 +29,6 @@ class CreateIncidenceStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('IncidenceState');
+        Schema::dropIfExists('Solicitude');
     }
 }

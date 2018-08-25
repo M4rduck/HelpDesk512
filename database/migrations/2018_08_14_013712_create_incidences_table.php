@@ -36,6 +36,6 @@ class CreateIncidencesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incidences');
+        Schema::dropIfExists('Incidence');
     }
 }

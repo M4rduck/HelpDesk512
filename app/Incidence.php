@@ -11,14 +11,16 @@ class Incidence extends Model
      *
      * @var array
      */
-    protected $fillable = ['contact',
-        'subject',
-        'state',
+    protected $fillable = [
+        'id_agent',
+        'id_solicitude',
+        'contact',
+        'theme',
+        'id_incidenceState',
         'priority',
-        'type',
-        'agent',
         'description',
-        'file',
+        'evidence_route',
+        'label'
     ];
 
     //one to one relathionship with incidence states
