@@ -5,9 +5,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./../../../bootstrap');
 
 window.Vue = require('vue');
+window.lodash = require('lodash');
+window.datatable = require('vue2-datatable-component');
 window.axios = require('axios');
 
 /**
@@ -15,9 +17,11 @@ window.axios = require('axios');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.use(datatable);
+Vue.component('table-method', require('./../../../components/system/method/table.vue'));
 
 const app = new Vue({
-    el: '#app'
+    validations: {},
+    el: '#tableMethod'
+    
 });
