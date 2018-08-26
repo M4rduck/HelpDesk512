@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 69);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -52647,14 +52647,19 @@ var _default = (0, _common.regex)('decimal', /^[-]?\d*(\.\d+)?$/);
 exports.default = _default;
 
 /***/ }),
-/* 69 */
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(70);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
-/* 70 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -52675,7 +52680,7 @@ window.Vue = __webpack_require__(41);
 Vue.use(vuelidate.default);
 Vue.component('vue-element-loading', loading);
 Vue.component('v-select', vSelect.VueSelect);
-Vue.component('method-create-vue', __webpack_require__(71));
+Vue.component('method-create-vue', __webpack_require__(76));
 
 var app = new Vue({
   validations: {},
@@ -52684,15 +52689,15 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 71 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(44)
 /* script */
-var __vue_script__ = __webpack_require__(72)
+var __vue_script__ = __webpack_require__(77)
 /* template */
-var __vue_template__ = __webpack_require__(73)
+var __vue_template__ = __webpack_require__(78)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -52709,7 +52714,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/system/method/create.vue"
+Component.options.__file = "resources/assets/js/components/system/module/create.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52718,9 +52723,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f4f238be", Component.options)
+    hotAPI.createRecord("data-v-6beeb936", Component.options)
   } else {
-    hotAPI.reload("data-v-f4f238be", Component.options)
+    hotAPI.reload("data-v-6beeb936", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52731,7 +52736,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 72 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52835,91 +52840,147 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
-var must_be_controller = function must_be_controller(value) {
+var must_be_method = function must_be_method(value) {
     return value.id != 0 && value != null;
 };
-var must_be_verb = function must_be_verb(value) {
-    return (value.id.indexOf('post') >= 0 || value.id.indexOf('get') >= 0 || value.id.indexOf('put') >= 0 || value.id.indexOf('patch') >= 0 || value.id.indexOf('delete') >= 0 || value.id.indexOf('resource') >= 0) && value != null;
+var must_be_module = function must_be_module(value) {
+    return value.id != 0 && value != null;
+};
+var vuelidations = {
+    form: {
+        order: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            numeric: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["numeric"],
+            minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(1)
+        },
+        text: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
+        icon: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        }
+    }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        controllers: Array,
-        route: String
+        route: String,
+        methods: Array,
+        modules: Array
     },
     data: function data() {
         return {
             form: {
-                name_function: '',
-                verbNameOptions: [{ id: 'select', value: 'Elige un verbo' }, { id: 'post', value: 'POST' }, { id: 'get', value: 'GET' }, { id: 'put', value: 'PUT' }, { id: 'patch', value: 'PATCH' }, { id: 'delete', value: 'DELETE' }, { id: 'resource', value: 'RESOURCE' }],
-                verbName: { id: 'select', value: 'Elige un verbo' },
-                controller_id: { id: 0, name: 'Elige un controlador' },
-                url: '',
-                name: '',
+                method_id: { id: 0, name: 'Elige un método' },
+                module_id: { id: 0, text: 'Elige un módulo' },
+                label: '',
+                label_color: '',
+                icon: '',
+                text: '',
+                order: '',
+                main: true,
                 isLoading: false
-
             }
-
         };
     },
-
-    validations: {
-        form: {
-            url: {
-                required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
-                minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(5)
-            },
-            verbName: {
-                must_be_verb: must_be_verb
-            },
-            controller_id: {
-                must_be_controller: must_be_controller
-            }
+    validations: function validations() {
+        if (!this.form.main) {
+            vuelidations.form[method_id] = { must_be_method: must_be_method };
+            vuelidations.form[module_id] = { must_be_module: must_be_module };
         }
-
+        return vuelidations;
     },
+
     methods: {
         onSubmit: function onSubmit() {
             if (!this.$v.$invalid) {
                 var user = {
-                    methods: {
-                        controller_id: this.form.controller_id.id,
-                        verbName: this.form.verbName.id,
-                        url: this.form.url,
-                        name_function: this.form.name_function,
-                        name: this.form.name
+                    module: {
+                        method_id: this.form.method_id.id,
+                        module_id: this.form.module_id.id,
+                        label: this.form.label,
+                        label_color: this.form.label_color,
+                        icon: this.form.icon,
+                        text: this.form.text,
+                        order: this.form.order,
+                        main: this.form.main
                     }
                 };
-                var form = this.form;
-                form.isLoading = true;
-                axios.post(this.route, user).then(function (response) {
-                    var answer = response.data;
-                    var typeMsg = '';
-                    form.isLoading = false;
-                    console.log(answer);
-                    if (answer.success && !answer.error && !answer.warning) {
-                        typeMsg = 'success';
-                    } else if (answer.success && !answer.error && answer.warning) {
-                        typeMsg = 'warning';
-                    } else {
-                        typeMsg = 'error';
-                    }
-
-                    swal(answer.title, answer.msg, typeMsg);
-                }).catch(function (error) {
-                    form.isLoading = false;
-                    console.log(error);
-                });
+                console.log(user.module);
             }
         }
-    },
-    mounted: function mounted() {}
+    }
 });
 
 /***/ }),
-/* 73 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -52930,7 +52991,7 @@ var render = function() {
     _c(
       "form",
       {
-        attrs: { action: _vm.route, method: "post" },
+        attrs: { method: "post", action: _vm.route },
         on: {
           submit: function($event) {
             $event.preventDefault()
@@ -52939,20 +53000,15 @@ var render = function() {
         }
       },
       [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group",
-                  class: { "has-error": _vm.$v.form.controller_id.$error }
-                },
-                [
-                  _c("label", { attrs: { for: "controller_id" } }, [
-                    _vm._v("Controlador")
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "method_id" } }, [
+                    _vm._v("Método")
                   ]),
                   _vm._v(" "),
                   _c(
@@ -52962,253 +53018,447 @@ var render = function() {
                       _vm._m(1),
                       _vm._v(" "),
                       _c("v-select", {
-                        attrs: { label: "name", options: _vm.controllers },
+                        attrs: { label: "name", options: _vm.methods },
                         model: {
-                          value: _vm.$v.form.controller_id.$model,
+                          value: _vm.$v.form.method_id.$model,
                           callback: function($$v) {
-                            _vm.$set(_vm.$v.form.controller_id, "$model", $$v)
+                            _vm.$set(_vm.$v.form.method_id, "$model", $$v)
                           },
-                          expression: "$v.form.controller_id.$model"
+                          expression: "$v.form.method_id.$model"
                         }
                       })
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _vm.$v.form.controller_id.$error
-                    ? _c("span", { staticClass: "help-block" }, [
-                        _vm._v("Debes seleccionar un controlador")
-                      ])
-                    : _vm._e()
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "form-group",
-                  class: { "has-error": _vm.$v.form.url.$error }
-                },
-                [
-                  _c("label", { attrs: { for: "url" } }, [_vm._v("Url")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "input-group" }, [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.$v.form.url.$model,
-                          expression: "$v.form.url.$model",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: {
-                        type: "text",
-                        name: "methods[url]",
-                        title: "Url del método",
-                        placeholder: "/url",
-                        id: "url"
-                      },
-                      domProps: { value: _vm.$v.form.url.$model },
-                      on: {
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.$v.form.url,
-                              "$model",
-                              $event.target.value.trim()
-                            )
-                          },
-                          function($event) {
-                            _vm.$v.form.url.$touch()
-                          }
-                        ],
-                        blur: function($event) {
-                          _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  !_vm.$v.form.url.required
-                    ? _c("span", { staticClass: "help-block" }, [
-                        _vm._v("Debes poner la url")
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.$v.form.url.minLength
-                    ? _c("span", { staticClass: "help-block" }, [
-                        _vm._v(
-                          "LA url debe tener al menos " +
-                            _vm._s(_vm.$v.form.url.$params.minLength.min) +
-                            " caracteres. "
-                        )
-                      ])
-                    : _vm._e()
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group",
-                  class: { "has-error": _vm.$v.form.verbName.$error }
-                },
-                [
-                  _c("label", { attrs: { for: "verbName" } }, [
-                    _vm._v("Verbo")
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "module_id" } }, [
+                    _vm._v("Módulo")
                   ]),
                   _vm._v(" "),
                   _c(
                     "div",
                     { staticClass: "input-group" },
                     [
-                      _vm._m(3),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c("v-select", {
                         attrs: {
-                          label: "value",
-                          options: _vm.form.verbNameOptions
+                          label: "text",
+                          options: _vm.modules,
+                          disabled: _vm.form.main
                         },
                         model: {
-                          value: _vm.$v.form.verbName.$model,
+                          value: _vm.$v.form.module_id.$model,
                           callback: function($$v) {
-                            _vm.$set(_vm.$v.form.verbName, "$model", $$v)
+                            _vm.$set(_vm.$v.form.module_id, "$model", $$v)
                           },
-                          expression: "$v.form.verbName.$model"
+                          expression: "$v.form.module_id.$model"
                         }
                       })
                     ],
                     1
-                  ),
-                  _vm._v(" "),
-                  _vm.$v.form.verbName.$error
-                    ? _c("span", { staticClass: "help-block" }, [
-                        _vm._v("Debes seleccionar un verbo")
-                      ])
-                    : _vm._e()
-                ]
-              ),
+                  )
+                ])
+              ]),
               _vm._v(" "),
-              _c("div", { staticClass: "form-group " }, [
-                _c("label", { attrs: { for: "name_function" } }, [
-                  _vm._v("Funcion")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.name_function,
-                        expression: "form.name_function"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      name: "methods[name_function]",
-                      title: "Nombre de la función del método",
-                      placeholder: "index",
-                      id: "name_function"
-                    },
-                    domProps: { value: _vm.form.name_function },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.$v.form.order.$error }
+                  },
+                  [
+                    _c("label", { attrs: { for: "order" } }, [_vm._v("Orden")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.trim",
+                            value: _vm.$v.form.order.$model,
+                            expression: "$v.form.order.$model",
+                            modifiers: { trim: true }
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "number",
+                          title: "Orden en el cuál se vizualizara el módulo",
+                          placeholder: "Ejemplo: 1",
+                          id: "order"
+                        },
+                        domProps: { value: _vm.$v.form.order.$model },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.$v.form.order,
+                                "$model",
+                                $event.target.value.trim()
+                              )
+                            },
+                            function($event) {
+                              _vm.$v.form.order.$touch()
+                            }
+                          ],
+                          blur: function($event) {
+                            _vm.$forceUpdate()
+                          }
                         }
-                        _vm.$set(_vm.form, "name_function", $event.target.value)
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.$v.form.order.$error
+                      ? _c("span", { staticClass: "help-block" }, [
+                          _vm._v("Debes ingresar el orden del módulo")
+                        ])
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.$v.form.text.$error }
+                  },
+                  [
+                    _c("label", { attrs: { for: "text" } }, [_vm._v("Nombre")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.trim",
+                            value: _vm.$v.form.text.$model,
+                            expression: "$v.form.text.$model",
+                            modifiers: { trim: true }
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          title: "Nombre del módulo",
+                          placeholder: "Incidencias",
+                          id: "text"
+                        },
+                        domProps: { value: _vm.$v.form.text.$model },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.$v.form.text,
+                                "$model",
+                                $event.target.value.trim()
+                              )
+                            },
+                            function($event) {
+                              _vm.$v.form.text.$touch()
+                            }
+                          ],
+                          blur: function($event) {
+                            _vm.$forceUpdate()
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.$v.form.text.$error
+                      ? _c("span", { staticClass: "help-block" }, [
+                          _vm._v("Debes ingresar el nombre del módulo")
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": _vm.$v.form.icon.$error }
+                  },
+                  [
+                    _c("label", { attrs: { for: "icon" } }, [_vm._v("Icono")]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.trim",
+                            value: _vm.$v.form.icon.$model,
+                            expression: "$v.form.icon.$model",
+                            modifiers: { trim: true }
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          title:
+                            "Nombre del icono que se mostrará con el módulo",
+                          placeholder: "fa-cogs, omitir fa, solo poner cogs",
+                          id: "icon"
+                        },
+                        domProps: { value: _vm.$v.form.icon.$model },
+                        on: {
+                          input: [
+                            function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.$v.form.icon,
+                                "$model",
+                                $event.target.value.trim()
+                              )
+                            },
+                            function($event) {
+                              _vm.$v.form.icon.$touch()
+                            }
+                          ],
+                          blur: function($event) {
+                            _vm.$forceUpdate()
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm.$v.form.icon.$error
+                      ? _c("span", { staticClass: "help-block" }, [
+                          _vm._v("Debes ingresar un icono para el módulo")
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "icon_color" } }, [
+                    _vm._v("Color Icono")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.icon_color,
+                          expression: "form.icon_color"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        title:
+                          "Color con el cuál se pintara el icono del modulo",
+                        placeholder: "Selecciona un color",
+                        id: "icon_color"
+                      },
+                      domProps: { value: _vm.form.icon_color },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "icon_color", $event.target.value)
+                        }
                       }
-                    }
-                  })
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "label" } }, [_vm._v("Label")]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.label,
+                          expression: "form.label"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        title:
+                          "Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números",
+                        placeholder: "Indica número de incidencias: 4",
+                        id: "label"
+                      },
+                      domProps: { value: _vm.form.label },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "label", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "label_color" } }, [
+                    _vm._v("Color Label")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.label_color,
+                          expression: "form.label_color"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        title: "Color del label",
+                        placeholder: "Selecciona el color",
+                        id: "label_color"
+                      },
+                      domProps: { value: _vm.form.label_color },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.form, "label_color", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "main" } }, [
+                    _vm._v("Principal")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "checkbox" }, [
+                    _c("label", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.main,
+                            expression: "form.main"
+                          }
+                        ],
+                        attrs: { type: "checkbox", name: "main", checked: "" },
+                        domProps: {
+                          checked: Array.isArray(_vm.form.main)
+                            ? _vm._i(_vm.form.main, null) > -1
+                            : _vm.form.main
+                        },
+                        on: {
+                          change: function($event) {
+                            var $$a = _vm.form.main,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = null,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(_vm.form, "main", $$a.concat([$$v]))
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.form,
+                                    "main",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.form, "main", $$c)
+                            }
+                          }
+                        }
+                      }),
+                      _vm._v(" Sí\n                                ")
+                    ])
+                  ])
                 ])
               ])
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-lg-6 col-sm-12" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "name" } }, [_vm._v("Nombre")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group" }, [
-                  _vm._m(5),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form.name,
-                        expression: "form.name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      name: "methods[name]",
-                      type: "text",
-                      value: "",
-                      title: "Nombre de la ruta",
-                      placeholder: "general.index",
-                      id: "name"
-                    },
-                    domProps: { value: _vm.form.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.form, "name", $event.target.value)
-                      }
-                    }
-                  })
-                ])
-              ])
-            ])
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger pull-left",
+                attrs: { "data-dismiss": "modal" }
+              },
+              [_vm._v("Cerrar")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success pull-right",
+                attrs: { type: "submit", disabled: _vm.$v.$invalid }
+              },
+              [
+                _c("vue-element-loading", {
+                  attrs: {
+                    active: _vm.form.isLoading,
+                    spinner: "bar-fade-scale",
+                    color: "#FF6700"
+                  }
+                }),
+                _vm._v("Guardar")
+              ],
+              1
+            )
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "modal-footer" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger pull-left",
-              attrs: { "data-dismiss": "modal" }
-            },
-            [_vm._v("Cerrar")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-success pull-right",
-              attrs: { type: "submit", disabled: _vm.$v.$invalid }
-            },
-            [
-              _c("vue-element-loading", {
-                attrs: {
-                  active: _vm.form.isLoading,
-                  spinner: "bar-fade-scale",
-                  color: "#FF6700"
-                }
-              }),
-              _vm._v("Guardar")
-            ],
-            1
-          )
         ])
       ]
     )
@@ -53268,6 +53518,30 @@ var staticRenderFns = [
     return _c("span", { staticClass: "input-group-addon" }, [
       _c("i", { staticClass: "fa fa-object-group" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "fa fa-object-group" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "fa fa-object-group" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "input-group-addon" }, [
+      _c("i", { staticClass: "fa fa-object-group" })
+    ])
   }
 ]
 render._withStripped = true
@@ -53275,7 +53549,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-f4f238be", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-6beeb936", module.exports)
   }
 }
 

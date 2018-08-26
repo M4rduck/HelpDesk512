@@ -14,17 +14,25 @@ class ModuleController extends Controller
 {
     public function index(){
         try{
-            $metodos = Method::all(['id', 'name'])
-                        ->pluck('name', 'id');
-            $modulos = Module::query()
+            $methods = Method::all(['id', 'name'])
+                        ->map(function($method){
+                            return ['id' => $method->id, 'name' => $method->name];
+                        });
+            $methods->prepend(['id' => 0, 'name' => 'Elige un método']);
+                        
+            $modules = Module::query()
                         ->where('main', 1)
                         ->get(['id', 'text'])
-                        ->pluck('text', 'id');
+                        ->map(function($module){
+                            return ['id' => $module->id, 'text' => $module->text];
+                        });
+            $modules->prepend(['id' => 0, 'text' => 'Elige un módulo']);            
+
         }catch (QueryException $queryException){
             dd($queryException->getMessage());
         }
 
-        return view('System.Module.index')->with(['metodos' => $metodos, 'modulos' => $modulos]);
+        return view('System.Module.index')->with(['methods' => $methods, 'modules' => $modules]);
     }
 
     public function getDataModule(){
@@ -39,9 +47,9 @@ class ModuleController extends Controller
                             ->addColumn('modulo', function(Module $module){
                                 return is_null($module->module) ? '' : $module->module->text;
                             })
-                            ->editColumn('action', function(Module $module){
+                            ->editColumn('action', function(Module $module){                                
                                 return '<a class="btn btn-xs btn-primary" data-id="'.$module->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.
-                                       ' <a class="btn btn-xs btn-primary" data-id="'.$module->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                                       ' <a class="btn btn-xs btn-primary" data-id="'.$module->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';                                    
                             })
                             ->toJson();
         }catch (QueryException $queryException){
