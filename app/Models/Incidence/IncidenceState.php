@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models\Incidence;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Solicitude extends Model
+class IncidenceState extends Model
 {
     /**
      * Campos que se van a utilizar en la BD.
@@ -12,8 +12,7 @@ class Solicitude extends Model
      * @var array
      */
     protected $fillable = [
-        'id_area',
-        'title',
-        'description',
+        'name',
+        'description'
     ];
 }
