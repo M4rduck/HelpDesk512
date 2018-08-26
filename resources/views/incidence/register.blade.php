@@ -106,7 +106,6 @@
         $(document).ready(function() {
             $('#contacto').select2();
             $('#etiquetas').select2();
-
             $('#crear').click(function(){
                 $('#form_incidence').submit();
             });

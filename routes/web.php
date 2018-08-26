@@ -42,3 +42,7 @@ Route::group(['prefix' => 'baseConocimiento','middleware' => ['auth']], function
 Route::group(['prefix' => 'area-empresa','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('area-empresa', 1);
 });
+
+Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('producto', 1);
+});
