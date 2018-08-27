@@ -23,4 +23,5 @@ let mix = require('laravel-mix');
  |
  */
 mix
-   .js('resources/assets/js/modules/system/method/create.js','public/js/system/method/');
+   .js('resources/assets/js/modules/system/method/create.js','public/js/system/method/')
+   .js('resources/assets/js/modules/incidence/app.js', 'public/js/incidence/');
