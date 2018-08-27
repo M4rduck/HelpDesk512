@@ -164,7 +164,7 @@ export default {
                          let answer = response.data;
                          let typeMsg = '';
                          form.isLoading = false;
-                         console.log(answer);
+                         //console.log(answer);
                          if(answer.success && !answer.error && !answer.warning){
                              typeMsg= 'success';
                          }else if(answer.success && !answer.error && answer.warning){

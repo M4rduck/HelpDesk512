@@ -17,7 +17,7 @@
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-cog"></i>
-                                        </span>
+                                        </span> 
                                         <v-select label="name" :options="methods" v-model="$v.form.method_id.$model"></v-select>
                                 </div>
                             </div>
@@ -161,9 +161,11 @@
 </template>
 
 <script>
-import { required, minLength, numeric } from 'vuelidate/lib/validators';
-const must_be_method = (value) => value.id != 0 && value != null
-const must_be_module = (value) => value.id != 0 && value != null
+import { required, minLength, numeric, helpers } from 'vuelidate/lib/validators';
+const must_be_select = (param) => helpers.withParams(
+    {type: 'contains', value: param },
+    (value) => param ? true : value.id != 0 && value != null
+)
 const vuelidations = {
                         form:{
                                     order: {
@@ -202,28 +204,73 @@ export default {
         }
     },
     validations() {
-        if(!this.form.main){
-            vuelidations.form[method_id] = {must_be_method};
-            vuelidations.form[module_id] = {must_be_module};
-        }
-        return vuelidations
+        const main = this.form.main;
+        console.log(main);
+        
+        return {form:{
+                                    order: {
+                                        required,
+                                        numeric,
+                                        minLength: minLength(1)
+                                    },
+                                    text: {
+                                        required
+                                    },
+                                    icon: {
+                                        required
+                                    },
+                                    module_id:{
+                                        validate_select: must_be_select(main)
+                                    },
+                                    method_id:{
+                                        validate_select_one: must_be_select(main)
+                                    }
+                    }               
+                 }        
     },
     methods: {
         onSubmit(){
             if(!this.$v.$invalid){
+                let form = this.form;
                 const user = {
                     module: {
-                        method_id: this.form.method_id.id,         
-                        module_id: this.form.module_id.id,
-                        label: this.form.label,
-                        label_color: this.form.label_color,
-                        icon: this.form.icon,
-                        text: this.form.text,
-                        order: this.form.order,
-                        main: this.form.main,
+                        method_id: form.method_id.id,         
+                        module_id: form.module_id.id,
+                        label: form.label,
+                        label_color: form.label_color,
+                        icon: form.icon,
+                        text: form.text,
+                        order: form.order,
+                        main: form.main,
                     }
-                }   
-                console.log(user.module);             
+                }                   
+                form.isLoading = true;
+                axios.post(this.route, user)
+                     .then((response)=> {
+                         console.log(response);
+                         let answer = response.data;
+                         let typeMsg = '';
+                         form.isLoading = false;                         
+                         if(answer.success && !answer.error && !answer.warning){
+                             typeMsg = 'success';
+                         }else if(answer.success && !answer.error && answer.warning){
+                             typeMsg = 'warning';
+                         }else{
+                             typeMsg = 'error';
+                             if(typeof answer != 'object'){
+                                 answer = {title: 'Error', msg: 'Ha ocurrido un error al momento de crear el modulo'}
+                             }
+                         }    
+                         swal(
+                                 answer.title,
+                                 answer.msg,
+                                 typeMsg
+                             )                                            
+                     })
+                     .catch((error) => {
+                         form.isLoading = false;
+                         console.log(error);  
+                     });          
             }            
         }
     },

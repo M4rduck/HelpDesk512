@@ -52898,7 +52898,7 @@ var must_be_verb = function must_be_verb(value) {
                     var answer = response.data;
                     var typeMsg = '';
                     form.isLoading = false;
-                    console.log(answer);
+                    //console.log(answer);
                     if (answer.success && !answer.error && !answer.warning) {
                         typeMsg = 'success';
                     } else if (answer.success && !answer.error && answer.warning) {

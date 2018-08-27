@@ -52743,6 +52743,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 //
 //
 //
@@ -52907,11 +52909,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
-var must_be_method = function must_be_method(value) {
-    return value.id != 0 && value != null;
-};
-var must_be_module = function must_be_module(value) {
-    return value.id != 0 && value != null;
+var must_be_select = function must_be_select(param) {
+    return __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["helpers"].withParams({ type: 'contains', value: param }, function (value) {
+        return param ? true : value.id != 0 && value != null;
+    });
 };
 var vuelidations = {
     form: {
@@ -52951,29 +52952,68 @@ var vuelidations = {
         };
     },
     validations: function validations() {
-        if (!this.form.main) {
-            vuelidations.form[method_id] = { must_be_method: must_be_method };
-            vuelidations.form[module_id] = { must_be_module: must_be_module };
-        }
-        return vuelidations;
+        var main = this.form.main;
+        console.log(main);
+
+        return { form: {
+                order: {
+                    required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+                    numeric: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["numeric"],
+                    minLength: Object(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["minLength"])(1)
+                },
+                text: {
+                    required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+                },
+                icon: {
+                    required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+                },
+                module_id: {
+                    validate_select: must_be_select(main)
+                },
+                method_id: {
+                    validate_select_one: must_be_select(main)
+                }
+            }
+        };
     },
 
     methods: {
         onSubmit: function onSubmit() {
             if (!this.$v.$invalid) {
+                var form = this.form;
                 var user = {
                     module: {
-                        method_id: this.form.method_id.id,
-                        module_id: this.form.module_id.id,
-                        label: this.form.label,
-                        label_color: this.form.label_color,
-                        icon: this.form.icon,
-                        text: this.form.text,
-                        order: this.form.order,
-                        main: this.form.main
+                        method_id: form.method_id.id,
+                        module_id: form.module_id.id,
+                        label: form.label,
+                        label_color: form.label_color,
+                        icon: form.icon,
+                        text: form.text,
+                        order: form.order,
+                        main: form.main
                     }
                 };
-                console.log(user.module);
+                form.isLoading = true;
+                axios.post(this.route, user).then(function (response) {
+                    console.log(response);
+                    var answer = response.data;
+                    var typeMsg = '';
+                    form.isLoading = false;
+                    if (answer.success && !answer.error && !answer.warning) {
+                        typeMsg = 'success';
+                    } else if (answer.success && !answer.error && answer.warning) {
+                        typeMsg = 'warning';
+                    } else {
+                        typeMsg = 'error';
+                        if ((typeof answer === 'undefined' ? 'undefined' : _typeof(answer)) != 'object') {
+                            answer = { title: 'Error', msg: 'Ha ocurrido un error al momento de crear el modulo' };
+                        }
+                    }
+                    swal(answer.title, answer.msg, typeMsg);
+                }).catch(function (error) {
+                    form.isLoading = false;
+                    console.log(error);
+                });
             }
         }
     }
