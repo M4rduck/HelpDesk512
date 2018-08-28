@@ -6,6 +6,12 @@
     <h1>Dashboard</h1>
 @stop
 
+@push('js')
+    {!! Html::script('./js/app.js') !!}
+@endpush
+
 @section('content')
-    <p>You are logged in!</p>
+    <div id="app">
+        <example-component></example-component>
+    </div>    
 @stop

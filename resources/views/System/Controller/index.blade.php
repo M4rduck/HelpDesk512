@@ -16,13 +16,8 @@
 @endpush
 
 @section('content')
-    <div class="absolute bottom-btn">
-        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
-                                                                                          'title' => 'Crear Controlador',
-                                                                                          'data-toggle' =>'modal',
-                                                                                          'data-target'=>'#myModal'
-        ]) !!}
-    </div>
+    
+
 
     <div class="box">
         <div class="box-header">
@@ -43,7 +38,14 @@
                     </thead>
                 </table>
             </div>
-        </div>
+         </div>
+    </div>
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Controlador',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#myModal'
+        ]) !!}
     </div>
 @stop
 

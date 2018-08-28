@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Caffeinated\Shinobi\Traits\ShinobiTrait;
 
 class Role extends EntrustRole
 {
