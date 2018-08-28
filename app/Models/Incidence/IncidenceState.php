@@ -15,4 +15,9 @@ class IncidenceState extends Model
         'name',
         'description'
     ];
+
+    public function incidence()
+    {
+        return $this->hasOne('App\Models\Incidence\Incidence', 'id_incidence_state', 'id');
+    }
 }

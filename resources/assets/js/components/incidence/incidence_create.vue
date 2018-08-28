@@ -66,13 +66,6 @@
                             <label for="evidencia">Evidencia:</label>
                             <input type="file" id="evidencia" name="evidencia">
                         </div>
-                        <div class="form-group">
-                            <label for="etiquetas">Etiquetas:</label>
-                            <select style="width: 100%;" tabindex="-1" class="form-control" id="etiquetas" name="etiquetas[]" multiple="multiple">
-                                <option value="perro">Perro</option>
-                                <option value="pajaritos">Pajaritos</option>
-                            </select>
-                        </div>
                     </form>
                 </div>
                 <div class="box-footer">
@@ -108,7 +101,9 @@
                        {label: 'Urgente', value: 'urgent'},
                    ],
 
-                   incidence_state_options: []
+                   incidence_state_options: [],
+
+                   tags_options: []
                },
 
             }

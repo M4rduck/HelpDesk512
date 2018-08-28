@@ -14,9 +14,9 @@ class Incidence extends Model
     protected $fillable = [
         'id_agent',
         'id_solicitude',
-        'contact',
+        'id_contact',
         'theme',
-        'id_incidenceState',
+        'id_incidence_state',
         'priority',
         'description',
         'evidence_route',
@@ -24,8 +24,21 @@ class Incidence extends Model
     ];
 
     //one to one relathionship with incidence states
-    public function incidenceState(){
-        return $this->hasOne('App\IncidenceState', 'incidenceState_id');
+    public function incidenceState()
+    {
+        return $this->belongsTo('App\Models\Incidence\IncidenceState', 'id_incidence_state', 'id');
+    }
+
+    //one to one relathionship with agent
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'id_agent', 'id');
+    }
+
+    //one to one relathionship with contact
+    public function contact()
+    {
+        return $this->belongsTo('App\User', 'id_contact', 'id');
     }
 
 }

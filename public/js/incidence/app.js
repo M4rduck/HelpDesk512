@@ -52004,13 +52004,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -52027,7 +52020,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             form: {
                 priority_options: [{ label: 'Baja', value: 'low' }, { label: 'Media', value: 'Medium' }, { label: 'Alta', value: 'high' }, { label: 'Urgente', value: 'urgent' }],
 
-                incidence_state_options: []
+                incidence_state_options: [],
+
+                tags_options: []
             }
 
         };
@@ -52105,14 +52100,12 @@ var render = function() {
               _vm._v(" "),
               _vm._m(4),
               _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _vm._m(6)
+              _vm._m(5)
             ]
           )
         ]),
         _vm._v(" "),
-        _vm._m(7)
+        _vm._m(6)
       ])
     ])
   ])
@@ -52201,33 +52194,6 @@ var staticRenderFns = [
       _c("input", {
         attrs: { type: "file", id: "evidencia", name: "evidencia" }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "etiquetas" } }, [_vm._v("Etiquetas:")]),
-      _vm._v(" "),
-      _c(
-        "select",
-        {
-          staticClass: "form-control",
-          staticStyle: { width: "100%" },
-          attrs: {
-            tabindex: "-1",
-            id: "etiquetas",
-            name: "etiquetas[]",
-            multiple: "multiple"
-          }
-        },
-        [
-          _c("option", { attrs: { value: "perro" } }, [_vm._v("Perro")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "pajaritos" } }, [_vm._v("Pajaritos")])
-        ]
-      )
     ])
   },
   function() {
