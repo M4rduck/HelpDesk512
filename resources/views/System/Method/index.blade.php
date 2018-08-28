@@ -59,15 +59,14 @@
             </div>
         </div>
     </div>
-
-    <div class="absolute bottom-btn">
-        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
-                                                                                          'title' => 'Crear Controlador',
-                                                                                          'data-toggle' =>'modal',
-                                                                                          'data-target'=>'#modalCreateMethod'
-        ]) !!}
-    </div>
 @stop
+<div class="absolute bottom-btn">
+    {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                      'title' => 'Crear Controlador',
+                                                                                      'data-toggle' =>'modal',
+                                                                                      'data-target'=>'#modalCreateMethod'
+    ]) !!}
+</div>
 
 @section('modal')
 

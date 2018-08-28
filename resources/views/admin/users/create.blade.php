@@ -66,8 +66,7 @@
                             {!! Form::password('password',['class' => 'form-control',
                                                            'id'=>'password',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Password',
-                                                           'autofocus required']) !!}
+                                                           'placeholder'=>'Password']) !!}
                         </div>
                     </div>
                     <!-- /Password -->
@@ -83,8 +82,7 @@
                             {!! Form::password('password1',['class' => 'form-control',
                                                            'id'=>'password1',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Confirmed Password',
-                                                           'autofocus required']) !!}
+                                                           'placeholder'=>'Confirmed Password']) !!}
                         </div>
                     </div>
                     <!-- /Password -->

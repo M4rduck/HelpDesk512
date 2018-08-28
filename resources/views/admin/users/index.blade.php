@@ -85,6 +85,7 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#password').focus();
     }
 
      function editForm(id) {
@@ -97,12 +98,12 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="material-icons">border_color</i> Edit Roles');
+            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Users');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
-            $('#display_name').val(data.display_name);
-            $('#description').val(data.description);
+            $('#email').val(data.email);
+            <!--$('#description').val(data.description);-->
           },
           error : function() {
               swal({
@@ -154,8 +155,8 @@
             $('#modal-form form').validator().on('submit', function (e) {
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
-                    if (save_method == 'add') url = "{{ url('users') }}";
-                    else url = "{{ url('users') . '/' }}" + id;
+                    if (save_method == 'add') url = "{{ url('admin/users') }}";
+                    else url = "{{ url('admin/users') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",
@@ -176,7 +177,7 @@
                         error : function(data){
                             swal({
                                 title: 'Oops...',
-                                text: data.message,
+                                text:  'Data Error',
                                 type: 'error',
                                 timer: '1500'
                             })
