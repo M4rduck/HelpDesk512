@@ -27,6 +27,7 @@
         </table>
     </script>
     {!! Html::script('./js/system/module/table.js') !!}
+    {!! Html::script('./js/system/module/create.js') !!}
 @endpush
 
 @push('css')
@@ -84,8 +85,11 @@
 @section('modal')
     <!-- modal -->
     <div id="modalCreateModule" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            {!! Form::open(['route' => 'module.store']) !!}
+        <div class="modal-dialog modal-lg">
+            <div id="methodCreateVue">
+                <method-create-vue :methods = "{{ $methods }}" :modules = "{{ $modules }}" route = "{{ route('module.store') }}" ></method-create-vue>
+            </div>
+            {{--{!! Form::open(['route' => 'module.store']) !!}
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
@@ -268,7 +272,7 @@
                     {!! Form::button('guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
                 </div>
             </div>
-            {!! Form::close() !!}
+            {!! Form::close() !!}--}}
         </div>
     </div>
 @endsection
