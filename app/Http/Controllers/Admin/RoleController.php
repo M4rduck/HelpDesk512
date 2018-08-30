@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
-use App\Role;
+use App\Http\Controllers\Controller;
+use Caffeinated\Shinobi\Models\Role;
 
 
 class RoleController extends Controller

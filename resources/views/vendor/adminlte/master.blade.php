@@ -38,6 +38,9 @@
 
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">   
 </head>
 <body class="hold-transition @yield('body_class')">
 

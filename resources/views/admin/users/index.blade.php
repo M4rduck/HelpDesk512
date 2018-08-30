@@ -1,30 +1,54 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title','Users')
+
+@section('content_header')
+    <h1>Users </h1>
+@stop
+
+@push('js')
+    {!! Html::script('./js/system/method/table.js') !!}
+@endpush
+
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
 
 @section('content')
-<div class="container">
-	<div id="crud" class="row mt-5">
-		<div class="col-md-12 col-md-offset-2">
-		<div class="card ">
-		<div class="card-header">
-                <h3><i class="material-icons">assignment_turned_in</i>
-                  Users Administration
-                  <button onclick="addFrom()" class="btn btn-primary float-right">
-                   <i class="fas fa-id-badge"></i>  Create Users</button>
-                </h3>	
-		</div>
-		<div class="card-body">
-      <table class="table table-hover" id="users-table">
-          <thead>
-          <tr>
-              <th width="30px">ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th></th>
-          </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-    </div> 
+	<div class="row">
+		<div class="col-lg-12">
+		<div class="box">
+
+        <!--Box title -->
+            <div class="box-header with-border">
+                <h1>
+                Administration
+                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Users', 
+                ['class'=>'btn btn-primary pull-right',
+                'data-toggle' =>'modal',
+                'onclick'=>'addFrom()']) !!}
+            </div>
+            
+
+        <!--Box body -->
+        <div class="box-body">
+            <div class="table-responsive">
+            <table class="table table-striped" id="users-table">
+                <thead>
+                <tr>
+                    <th width="30px">ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+            </table>
+            </div>
+        </div>
+        <!--Box body -->
+        <div class="box-footer">
+        </div>
 	</div>
 </div>
 </div>
@@ -33,7 +57,7 @@
 
 @endsection
 
-@section('script')
+@section('js')
 
 	<script type="text/javascript">
      $.ajaxSetup({
@@ -59,8 +83,8 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="material-icons">assignment_ind</i> Add Users');
-        $('#bcreate').html('<i class="fas fa-plus-circle"></i>  Create');
+        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
+        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
     }
 
      function editForm(id) {
@@ -68,7 +92,7 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('users') }}" + '/' + id + "/edit",
+          url: "{{ url('admin/users') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {

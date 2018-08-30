@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
+use App\Http\Controllers\Controller;
 use App\User;
 
 class UserController extends Controller
@@ -123,18 +124,18 @@ class UserController extends Controller
         return Datatables::of($users)
             ->addColumn('action', function($users){
                 return '<td width="10px">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-eye"></i> View</button>
-                          </td>' .
+                            <button class="btn btn-info btn-sm">
+                                <i class="fa fa-fw fa-eye"></i> View</button>
+                        </td>' .
                           '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
                                 onclick="editForm('. $users->id .')">
-                                <i class="far fa-edit"></i> Edit</button>
+                                <i class="fa fa-pencil-square-o"></i> Edit</button>
                           </td>' .
                           '<td width="10px">
                            <button class="btn btn-danger btn-sm" href="#"
                            onclick="deleteData('. $users->id .')">
-                            <i class="fas fa-trash"></i> 
+                            <i class="fa fa-trash"></i> 
                           Delete</button>  
                           </td>';
             })->make(true); 

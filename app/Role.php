@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Zizaco\Entrust\EntrustRole;
+use Caffeinated\Shinobi\Traits\ShinobiTrait;
 
-class Role extends EntrustRole
+class Role 
 {
+    use  ShinobiTrait;
+    
     protected $fillable=['name','display_name','description']; 
 }
