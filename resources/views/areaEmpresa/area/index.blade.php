@@ -3,7 +3,7 @@
 @section('content_header')
         <section class="content-header">
       <h1>
-        Creacion Del Area 
+        Area
       </h1>
       <ol class="breadcrumb">
         
@@ -11,163 +11,131 @@
    
 
 @stop
+ @section('content') 
+    <div class="box">
+        <div class="box-header">
 
-@section('content')
-  
-   <!-- Page script -->
-
-
-      <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Registro En Nuestra Base de Datos</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
         </div>
-        <!-- /.box-header -->
+
         <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese Nombre del Area que Desea Registrar</label>
-                <input class="form-control " multiple="multiple" placeholder="ingrese nombre del area que desea" style="width: 100%;">
-                 
-                 <div class="form-group">
-               <label>Ingrese telefono del Area </label>
-                <input class="form-control " multiple="multiple" placeholder="ingrese telefono del area que desea" style="width: 100%;">
-              </div>
-
-				<div class="form-group">
-               <label>Ingrese correo del Area </label>
-                <input class="form-control " multiple="multiple" placeholder="ingrese telefono del area que desea" style="width: 100%;">
-              </div>
-
-              </div>
-              <!-- /.form-group -->
-          </div>
+            <div class="table-responsive">
+                <table id="controller-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Extencion</th>
+                        <th>Email</th>
+                        <th>Descripcion</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              
+    </div>
 
-             
-              <!-- /.form-group -->
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="fa fa-plus"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Area',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#Area'
+        ]) !!}
+    </div>
+ @stop
 
-          </div>
-          <!-- /.row -->
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              
-       
-        
-      </div>
-      <!-- /.box -->
+ @section('modal')
+<!-- Modal -->
+ <div id="Area" class="modal fade" role="dialog">
+  <div class="modal-dialog">
 
-     
-<!-- jQuery 2.2.3 -->
-<script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="plugins/select2/select2.full.min.js"></script>
-<!-- InputMask -->
-<script src="plugins/input-mask/jquery.inputmask.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- date-range-picker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script src="plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap datepicker -->
-<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
-<!-- bootstrap time picker -->
-<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- iCheck 1.0.1 -->
-<script src="plugins/iCheck/icheck.min.js"></script>
-<!-- FastClick -->
-<script src="plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- Page script -->
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
+     <!-- Modal content-->
+            <div class="modal-content">
+                {!! Form::open(['route' => 'controller.store']) !!}
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Crear Area</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Nombre & Extencion -->
+                        <div class="col-lg-6 col-sm-12">
+                            <!-- Nombre -->
+                            <div class="form-group">
+                                {!! Form::label('nameA', 'Nombre') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-user-o"></i>
+                                    </span>
+                                    {!! Form::text('controller[nameA]', null, ['class' => 'form-control',
+                                                                              'title' => 'Nombre del area',
+                                                                              'placeholder' => 'Nombre del area',
+                                                                              'id' => 'nameA'
+                                    ]) !!}
+                                </div>
+                            </div>
 
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
+                            <!-- /Nombre-->
 
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
+                            <!-- extencion -->
+                            <div class="form-group">
+                                {!! Form::label('exten', 'Extencion') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone-square "></i>
+                                    </span>
+                                    {!! Form::text('controller[exten', null, ['class' => 'form-control',
+                                                                                'title' => 'Estencion de area',
+                                                                                'placeholder' => 'Numero de la extencion',
+                                                                                'id' => 'exten'
+                                    ]) !!}
+                                </div>
+                            </div><!-- /extencion -->
+                        </div>
+                        <!-- /nombre & extencion -->
 
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
+                        <!-- email & descripcion -->
+                        <div class="col-lg-6 col-sm-12">
+                            <!-- email -->
+                            <div class="form-group">
+                                {!! Form::label('email', 'Correo') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope-square "></i>
+                                    </span>
+                                    {!! Form::text('controller[email]', null, ['class' => 'form-control',
+                                                                                       'title' => 'Correo del area',
+                                                                                       'placeholder' => 'Descripcion del area',
+                                                                                       'id' => 'email'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <!-- email-->
 
-    //iCheck  for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
+                            <!-- descripcion-->
+                            <div class="form-group">
+                                {!! Form::label('description', 'Descripcion') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o "></i>
+                                    </span>
+                                    {!! Form::text('controller[description]', null, ['class' => 'form-control',
+                                                                                       'title' => 'Descripcion del area',
+                                                                                       'placeholder' => 'Desripcion del area',
+                                                                                       'id' => 'description'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <!-- /descripcion -->
+                        </div>
+                        <!-- /nombre & extencion -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
 
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
+    </div>
+  </div>
 
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
-
-  @stop
+  @endsection
