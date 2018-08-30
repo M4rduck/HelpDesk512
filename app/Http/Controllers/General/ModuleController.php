@@ -4,7 +4,6 @@ namespace App\Http\Controllers\General;
 
 use App\Models\General\Method;
 use App\Models\General\Module;
-//use function foo\func;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;

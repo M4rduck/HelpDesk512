@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCountryTable extends Migration
+class PhoneTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateCountryTable extends Migration
      */
     public function up()
     {
-        Schema::create('country', function (Blueprint $table) {
+        Schema::create('phone', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('enterprise_id')->unsigned()->index();
+            $table->foreign('enterprise_id')->references('id')->on('enterprise')->onDelete('restrict');
             $table->integer('visible')->default(1)->comment('1 for visible, 0 for no visible');
-            $table->integer('order')->comment('Customizable order in which they will be displayed ')->nullable(true);
-            $table->string('name')->comment('Name of the country');
-            $table->string('language')->comment('Native language');
-            $table->string('prefix')->comment('Area code for calls');
+            $table->string('number')->comment('City\'s name');
+            $table->string('type')->comment('Area code for calls');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateCountryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('country');
+        Schema::dropIfExists('phone');
     }
 }
