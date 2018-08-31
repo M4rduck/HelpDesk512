@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;  //Admin
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
