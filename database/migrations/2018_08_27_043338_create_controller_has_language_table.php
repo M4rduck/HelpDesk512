@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ControllerHasLanguageTable extends Migration
+class CreateControllerHasLanguageTable extends Migration
 {
     /**
      * Run the migrations.

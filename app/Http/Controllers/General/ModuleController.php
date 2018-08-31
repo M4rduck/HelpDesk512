@@ -63,6 +63,7 @@ class ModuleController extends Controller
             $modulo = new Module($request->module);
             $modulo->save();
         }catch (QueryException $queryException){
+            dd($queryException->getMessage());
             return response()->json(['success' => true, 'warning' => false, 'error' => true, 'title' => Lang::get('module/store.error_title'), 'body' => Lang::get('module/store.error_body', ['code' => $queryException->getCode()])]);
         }
         return response()->json(['success' => true, 'warning' => false, 'error' => false, 'title' => Lang::get('module/store.success_title'), 'body' => Lang::get('module/store.success_body')]);

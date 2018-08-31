@@ -21,8 +21,7 @@ class MethodController extends Controller
                                 ->map(function($controlador){
                                     return ['id' => $controlador->id, 'name' => $controlador->name];
                                 });
-            $controladores->prepend(['id' => 0, 'name' => 'Elige un controlador']);     
-            dd(Lang::get('method/store.success_title'));               
+            $controladores->prepend(['id' => 0, 'name' => 'Elige un controlador']);   
 
         }catch (QueryException $queryException){
             return abort(500, $queryException->getMessage());

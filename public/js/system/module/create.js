@@ -52983,8 +52983,8 @@ var vuelidations = {
                 var form = this.form;
                 var user = {
                     module: {
-                        method_id: form.method_id.id,
-                        module_id: form.module_id.id,
+                        method_id: form.method_id.id === 0 ? null : form.method_id.id,
+                        module_id: form.module_id.id === 0 ? null : form.module_id.id,
                         label: form.label,
                         label_color: form.label_color,
                         icon: form.icon,
@@ -53006,10 +53006,10 @@ var vuelidations = {
                     } else {
                         typeMsg = 'error';
                         if ((typeof answer === 'undefined' ? 'undefined' : _typeof(answer)) != 'object') {
-                            answer = { title: 'Error', msg: 'Ha ocurrido un error al momento de crear el modulo' };
+                            answer = { title: 'Error', body: 'Ha ocurrido un error al momento de crear el modulo' };
                         }
                     }
-                    swal(answer.title, answer.msg, typeMsg);
+                    swal(answer.title, answer.body, typeMsg);
                 }).catch(function (error) {
                     form.isLoading = false;
                     console.log(error);
