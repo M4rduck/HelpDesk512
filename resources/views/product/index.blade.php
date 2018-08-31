@@ -1,33 +1,10 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'HelpDesk512 - Computadores')
 
 @section('content_header')
-    <h1>Modulo</h1>
+    <h1>Computadores</h1>
 @stop
-
-@push('js')
-    {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js') !!}
-    <script id="details-template" type="text/x-handlebars-template">
-        <table class="table">
-            <tbody>
-            @{{#each modules as |module|}}
-                <tr>
-                    <td><b>Texto:</b></td>
-                    <td>@{{ module.text }}</td>
-                    <td><b>Icono</b></td>
-                    <td>@{{ module.icon }}</td>
-                    <td><b>Método</b></td>
-                    <td>@{{ module.method.name }}</td>
-                    <td><b>Opciones:</b></td>
-                    <td><button class="btn btn-xs btn-primary" data-id="@{{ module.id }}"><i class="glyphicon glyphicon-edit"></i></button></td>
-                </tr>
-            @{{/each}}
-            </tbody>
-        </table>
-    </script>
-    {!! Html::script('./js/system/module/table.js') !!}
-@endpush
 
 @push('css')
     <!-- Estilos para botón flotante -->
@@ -48,7 +25,7 @@
             <div class="box">
 
                 <div class="box-header with-border">
-                    <h1 class="box-title">Registrar</h1>
+                    <h1 class="box-title">Listado</h1>
                 </div>
 
                 <!-- Box Body -->
@@ -58,14 +35,18 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Texto</th>
-                                <th>Icono</th>
-                                <th>Método</th>
-                                <th>Modulo</th>
-                                <th>Color Icono</th>
-                                <th>Label</th>
-                                <th>Color Label</th>
-                                <th>Opciones</th>
+                                <th>Nombre</th>
+                                <th>Entidad</th>
+                                <th>Numero de serie</th>
+                                <th>Usuario</th>
+                                <th>Tipo</th>
+                                <th>Modelo</th>
+                                <th>Sistema Operativo</th>
+                                <th>Localizacion</th>
+                                <th>ID</th>
+                                <th>Grupo</th>
+                                <th>Red</th>
+                                <th>Numero de inventario</th>
                             </tr>
                             </thead>
                         </table>
@@ -80,12 +61,10 @@
         </div>
     </div>
 @stop
-
 @section('modal')
-    <!-- modal -->
-    <div id="modalCreateModule" class="modal fade" role="dialog">
+ <div id="modalCreateModule" class="modal fade" role="dialog">
         <div class="modal-dialog">
-            {!! Form::open(['route' => 'module.store']) !!}
+            {!! Form::open(['route' => 'product.store']) !!}
             <div class="modal-content">
                 <div class="modal-header bg-warning">
                     {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
@@ -103,10 +82,10 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-cog"></i>
                                         </span>
-                                    {!! Form::select('module[method_id]', $metodos, null, ['class' => 'form-control',
-                                                                                           'title' => 'Método al cuál redirigira el módulo, siempre y cuando no sea principal',
-                                                                                           'placeholder' => 'Selecciona un método',
-                                                                                           'id' => 'method_id'
+                                        {!! Form::text('hola', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Indica número de incidencias: 4',
+                                                                           'id' => 'label'
                                     ]) !!}
                                 </div>
                             </div>
@@ -119,11 +98,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-link"></i>
                                         </span>
-                                    {!! Form::select('module[module_id]', $modulos,null, ['class' => 'form-control',
-                                                                                          'title' => 'Módulo al cual pertenecera el submenu',
-                                                                                          'placeholder' => 'Selecciona un módulo',
-                                                                                          'id' => 'module_id'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Verbo -->
@@ -139,11 +114,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[order]', null, ['class' => 'form-control',
-                                                                            'title' => 'Orden en el cuál se vizualizara el módulo',
-                                                                            'placeholder' => 'Ejemplo: 1',
-                                                                            'id' => 'order'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Verbo -->
@@ -155,11 +126,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[text]', null, ['class' => 'form-control',
-                                                                          'title' => 'Nombre del módulo',
-                                                                          'placeholder' => 'Incidencias',
-                                                                          'id' => 'text'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Nombre de Funcion -->
@@ -177,11 +144,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[icon]', null, ['class' => 'form-control',
-                                                                          'title' => 'Nombre del icono que se mostrará con el módulo',
-                                                                          'placeholder' => 'fa-cogs, omitir fa, solo poner cogs',
-                                                                          'id' => 'icon'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -197,11 +160,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[icon_color]', null, ['class' => 'form-control',
-                                                                                'title' => 'Color con el cuál se pintara el icono del modulo',
-                                                                                'placeholder' => 'Selecciona un color',
-                                                                                'id' => 'icon_color'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -219,11 +178,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[label]', null, ['class' => 'form-control',
-                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
-                                                                           'placeholder' => 'Indica número de incidencias: 4',
-                                                                           'id' => 'label'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -239,11 +194,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                    {!! Form::text('module[label_color]', null, ['class' => 'form-control',
-                                                                                 'title' => 'Color del label',
-                                                                                 'placeholder' => 'Selecciona el color',
-                                                                                 'id' => 'label_color'
-                                    ]) !!}
+                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -256,7 +207,7 @@
                             <div class="form-group">
                                 {!! Form::label('main', 'Principal') !!}
                                 <div class="checkbox">
-                                    <label>{!! Form::checkbox('module[main]', 1, true, []) !!} Sí</label>
+                                    <label> Sí</label>
                                 </div>
                             </div>
                         </div>
@@ -272,3 +223,4 @@
         </div>
     </div>
 @endsection
+

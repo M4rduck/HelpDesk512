@@ -1,6 +1,7 @@
 <?php
 namespace App\Providers;
 use App\Models\General\Module;
+use App\Models\General\Controller as ModelController;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
@@ -17,11 +18,12 @@ class AppServiceProvider extends ServiceProvider
             $modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)
-                        ->orderBy('order')->get();
+                        ->orderBy('order')->get();                        
+
             foreach ($modulos as $modulo) {
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
-                    foreach ($modulo->modules as $module) {
+                    foreach ($modulo->modules as $module) {                        
                         $submenu[] = [
                             'text' => $module->text,
                             'icon' => $module->icon,
@@ -39,7 +41,14 @@ class AppServiceProvider extends ServiceProvider
                     'label' => $modulo->label,
                     'label_color' => $modulo->label_color,
                 ];
-                is_null($modulo->method) ?  [] : $items['url'] = route($modulo->method->name);
+                try{
+                   is_null($modulo->method) ?  [] : $items['url'] = route($modulo->method->name);
+                }catch(\InvalidArgumentException $exeption){
+                    $controladorFaltante = ModelController::query()->find($modulo->method->controller_id);
+                    dd('Te hace falta una ruta para poder continuar, agregala en el archivo de rutas con el prefijo = '.$controladorFaltante->prefix);                                        
+                }
+                
+
                 (isset($submenu) && !empty($submenu)) ?  $items['submenu'] = $submenu : [];
                 $submenu = [];
                 $event->menu->add($items);

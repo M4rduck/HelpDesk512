@@ -1,5 +1,17 @@
 let mix = require('laravel-mix');
-
+/*mix.options({
+    chainWebpack: config => {    
+        // add the new one
+        config.module.rule('svg')
+          .test(/\.js$/)
+          .use
+            .loader('babel-loader?cacheDirectory')
+            .include({
+              name: "vue2-datatable-component"
+            })
+           
+      }
+});*/
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -10,6 +22,5 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix
+   .js('resources/assets/js/modules/system/method/create.js','public/js/system/method/');
