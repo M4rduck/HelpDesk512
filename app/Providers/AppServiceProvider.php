@@ -22,9 +22,10 @@ class AppServiceProvider extends ServiceProvider
             $modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)
-                        ->orderBy('order')->get();                        
+                        ->orderBy('order')->get();       
+                        $a = 0;                 
 
-            foreach ($modulos as $modulo) {
+            foreach ($modulos as $modulo) {            
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
                     foreach ($modulo->modules as $module) {                        
@@ -51,6 +52,8 @@ class AppServiceProvider extends ServiceProvider
                 }catch(\InvalidArgumentException $exeption){
                     $controladorFaltante = ModelController::query()->find($modulo->method->controller_id);
                     dd('Te hace falta una ruta para poder continuar, agregala en el archivo de rutas con el prefijo = '.$controladorFaltante->prefix);                                        
+                }catch(\Exception $exception){
+                    dd($exception->getMessage());
                 }
                 
 
@@ -59,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
                 $submenu = [];
 
                 $event->menu->add($items);
-            }
+            }         
         });
     }
 
