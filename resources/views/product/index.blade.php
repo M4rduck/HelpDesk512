@@ -77,16 +77,17 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Controlador -->
                             <div class="form-group">
-                                {!! Form::label('method_id', 'Método') !!}
+                                {!! Form::label('method_id', 'Tipo Hardware') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-cog"></i>
                                         </span>
-                                        {!! Form::text('hola', null, ['class' => 'form-control',
-                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
-                                                                           'placeholder' => 'Indica número de incidencias: 4',
-                                                                           'id' => 'label'
-                                    ]) !!}
+                                     {!!   Form::select('size', ['L' => 'Large', 'S' => 'Small'], null, ['class' => 'form-control',
+                                                                              'title' => 'Nombre de la clase del controlador',
+                                                                              'placeholder' => 'NameController',
+                                                                              'id' => 'name']) !!}
+
+                                   
                                 </div>
                             </div>
                             <!-- /Controlador -->
@@ -98,6 +99,12 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-link"></i>
                                         </span>
+                                        
+                                        {!! Form::text('hola', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Indica número de incidencias: 4',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                         {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>

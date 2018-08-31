@@ -22,8 +22,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        dd(route('module.index'));
+    {        
         return view('home');
     }
 }
