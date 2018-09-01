@@ -4,7 +4,7 @@ namespace App\Models\Incidence;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Solicitude extends Model
+class Slicitude extends Model
 {
     /**
      * Campos que se van a utilizar en la BD.
