@@ -3,7 +3,7 @@
 @section('title', 'HelpDesk512 - Computadores')
 
 @section('content_header')
-    <h1>Computadores</h1>
+    <h1>Hardware</h1>
 @stop
 
 @push('css')
@@ -82,9 +82,9 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-cog"></i>
                                         </span>
-                                     {!!   Form::select('size', ['L' => 'Large', 'S' => 'Small'], null, ['class' => 'form-control',
+                                     {!!   Form::select('Hardware', ['Computador' => 'Computador', 'Impresora' => 'Impresora', 'telefono'=> 'Telefono', 'dispositivo'=>'Dispositivo'], null, ['class' => 'form-control',
                                                                               'title' => 'Nombre de la clase del controlador',
-                                                                              'placeholder' => 'NameController',
+                                                                              'placeholder' => 'Hardware',
                                                                               'id' => 'name']) !!}
 
                                    
@@ -94,18 +94,17 @@
 
                             <!-- Url -->
                             <div class="form-group">
-                                {!! Form::label('module_id', 'Módulo') !!}
+                                {!! Form::label('module_id', 'Nombre') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-link"></i>
                                         </span>
                                         
-                                        {!! Form::text('hola', null, ['class' => 'form-control',
+                                        {!! Form::text('Nombre', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
-                                                                           'placeholder' => 'Indica número de incidencias: 4',
+                                                                           'placeholder' => 'Nombre producto',
                                                                            'id' => 'label'
                                     ]) !!}
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
                                 </div>
                             </div>
                             <!-- /Verbo -->
@@ -116,24 +115,33 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Verbo -->
                             <div class="form-group">
-                                {!! Form::label('order', 'Orden') !!}
+                                {!! Form::label('order', 'Localizacion') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('localizacion', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Localizacion del producto',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                             <!-- /Verbo -->
 
                             <!-- Nombre de Funcion -->
                             <div class="form-group">
-                                {!! Form::label('text', 'Nombre') !!}
+                                {!! Form::label('text', 'Numero Contacto') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('numeroC', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Numero de contacto',
+                                                                           'id' => 'label'
+                                    ]) !!}
+                                
                                 </div>
                             </div>
                             <!-- /Nombre de Funcion -->
@@ -146,12 +154,16 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Nombre del método-->
                             <div class="form-group">
-                                {!! Form::label('icon', 'Icono') !!}
+                                {!! Form::label('icon', 'Fabricante') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('fabricante', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Fabricante Producto',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -162,12 +174,16 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Nombre del método-->
                             <div class="form-group">
-                                {!! Form::label('icon_color', 'Color Icono') !!}
+                                {!! Form::label('icon_color', 'Modelo') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('modelo', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Modelo producto',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -180,12 +196,16 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Nombre del método-->
                             <div class="form-group">
-                                {!! Form::label('label', 'Label') !!}
+                                {!! Form::label('label', 'Numero de serie') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('numeroS', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Numero de Serie',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -196,12 +216,16 @@
                         <div class="col-lg-6 col-sm-12">
                             <!-- Nombre del método-->
                             <div class="form-group">
-                                {!! Form::label('label_color', 'Color Label') !!}
+                                {!! Form::label('label_color', 'Tecnico a cargo del hardware') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!  Form::select('size', array('L' => 'Large', 'S' => 'Small')); !!}
+                                        {!! Form::text('tecnico', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Tecnico a cargo del hardware',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                             <!-- /Nombre del método-->
@@ -212,9 +236,16 @@
                     <div class="row">
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group">
-                                {!! Form::label('main', 'Principal') !!}
-                                <div class="checkbox">
-                                    <label> Sí</label>
+                                {!! Form::label('main', 'Estado') !!}
+                                <div class="input-group">
+                                <span class="input-group-addon">
+                                            <i class="fa fa-object-group"></i>
+                                        </span>
+                                {!! Form::text('Estado Producto', null, ['class' => 'form-control',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Indique el estado del producto',
+                                                                           'id' => 'label'
+                                    ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -222,8 +253,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    {!! Form::button('Close', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
                 </div>
             </div>
             {!! Form::close() !!}
