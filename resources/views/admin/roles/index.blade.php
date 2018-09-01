@@ -84,7 +84,7 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Roles');
+        $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
     }
 
@@ -98,12 +98,13 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="material-icons">border_color</i> Edit Roles');
+            $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
-            $('#display_name').val(data.display_name);
+            $('#slug').val(data.slug);
             $('#description').val(data.description);
+            $('#special').val(data.special);
           },
           error : function() {
               swal({
