@@ -12,8 +12,19 @@ class Solicitude extends Model
      * @var array
      */
     protected $fillable = [
-        'id_area',
+        'id_contact',
         'title',
         'description',
+        'evidence_route',
     ];
+
+    public function contact()
+    {
+        return $this->belongsTo('App\User', 'id_contact', 'id');
+    }
+
+    public function incidence()
+    {
+        return $this->hasMany('App\Models\Incidence\Incidence', 'id_solicitude', 'id');
+    }
 }

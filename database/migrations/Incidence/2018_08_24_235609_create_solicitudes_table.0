@@ -15,10 +15,11 @@ class CreateSolicitudesTable extends Migration
     {
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_area');
-            //$table->foreign('id_area')->references('id')->on('Area');
+            $table->unsignedInteger('id_contact');
+            $table->foreign('id_contact')->references('id')->on('users');
             $table->text('title', 100);
             $table->text('description');
+            $table->string('evidence_route');
             $table->timestamps();
         });
     }

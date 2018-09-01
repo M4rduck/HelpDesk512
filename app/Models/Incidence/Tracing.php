@@ -28,4 +28,9 @@ class Tracing extends Model
         return $this->belongsTo('App\User', 'id_user', 'id');
     }
 
+    public function agent()
+    {
+        return $this->belongsTo('App\User', 'id_agent', 'id');
+    }
+
 }

@@ -12,7 +12,7 @@
 @section('content')
     <!--<p>You are logged in!</p>-->
     <div id="incidence_create_form">
-        <incidence-create-form submit_route = "{{ route('incidence.store') }}"></incidence-create-form>    
+    <incidence-create-form incidence_states_route = "{{ route('incidenceState.list') }}" submit_route = "{{ route('incidence.store') }}"></incidence-create-form>    
     </div>
     
 @stop

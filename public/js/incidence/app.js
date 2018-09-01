@@ -52004,28 +52004,71 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        submit_route: String
+        submit_route: String,
+        incidence_states_route: String
     },
 
     created: function created() {
-        var state_options = [];
+        var _this = this;
 
-        console.log(this.submit_route, axios);
+        axios.get(this.incidence_states_route).then(function (response) {
+            console.log(response);
+            _this.incidence_state_options = response.data;
+        });
     },
     data: function data() {
         return {
+            solicitude_created: false,
+
+            incidence_state_options: [],
+
+            priority_options: [{ label: 'Baja', value: 'low' }, { label: 'Media', value: 'Medium' }, { label: 'Alta', value: 'high' }, { label: 'Urgente', value: 'urgent' }],
+
             form: {
-                priority_options: [{ label: 'Baja', value: 'low' }, { label: 'Media', value: 'Medium' }, { label: 'Alta', value: 'high' }, { label: 'Urgente', value: 'urgent' }],
 
-                incidence_state_options: [],
+                form_title: ['Solicitud', 'Incidencia'],
 
-                tags_options: []
+                selected_priority: { label: 'Media', value: 'Medium' },
+
+                selected_incidence_state: { label: 'Abierto', value: 1 }
+
             }
 
         };
+    },
+
+
+    methods: {
+        submit: function submit() {}
     }
 });
 
@@ -52040,72 +52083,129 @@ var render = function() {
   return _c("div", { staticClass: "row" }, [
     _c("div", { staticClass: "col-md-12" }, [
       _c("div", { staticClass: "box" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body", staticStyle: { margin: "2%" } }, [
-          _c(
-            "form",
-            {
-              attrs: {
-                id: "form_incidence",
-                action: _vm.submit_route,
-                method: "post",
-                enctype: "multipart/form-data"
-              }
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", { attrs: { for: "estado" } }, [
-                    _vm._v("Estado:")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    attrs: {
-                      options: _vm.form.incidence_state_options,
-                      id: "incidence_state",
-                      name: "incidence_state"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("label", { attrs: { for: "priority" } }, [
-                    _vm._v("Prioridad:")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-select", {
-                    attrs: {
-                      options: _vm.form.priority_options,
-                      id: "priority",
-                      name: "priority"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _vm._m(3),
-              _vm._v(" "),
-              _vm._m(4),
-              _vm._v(" "),
-              _vm._m(5)
-            ]
-          )
+        _c("div", { staticClass: "box-header with-border" }, [
+          _c("h3", { staticClass: "box-title" }, [
+            _vm._v("Realizar " + _vm._s(_vm.form.form_title[0]))
+          ])
         ]),
         _vm._v(" "),
-        _vm._m(6)
+        _c("div", { staticClass: "box-body", staticStyle: { margin: "2%" } }, [
+          !_vm.solicitude_created
+            ? _c(
+                "form",
+                {
+                  attrs: { id: "form_solicitude", action: "", method: "post" }
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-12 col-sm-12" }, [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("label", { attrs: { for: "solicitude_area" } }, [
+                            _vm._v("Area:")
+                          ]),
+                          _vm._v(" "),
+                          _c("v-select", {
+                            attrs: {
+                              options: [],
+                              id: "solicitude_area",
+                              name: "solicitude_area"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.solicitude_created
+            ? _c(
+                "form",
+                {
+                  attrs: {
+                    id: "form_incidence",
+                    action: _vm.submit_route,
+                    method: "post",
+                    enctype: "multipart/form-data"
+                  }
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "estado" } }, [
+                        _vm._v("Estado:")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          options: _vm.incidence_state_options,
+                          id: "incidence_state",
+                          name: "incidence_state"
+                        },
+                        model: {
+                          value: _vm.form.selected_incidence_state,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "selected_incidence_state", $$v)
+                          },
+                          expression: "form.selected_incidence_state"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "incidence_priority" } }, [
+                        _vm._v("Prioridad:")
+                      ]),
+                      _vm._v(" "),
+                      _c("v-select", {
+                        attrs: {
+                          options: _vm.priority_options,
+                          id: "incidence_priority",
+                          name: "incidence_priority"
+                        },
+                        model: {
+                          value: _vm.form.selected_priority,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "selected_priority", $$v)
+                          },
+                          expression: "form.selected_priority"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6)
+                ]
+              )
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(7)
       ])
     ])
   ])
@@ -52115,8 +52215,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box-header with-border" }, [
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Crear incidencia")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12 col-sm-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "solicitude_title" } }, [
+            _vm._v("Titulo")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              name: "solicitude_title",
+              id: "solicitude_title"
+            }
+          })
+        ])
+      ])
     ])
   },
   function() {
@@ -52126,12 +52241,42 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12 col-sm-12" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "contacto" } }, [_vm._v("Contacto:")]),
+          _c("label", { attrs: { for: "solicitude_description" } }, [
+            _vm._v("Descripcion")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "form-control",
+            staticStyle: { width: "100%" },
+            attrs: {
+              tabindex: "-1",
+              name: "solicitude_description",
+              id: "solicitude_description"
+            }
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12 col-sm-12" }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "incidence_contact" } }, [
+            _vm._v("Contacto:")
+          ]),
           _vm._v(" "),
           _c("select", {
             staticClass: "form-control",
             staticStyle: { width: "100%" },
-            attrs: { tabindex: "-1", id: "contacto", name: "contacto" }
+            attrs: {
+              tabindex: "-1",
+              id: "incidence_contact",
+              name: "incidence_contact"
+            }
           })
         ])
       ])
@@ -52142,11 +52287,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "tema" } }, [_vm._v("Tema:")]),
+      _c("label", { attrs: { for: "incidence_theme" } }, [_vm._v("Tema:")]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
-        attrs: { type: "text", id: "tema", name: "tema" }
+        attrs: { type: "text", id: "incidence_theme", name: "incidence_theme" }
       })
     ])
   },
@@ -52155,13 +52300,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "agente" } }, [_vm._v("Asignar a:")]),
+      _c("label", { attrs: { for: "incidence_agent" } }, [
+        _vm._v("Asignar a:")
+      ]),
       _vm._v(" "),
       _c(
         "select",
         {
           staticClass: "form-control",
-          attrs: { id: "agente", name: "agente" }
+          attrs: { id: "incidence_agent", name: "incidence_agent" }
         },
         [
           _c("option", { attrs: { value: "0", selected: "" } }, [
@@ -52176,11 +52323,17 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "descripcion" } }, [_vm._v("Descripción:")]),
+      _c("label", { attrs: { for: "incidence_description" } }, [
+        _vm._v("Descripción:")
+      ]),
       _vm._v(" "),
       _c("textarea", {
         staticClass: "form-control",
-        attrs: { rows: "10", id: "descripcion", name: "descripcion" }
+        attrs: {
+          rows: "10",
+          id: "incidence_description",
+          name: "incidence_description"
+        }
       })
     ])
   },
@@ -52189,10 +52342,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "evidencia" } }, [_vm._v("Evidencia:")]),
+      _c("label", { attrs: { for: "incidence_evidence_route" } }, [
+        _vm._v("Evidencia:")
+      ]),
       _vm._v(" "),
       _c("input", {
-        attrs: { type: "file", id: "evidencia", name: "evidencia" }
+        attrs: {
+          type: "file",
+          id: "incidence_evidence_route",
+          name: "incidence_evidence_route"
+        }
       })
     ])
   },
@@ -52215,7 +52374,7 @@ var staticRenderFns = [
           "button",
           {
             staticClass: "btn btn-success",
-            attrs: { id: "crear", type: "button" }
+            attrs: { id: "crear", type: "submit" }
           },
           [_vm._v("Crear")]
         )
