@@ -1,6 +1,6 @@
 <template>
 <div>
-    <form v-bind:action="route" class="loading-parent"  method="post" @submit.prevent="onSubmit">
+    <form v-bind:action="route" method="post" @submit.prevent="onSubmit">
                 <div class="modal-header bg-warning">                    
                     <button class = "close" data-dismiss = "modal">&times;</button>
                     <h4 class="modal-title">Registrar</h4>
@@ -164,7 +164,7 @@ export default {
                          let answer = response.data;
                          let typeMsg = '';
                          form.isLoading = false;
-                         console.log(answer);
+                         //console.log(answer);
                          if(answer.success && !answer.error && !answer.warning){
                              typeMsg= 'success';
                          }else if(answer.success && !answer.error && answer.warning){

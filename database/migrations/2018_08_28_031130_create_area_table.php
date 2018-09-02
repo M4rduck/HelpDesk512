@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolicitudesTable extends Migration
+class CreateAreaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateSolicitudesTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        Schema::create('area', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_contact');
-            $table->foreign('id_contact')->references('id')->on('users');
-            $table->text('title', 100);
-            $table->text('description');
-            $table->string('evidence_route');
+            $table->string('name')->comment('Area\'s name');            
+            $table->string('extension')->nullable(true);
+            $table->string('email');
+            $table->string('description')->comment('brief description of the area');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateSolicitudesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('area');
     }
 }

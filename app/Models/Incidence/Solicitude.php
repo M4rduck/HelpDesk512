@@ -12,15 +12,15 @@ class Slicitude extends Model
      * @var array
      */
     protected $fillable = [
-        'id_contact',
+        'id_area',
         'title',
         'description',
         'evidence_route',
     ];
 
-    public function contact()
+    public function area()
     {
-        return $this->belongsTo('App\User', 'id_contact', 'id');
+        return $this->belongsTo('App\Area', 'id_area', 'id');
     }
 
     public function incidence()
