@@ -38,6 +38,7 @@
             <label for="special" class="col-md-3 control-label">Special</label>
             <div class="col-md-12">
             <select class="form-control" id="special" name="special" selected="1">
+              <option value="null">none</option>
               <option value="all-access">All-access</option>
               <option value="no-access">No-access</option>
             </select>
