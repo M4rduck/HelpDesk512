@@ -175,6 +175,10 @@ return [
          * Datatable Yajra
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
+        /*
+         * krlove/eloquent-model-generator 
+         */
+        Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
 
     ],
 
