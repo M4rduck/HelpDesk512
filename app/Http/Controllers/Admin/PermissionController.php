@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
-use App\Permission;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Controllers\Controller;
+use Caffeinated\Shinobi\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -105,7 +107,7 @@ class PermissionController extends Controller
         ]); 
     }
 
-    public function apiRoles()
+    public function apiPermissions()
     {
         $permissions=Permission::all();
         
