@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use Caffeinated\Shinobi\Models\Role;
 use App\User;
 
 class UserController extends Controller
@@ -71,8 +72,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $roles = Role::get();
         $users = User::findOrFail($id);
-        return $users;
+        return  array ($users, $roles);
     }
     /**
      * Update the specified resource in storage.

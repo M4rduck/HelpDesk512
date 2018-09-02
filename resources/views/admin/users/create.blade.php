@@ -1,5 +1,4 @@
 <!-- Modal Users -->
-
 <div class="modal fade" id="modal-form" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -88,14 +87,16 @@
                     <!-- /Password -->
                 </div>
             </div>
+            <div class="row col-md-12">
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <i class="fa fa-times-circle"></i> Close
+                </button>
+            </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">
-            <i class="fa fa-times-circle"></i> Close
-            </button>
-        </div>
+    </div> 
         {!! Form::close() !!}
-    </div>  
   </div>
 </div>
