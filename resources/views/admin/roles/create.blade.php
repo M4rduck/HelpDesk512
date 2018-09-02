@@ -20,9 +20,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="display_name" class="col-md-3 control-label">Display Name</label>
+              <label for="slug" class="col-md-3 control-label">Slug</label>
               <div class="col-md-12">
-                <input type="text" id="display_name" name="display_name" class="form-control" placeholder="Display Name" autofocus required>
+                <input type="text" id="slug" name="slug" class="form-control" placeholder="slug" autofocus required>
                 <span class="help-block with-errors"></span>
               </div>  
             </div>
@@ -33,6 +33,17 @@
                 <span class="help-block with-errors"></span>
               </div>  
             </div>
+           <! -- men aca es donde debes obtener los special -->
+            <div class="form-group">
+            <label for="special" class="col-md-3 control-label">Special</label>
+            <div class="col-md-12">
+            <select class="form-control" id="special" name="special" selected="1">
+              <option value="all-access">All-access</option>
+              <option value="no-access">No-access</option>
+            </select>
+            </div>
+            </div> 
+            <! -- listo mas facil no podia ser ! -->
            <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">

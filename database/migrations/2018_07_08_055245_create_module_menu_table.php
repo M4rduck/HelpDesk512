@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModuleTable extends Migration
+class CreateModuleMenuTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateModuleTable extends Migration
      */
     public function up()
     {
-        Schema::create('module', function (Blueprint $table) {
+        Schema::create('module_menu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('method_id')->unsigned()->index();
             $table->foreign('method_id')->references('id')->on('method')->onDelete('restrict');
             $table->integer('module_id')->nullable(true)->unsigned()->index();
-            $table->foreign('module_id')->references('id')->on('module')->onDelete('restrict');
-            $table->integer('order')->unique()->comment('Order that show the modules');
+            $table->foreign('module_id')->references('id')->on('module_menu')->onDelete('restrict');
+            $table->integer('order')->comment('Order that show the modules');
             $table->string('text')->comment('Name of the module that show in the menu');
             $table->string('icon')->default('circle')->comment('Name of the icon to show in the menu, watch names in fontawesome');
             $table->string('icon_color')->nullable(true);

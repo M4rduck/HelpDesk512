@@ -20,9 +20,9 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="display_name" class="col-md-3 control-label">Display Name</label>
+              <label for="slug" class="col-md-3 control-label">Slug</label>
               <div class="col-md-12">
-                <input type="text" id="display_name" name="display_name" class="form-control" placeholder="Display Name" autofocus required>
+                <input type="text" id="slug" name="slug" class="form-control" placeholder="slug" autofocus required>
                 <span class="help-block with-errors"></span>
               </div>  
             </div>

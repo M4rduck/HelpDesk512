@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
-use App\Role;
+use App\Http\Controllers\Controller;
+use Caffeinated\Shinobi\Models\Role;
 
 
 class RoleController extends Controller
@@ -115,10 +116,6 @@ class RoleController extends Controller
         return Datatables::of($roles)
             ->addColumn('action', function($roles){
                 return '<td width="10px">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-eye"></i> View</button>
-                          </td>' .
-                          '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
                                 onclick="editForm('. $roles->id .')">
                                 <i class="far fa-edit"></i> Edit</button>

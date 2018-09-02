@@ -1,4 +1,4 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/system/module/create.js": "/js/system/module/create.js",
+    "/js/system/method/create.js": "/js/system/method/create.js"
 }

@@ -1,31 +1,53 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title','Roles')
+
+@push('js')
+    {!! Html::script('./js/system/method/table.js') !!}
+@endpush
+
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
 
 @section('content')
-<div class="container">
-	<div id="crud" class="row mt-5">
-		<div class="col-md-12 col-md-offset-2">
-		<div class="card ">
-		<div class="card-header">
-                <h3><i class="material-icons">assignment_turned_in</i>
-                  Roles Administration
-                  <button onclick="addFrom()" class="btn btn-primary float-right">
-                   <i class="fas fa-id-badge"></i>  Create Roles</button>
-                </h3>	
-		</div>
-		<div class="card-body">
-      <table class="table table-hover" id="roles-table">
+<div class="row">
+		<div class="col-lg-12">
+		<div class="box">
+
+        <!--Box title -->
+            <div class="box-header with-border">
+                <h1>
+                Roles
+                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Roles', 
+                ['class'=>'btn btn-primary pull-right',
+                'data-toggle' =>'modal',
+                'onclick'=>'addFrom()']) !!}
+            </div>
+            
+
+        <!--Box body -->
+        <div class="box-body">
+            <div class="table-responsive">
+            <table class="table table-hover" id="roles-table">
           <thead>
           <tr>
               <th width="30px">ID</th>
               <th>Name</th>
-              <th>Display Name</th>
+              <th>Slug</th>
               <th>Description</th>
+              <th>Special</th>
               <th></th>
           </tr>
           </thead>
           <tbody></tbody>
         </table>
-    </div> 
+            </div>
+        </div>
+        <!--Box body -->
+        <div class="box-footer">
+        </div>
 	</div>
 </div>
 </div>
@@ -34,7 +56,7 @@
 
 @endsection
 
-@section('script')
+@section('js')
 
 	<script type="text/javascript">
      $.ajaxSetup({
@@ -49,8 +71,9 @@
                       columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'display_name', name: 'display_name'},
+                        {data: 'slug', name: 'slug'},
                         {data: 'description', name: 'description'},
+                        {data: 'special', name: 'special'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
@@ -61,8 +84,8 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="material-icons">assignment_ind</i> Add Roles');
-        $('#bcreate').html('<i class="fas fa-plus-circle"></i>  Create');
+        $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
+        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
     }
 
      function editForm(id) {
@@ -70,17 +93,18 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('roles') }}" + '/' + id + "/edit",
+          url: "{{ url('admin/roles') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="material-icons">border_color</i> Edit Roles');
+            $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
-            $('#display_name').val(data.display_name);
+            $('#slug').val(data.slug);
             $('#description').val(data.description);
+            $('#special').val(data.special);
           },
           error : function() {
               swal({
@@ -104,7 +128,7 @@
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('roles') }}" + '/' + id,
+                  url : "{{ url('admin/roles') }}" + '/' + id,
                   type : "POST",
                   data : {'_method' : 'DELETE', '_token' : csrf_token},
                   success : function(data) {
@@ -132,8 +156,8 @@
             $('#modal-form form').validator().on('submit', function (e) {
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
-                    if (save_method == 'add') url = "{{ url('roles') }}";
-                    else url = "{{ url('roles') . '/' }}" + id;
+                    if (save_method == 'add') url = "{{ url('admin/roles') }}";
+                    else url = "{{ url('admin/roles') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",
