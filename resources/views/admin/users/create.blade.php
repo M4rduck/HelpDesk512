@@ -3,22 +3,23 @@
   <div class="modal-dialog">
     <div class="modal-content">
       
-      <!-- Header Modal -->
+      
 
       {!! Form::open(array('method'=>'POST','id'=>'form-users','class'=>'form-horizontal','data-toggle'=>'validator'
                           ,'autocomplete'=>'off')) !!}
            {{ method_field('POST') }}
 
-           
+        <!-- Header Modal -->  
         <div class="modal-header bg-warning">
-            <h3 class="modal-title"></h3>
-             {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
+            {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
                               ,['class'=>'close', 'data-dismiss'=>'modal']) !!}
+            <h3 class="modal-title"></h3>
+             
         </div> 
       
         <!-- Body Modal-->
         <div class="modal-body">
-            <div class="row col-md-12">
+            <div class="row">
                 <div class="col-md-12">
                     <input type="hidden" id="id" name="id"> 
                     <!-- Name -->
@@ -54,21 +55,7 @@
                     </div>
                     <!-- /Email -->
                 </div>
-                <div class="col-md-12">
-                    <!-- Password -->
-                    <div class="from-group">
-                        {!! Form::label('roles', 'Roles') !!}
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="fas fa-address-card"></i>
-                            </span>
-                            {!! Form::select('roles[]', $roles,null, 
-                            ['id'=>'roles', 'class'=>'form-control margin', 
-                            'multiple' => 'multiple']) !!}
-                        </div>
-                    </div>
-                    <!-- /Password -->
-                </div>
+                
                 <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
@@ -101,9 +88,21 @@
                     </div>
                     <!-- /Password -->
                 </div>
-            </div>
-            <div class="row col-md-12">
-                
+                <div class="col-md-12">
+                    <!-- Roles -->
+                    <div class="from-group">
+                        {!! Form::label('roles', 'Roles') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-address-card"></i>
+                            </span>
+                            {!! Form::select('roles[]', $roles,null, 
+                            ['id'=>'roles', 'class'=>'form-control margin', 
+                            'multiple' => 'multiple']) !!}
+                        </div>
+                    </div>
+                    <!-- /Roles -->
+                </div>
             </div>
         </div>
 
@@ -112,8 +111,9 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                 <i class="fa fa-times-circle"></i> Close
                 </button>
-            </div>
-    </div> 
+        </div>
         {!! Form::close() !!}
+    </div> 
+        
   </div>
 </div>
