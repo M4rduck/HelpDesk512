@@ -6,7 +6,8 @@
         {{ csrf_field() }} {{ method_field('POST') }}
         <div class="modal-header">
         <h3 class="modal-title"></h3>  
-        {!! Form::button('<span aria-hidden="true"><i class="fas fa-times-circle"></i></span>', ['class' => 'close', 'data-miss'=>'modal', 'aria-label'=>'close']) !!}
+        {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
+                              ,['class'=>'close', 'data-dismiss'=>'modal']) !!}
         </div>  
         <div class="modal-body">
             <input type="hidden" id="id" name="id">

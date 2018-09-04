@@ -86,6 +86,9 @@
         $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         $('#password').focus();
+        $('#roles').select2({
+            width:'100%'
+        });
     }
 
      function editForm(id) {
@@ -103,9 +106,10 @@
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
-            $('#roles').select2();
-            
-          },
+            $('#roles').select2({
+            width:'100%'
+            });
+            },
           error : function() {
               swal({
                         type: 'error',
@@ -128,7 +132,7 @@
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('users') }}" + '/' + id,
+                  url : "{{ url('admin/users') }}" + '/' + id,
                   type : "POST",
                   data : {'_method' : 'DELETE', '_token' : csrf_token},
                   success : function(data) {
