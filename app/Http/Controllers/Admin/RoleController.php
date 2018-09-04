@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use Caffeinated\Shinobi\Models\Role;
 use Caffeinated\Shinobi\Models\Permission;
-use Caffeinated\Shinobi\Traits\PermissionTrait;
+use Caffeinated\Shinobi\Models\Role;
 
 
 
@@ -33,7 +32,7 @@ class RoleController extends Controller
     public function index()
     {
         
-        $permissions = Permission::pluck('name','id');
+        $permissions = Permission::all();
         return view('admin.roles.index')->with(["permissions"=>$permissions]);
     }
 
@@ -47,7 +46,8 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        Role::create($input);
+        $roles = Role::create($input);
+        $roles->permissions()->sync($request->get('permissions'));
         return response()->json([
             'success' => true,
             'message' => 'Role Created'
@@ -73,8 +73,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $permissions = Permission::pluck('name','id');
+        $permissions = Permission::pluck('name','id')->toArray();
         $roles = Role::findOrFail($id);
+        
         return array ('roles'=> $roles,"permissions"=>$permissions);
     }
 

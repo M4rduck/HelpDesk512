@@ -38,10 +38,8 @@
             {!! Form::select('special', ['null' => 'none', 'all-acces' => 'All-access', 'no-access' => 'No-access'], 'null', ['class' => 'form-control']) !!}
             </div>
             </div> 
-
-          
-
-             <div class="form-group">
+            <! -- listo mas facil no podia ser ! -->
+            <div class="form-group">
             <label for="permisos" class="col-md-3 control-label"> permisos</label>
             <div class="col-md-12">
             
@@ -52,7 +50,7 @@
                <label>
                 {{ Form::checkbox('permissions[]', $permission->id, null) }}
                 {{ $permission->name }}
-              <em></em>
+              <em>({{ $permission->description }})</em>
                 </label>
               </li>
 
@@ -61,8 +59,7 @@
             </ul>
 
             </div>
-            </div>  
-            <! -- listo mas facil no podia ser ! -->
+            </div> 
            <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">

@@ -31,7 +31,7 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::pluck('name', 'id');
-        return view('admin.users.index',['roles'=>$roles]);     
+        return view('admin.users.index')->with(['roles'=>$roles]);     
     }
 
     /**
@@ -48,7 +48,8 @@ class UserController extends Controller
                 'password' => 'required'
          ]);
         $input = $request->all();
-        User::create($input);
+        $users = User::create($input);
+        $users->roles()->sync($request->get('roles'));
         return response()->json([
             'success' => true,
             'message' => 'User Created'
@@ -130,10 +131,6 @@ class UserController extends Controller
         return Datatables::of($users)
             ->addColumn('action', function($users){
                 return '<td width="10px">
-                            <button class="btn btn-info btn-sm">
-                                <i class="fa fa-fw fa-eye"></i> View</button>
-                        </td>' .
-                          '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
                                 onclick="editForm('. $users->id .')">
                                 <i class="fa fa-pencil-square-o"></i> Edit</button>

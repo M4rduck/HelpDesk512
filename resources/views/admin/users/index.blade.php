@@ -103,6 +103,8 @@
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
+            $('#roles').select2();
+            
           },
           error : function() {
               swal({

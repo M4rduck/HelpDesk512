@@ -63,7 +63,8 @@
                                 <i class="fas fa-address-card"></i>
                             </span>
                             {!! Form::select('roles[]', $roles,null, 
-                            ['id'=>'roles', 'class'=>'form-control']) !!}
+                            ['id'=>'roles', 'class'=>'form-control margin', 
+                            'multiple' => 'multiple']) !!}
                         </div>
                     </div>
                     <!-- /Password -->
