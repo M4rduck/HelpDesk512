@@ -100,10 +100,9 @@
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Users');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.id);
-            $('#name').val(data.name);
-            $('#email').val(data.email);
-            <!--$('#description').val(data.description);-->
+            $('#id').val(data.user.id);
+            $('#name').val(data.user.name);
+            $('#email').val(data.user.email);
           },
           error : function() {
               swal({

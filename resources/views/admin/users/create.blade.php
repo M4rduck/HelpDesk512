@@ -57,6 +57,20 @@
                 <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
+                        {!! Form::label('roles', 'Roles') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-address-card"></i>
+                            </span>
+                            {!! Form::select('roles[]', $roles,null, 
+                            ['id'=>'roles', 'class'=>'form-control']) !!}
+                        </div>
+                    </div>
+                    <!-- /Password -->
+                </div>
+                <div class="col-md-12">
+                    <!-- Password -->
+                    <div class="from-group">
                         {!! Form::label('password', 'Password') !!}
                         <div class="input-group">
                             <span class="input-group-addon">

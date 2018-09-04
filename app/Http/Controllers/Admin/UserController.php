@@ -30,7 +30,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');     
+        $roles = Role::pluck('name', 'id');
+        return view('admin.users.index',['roles'=>$roles]);     
     }
 
     /**
@@ -72,9 +73,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::get();
+        $roles = Role::pluck('name', 'id');
         $users = User::findOrFail($id);
-        return  array ($users, $roles);
+        
+        return  array ("user"=>$users,"roles"=>$roles);
     }
     /**
      * Update the specified resource in storage.
@@ -95,6 +97,8 @@ class UserController extends Controller
          $users= User::findOrFail($id);
 
          $users->update($input);
+
+        $users->roles()->sync($request->get('roles'));
 
         return response()->json([
             'success' => true,
