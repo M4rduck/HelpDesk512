@@ -7,6 +7,9 @@ use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Models\Permission;
+use Caffeinated\Shinobi\Traits\PermissionTrait;
+
 
 
 class RoleController extends Controller
@@ -30,7 +33,8 @@ class RoleController extends Controller
     public function index()
     {
         
-        return view('admin.roles.index');
+        $permissions = Permission::pluck('name','id');
+        return view('admin.roles.index')->with(["permissions"=>$permissions]);
     }
 
     
@@ -69,8 +73,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $permissions = Permission::pluck('name','id');
         $roles = Role::findOrFail($id);
-        return $roles;
+        return array ('roles'=> $roles,"permissions"=>$permissions);
     }
 
     /**
@@ -86,6 +91,8 @@ class RoleController extends Controller
          $roles = Role::findOrFail($id);
 
          $roles->update($input);
+
+         $roles->permissions()->sync($request->get('permissions'));
 
         return response()->json([
             'success' => true,
