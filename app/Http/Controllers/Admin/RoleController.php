@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
-use Caffeinated\Shinobi\Models\Role;
+//use Caffeinated\Shinobi\Models\Role;
+use App\Models\Roles as Role;
+use App\Models\Permissions;
 
 
 class RoleController extends Controller
@@ -29,8 +31,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        
-        return view('admin.roles.index');
+        $permissions = Permissions::all();
+        return view('admin.roles.index')->with(['permissions' => $permissions]);
     }
 
     
