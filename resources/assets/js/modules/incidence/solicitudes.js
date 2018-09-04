@@ -5,7 +5,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./../../bootstrap');
+require('../../bootstrap');
 
 window.Vue = require('vue');
 
@@ -16,12 +16,12 @@ window.Vue = require('vue');
  */
 
 /**
- * Incidence Components
+ * Solicutdes Components
  */
 Vue.component('v-select', vSelect.VueSelect);
 
-Vue.component('incidence-create-form', require('./../../components/incidence/incidence_create.vue'));
+Vue.component('solicitude-create-form', require('./../../components/incidence/solicitude_create.vue'));
 
-const incidence = new Vue({
-    el: '#incidence_create_form'
+const solicitudes = new Vue({
+    el: '#solicitudes'
 });

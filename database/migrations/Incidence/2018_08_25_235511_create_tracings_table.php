@@ -13,10 +13,10 @@ class CreateTracingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tracings', function (Blueprint $table) {
+        Schema::create('tracing', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('id_incidence');
-            $table->foreign('id_incidence')->references('id')->on('incidences');
+            $table->foreign('id_incidence')->references('id')->on('incidence');
             $table->text('comment');
             $table->unsignedInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
@@ -33,6 +33,6 @@ class CreateTracingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tracings');
+        Schema::dropIfExists('tracing');
     }
 }

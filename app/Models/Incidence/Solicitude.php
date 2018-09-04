@@ -4,15 +4,17 @@ namespace App\Models\Incidence;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Slicitude extends Model
+class Solicitude extends Model
 {
+    protected $table = 'solicitude';
+    
     /**
      * Campos que se van a utilizar en la BD.
      *
      * @var array
      */
     protected $fillable = [
-        'id_area',
+        'area_id',
         'title',
         'description',
         'evidence_route',

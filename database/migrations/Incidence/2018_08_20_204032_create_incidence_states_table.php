@@ -13,7 +13,7 @@ class CreateIncidenceStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('incidence_states', function (Blueprint $table) {
+        Schema::create('incidence_state', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->text('description');
@@ -28,6 +28,6 @@ class CreateIncidenceStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('incidence_states');
+        Schema::dropIfExists('incidence_state');
     }
 }

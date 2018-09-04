@@ -13,13 +13,13 @@ class CreateSolicitudesTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitudes', function (Blueprint $table) {
+        Schema::create('solicitude', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('id_area');
-            $table->foreign('id_area')->references('id')->on('area');
+            $table->unsignedInteger('area_id');
+            $table->foreign('area_id')->references('id')->on('area');
             $table->text('title', 100);
             $table->text('description');
-            $table->string('evidence_route');
+            $table->string('evidence_route')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateSolicitudesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitudes');
+        Schema::dropIfExists('solicitude');
     }
 }
