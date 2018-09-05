@@ -34,7 +34,7 @@ class RoleController extends Controller
     {
         
         $permissions = Permission::pluck('name','id');
-        return view('admin.roles.index')->with(["permissions"=>$permissions]);
+        return view('admin.roles.index',['permissions'=>$permissions]);
     }
 
     
@@ -75,7 +75,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::pluck('name','id');
         $roles = Role::findOrFail($id);
-        return array ('roles'=> $roles,"permissions"=>$permissions);
+        return array ("roles"=> $roles,"permissions"=>$permissions);
     }
 
     /**
