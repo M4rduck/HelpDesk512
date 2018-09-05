@@ -72,7 +72,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $permissions = Permission::pluck('name','id')->toArray();
+        
         $roles = Role::findOrFail($id);
         
         return array ('roles'=> $roles,"permissions"=>$permissions);
