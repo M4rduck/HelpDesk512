@@ -76,6 +76,8 @@
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
+        
+    
 
     function addFrom()
     {
@@ -85,10 +87,10 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#password').focus();
         $('#roles').select2({
             width:'100%'
         });
+        $('form-users').validator();
     }
 
      function editForm(id) {
@@ -160,12 +162,13 @@
             $('#modal-form form').validator().on('submit', function (e) {
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
-                    if (save_method == 'add') url = "{{ url('admin/users') }}";
-                    else url = "{{ url('admin/users') . '/' }}" + id;
+                    if (save_method == 'add') 
+                        url = "{{ url('admin/users') }}";
+                    else 
+                        url = "{{ url('admin/users') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",
-//                        data : $('#modal-form form').serialize(),
                         data: new FormData($("#modal-form form")[0]),
                         contentType: false,
                         processData: false,

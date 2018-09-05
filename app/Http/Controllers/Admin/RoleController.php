@@ -32,7 +32,7 @@ class RoleController extends Controller
     public function index()
     {
         
-        $permissions = Permission::all();
+        $permissions = Permission::pluck('name','id');
         return view('admin.roles.index')->with(["permissions"=>$permissions]);
     }
 
@@ -45,7 +45,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
+        $input = $request->all();        
         $roles = Role::create($input);
         $roles->permissions()->sync($request->get('permissions'));
         return response()->json([
@@ -58,8 +58,7 @@ class RoleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     * @return \Illuminate\Http\Response    */
     public function show($id)
     {
         //
@@ -89,6 +88,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
          $input = $request->all();
+         ($input['special'] == 'null') ? $input['special'] = null : $input;
          $roles = Role::findOrFail($id);
 
          $roles->update($input);

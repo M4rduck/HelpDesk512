@@ -5,8 +5,8 @@
       
       
 
-      {!! Form::open(array('method'=>'POST','id'=>'form-users','class'=>'form-horizontal','data-toggle'=>'validator'
-                          ,'autocomplete'=>'off')) !!}
+      {!! Form::open(array('method'=>'POST','id'=>'form-users','class'=>'form-horizontal',
+                                    'data-toggle'=>'validator','autocomplete'=>'off')) !!}
            {{ method_field('POST') }}
 
         <!-- Header Modal -->  
