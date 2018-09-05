@@ -15,11 +15,11 @@ class CreateStateTable extends Migration
     {
         Schema::create('state', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('country_ud')->unsigned()->index();
-            $table->foreign('country_ud')->references('id')->on('country')->onDelete('restrict');
+            $table->integer('country_id')->unsigned()->index();
+            $table->foreign('country_id')->references('id')->on('country')->onDelete('restrict');
             $table->integer('visible')->default(1)->comment('1 for visible, 0 for no visible');
-            $table->integer('order');
-            $table->string('name');
+            $table->integer('order')->comment('Customizable order in which they will be displayed ')->nullable(true);
+            $table->string('name')->comment('State\'s name');
             $table->string('prefix')->comment('Area code for calls');
             $table->timestamps();
         });

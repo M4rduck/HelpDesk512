@@ -23,9 +23,10 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "> </script> 
   <title>BASE DE CONOCIMIENTO</title>
 <!-- Libreria CSS de Bootstrap -->
-   
+  
 
 </head>
 <body>
@@ -74,7 +75,11 @@
 <textarea placeholder="Solucion incidencia"  cols=70></textarea>
 <br>
 <hr>
- <input type="submit"  class="btn btn-primary btn-sm" value="Eviar">
+<!-- <input type="submit"  class="btn btn-primary btn-sm" value="Eviar">
+-->
+<button class="buttonload" type="submit">
+  <i class="fa fa-spinner fa-spin"></i>Enviar
+</button>
 
   </div>
       </div>
@@ -276,9 +281,23 @@ hr.separador_post:after {
     position: relative;
     top: -0.7em;
     font-size: 1.5em;
-    padding: 0 0.25em;
+    padding: 0 1.25em;
     background: white;
 }
+.buttonload {
+    background-color:  #274b77 ; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 24px; /* Some padding */
+    font-size: 16px; /* Set a font-size */
+}
+
+/* Add a right margin to each icon */
+.fa {
+    margin-left: -12px;
+    margin-right: 8px;
+}
+
 </style>
 </html>
 					</div>

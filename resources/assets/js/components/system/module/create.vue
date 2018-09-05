@@ -234,8 +234,8 @@ export default {
                 let form = this.form;
                 const user = {
                     module: {
-                        method_id: form.method_id.id,         
-                        module_id: form.module_id.id,
+                        method_id: form.method_id.id === 0 ? null : form.method_id.id,         
+                        module_id: form.module_id.id === 0 ? null : form.module_id.id,
                         label: form.label,
                         label_color: form.label_color,
                         icon: form.icon,
@@ -258,12 +258,12 @@ export default {
                          }else{
                              typeMsg = 'error';
                              if(typeof answer != 'object'){
-                                 answer = {title: 'Error', msg: 'Ha ocurrido un error al momento de crear el modulo'}
+                                 answer = {title: 'Error', body: 'Ha ocurrido un error al momento de crear el modulo'}
                              }
                          }    
                          swal(
                                  answer.title,
-                                 answer.msg,
+                                 answer.body,
                                  typeMsg
                              )                                            
                      })

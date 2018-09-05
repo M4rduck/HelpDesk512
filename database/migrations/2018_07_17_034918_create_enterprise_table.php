@@ -16,7 +16,9 @@ class CreateEnterpriseTable extends Migration
         Schema::create('enterprise', function (Blueprint $table) {
             $table->increments('id');
             $table->string('business_name')->nullable(false)->comment('official and legal name');
-            $table->boolean('sw_active')->nullable(false)->comment('1 for active, 0 for no active');
+            $table->string('address')->nullable(false)->comment('Main address');
+            $table->string('legal_representative')->nullable(false)->comment('legal representative\'s name');
+            $table->boolean('visible')->nullable(false)->comment('1 for active, 0 for no active');
             $table->timestamps();
         });
     }
