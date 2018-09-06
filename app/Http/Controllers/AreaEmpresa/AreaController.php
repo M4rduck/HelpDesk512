@@ -10,4 +10,8 @@ class AreaController extends Controller
     function index(){
     	return view('areaEmpresa.area.index'); 
     }
+
+    function store(Request $request){
+        dd($request->all());
+    }
 }

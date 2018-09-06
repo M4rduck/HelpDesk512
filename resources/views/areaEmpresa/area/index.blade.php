@@ -49,7 +49,7 @@
 
      <!-- Modal content-->
             <div class="modal-content">
-                {!! Form::open(['route' => 'controller.store']) !!}
+                {!! Form::open(['route' => 'area.store']) !!}
                 <div class="modal-header bg-warning">
                     <h4 class="modal-title">Crear Area</h4>
                 </div>
@@ -62,9 +62,9 @@
                                 {!! Form::label('nameA', 'Nombre') !!}
                                 <div class="input-group">
                                     <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
+                                        <i class="fa fa-braille"></i>
                                     </span>
-                                    {!! Form::text('controller[nameA]', null, ['class' => 'form-control',
+                                    {!! Form::text('area[nameA]', null, ['class' => 'form-control',
                                                                               'title' => 'Nombre del area',
                                                                               'placeholder' => 'Nombre del area',
                                                                               'id' => 'nameA'
@@ -81,7 +81,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-phone-square "></i>
                                     </span>
-                                    {!! Form::text('controller[exten', null, ['class' => 'form-control',
+                                    {!! Form::text('area[exten]', null, ['class' => 'form-control',
                                                                                 'title' => 'Estencion de area',
                                                                                 'placeholder' => 'Numero de la extencion',
                                                                                 'id' => 'exten'
@@ -100,7 +100,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-envelope-square "></i>
                                     </span>
-                                    {!! Form::text('controller[email]', null, ['class' => 'form-control',
+                                    {!! Form::text('area[email]', null, ['class' => 'form-control',
                                                                                        'title' => 'Correo del area',
                                                                                        'placeholder' => 'Descripcion del area',
                                                                                        'id' => 'email'
@@ -116,7 +116,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-pencil-square-o "></i>
                                     </span>
-                                    {!! Form::text('controller[description]', null, ['class' => 'form-control',
+                                    {!! Form::text('area[description]', null, ['class' => 'form-control',
                                                                                        'title' => 'Descripcion del area',
                                                                                        'placeholder' => 'Desripcion del area',
                                                                                        'id' => 'description'
@@ -131,6 +131,7 @@
                 <div class="modal-footer">
                     {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
                     {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
+
                 </div>
                 {!! Form::close() !!}
             </div>
