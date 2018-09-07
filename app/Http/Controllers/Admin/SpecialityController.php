@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mockery\Exception;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Http\Controllers\Controller;
-use Caffeinated\Shinobi\Models\Permission;
-use Caffeinated\Shinobi\Models\Role;
+use App\Models\Speciality;
+use App\User;
 
-
-
-class RoleController extends Controller
-{   
-
+class SpecialityController extends Controller
+{
+    
+    
     /**
      * Create a new controller instance.
      *
@@ -23,7 +21,6 @@ class RoleController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,11 +29,8 @@ class RoleController extends Controller
     public function index()
     {
         
-        $permissions = Permission::pluck('name','id');
-        return view('admin.roles.index',['permissions'=>$permissions]);
+        return view('admin.speciality.index');   
     }
-
-    
     /**
      * Store a newly created resource in storage.
      *
@@ -45,23 +39,16 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();        
-        $roles = Role::create($input);
-        $roles->permissions()->sync($request->get('permissions'));
-        return response()->json([
-            'success' => true,
-            'message' => 'Role Created'
+        $this->validate($request,  [
+            'name' => 'required'
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response    */
-    public function show($id)
-    {
-        //
+        $input = $request->all();
+        $specility = Speciality::create($input);
+        
+        return response()->json([
+        'success' => true,
+        'message' => 'Speciality Created'
+        ]); 
     }
 
     /**
@@ -73,9 +60,8 @@ class RoleController extends Controller
     public function edit($id)
     {
         
-        $roles = Role::findOrFail($id);
-        
-        return array ('roles'=> $roles,"permissions"=>$permissions);
+        $specility = Speciality::findOrFail($id);
+        return  array ("specility"=>$specility);
     }
 
     /**
@@ -87,18 +73,18 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $input = $request->all();
-         ($input['special'] == 'null') ? $input['special'] = null : $input;
-         $roles = Role::findOrFail($id);
-
-         $roles->update($input);
-
-         $roles->permissions()->sync($request->get('permissions'));
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Contact Updated'
+        $this->validate($request,  [
+            'name' => 'required'
         ]);
+
+     $input = $request->all();
+     $specility= Speciality::findOrFail($id);
+     $specility->update($input);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Speciality Updated'
+    ]);
     }
 
     /**
@@ -109,29 +95,29 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = Role::whereId($id)->delete();
+        $specility = Speciality::whereId($id)->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Rol Delete'
+            'message' => 'Speciality Delete'
         ]); 
     }
 
-    public function apiRoles()
+    public function apiSpeciality()
     {
-        $roles=Role::all();
+        $specility=Speciality::all();
         
-        return Datatables::of($roles)
-            ->addColumn('action', function($roles){
+        return Datatables::of($specility)
+            ->addColumn('action', function($specility){
                 return '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
-                                onclick="editForm('. $roles->id .')">
-                                <i class="far fa-edit"></i> Edit</button>
+                                onclick="editForm('. $specility->id .')">
+                                <i class="fa fa-pencil-square-o"></i> Edit</button>
                           </td>' .
                           '<td width="10px">
                            <button class="btn btn-danger btn-sm" href="#"
-                           onclick="deleteData('. $roles->id .')">
-                            <i class="fas fa-trash"></i> 
+                           onclick="deleteData('. $specility->id .')">
+                            <i class="fa fa-trash"></i> 
                           Delete</button>  
                           </td>';
             })->make(true); 

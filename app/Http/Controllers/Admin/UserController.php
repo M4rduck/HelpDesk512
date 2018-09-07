@@ -7,6 +7,7 @@ use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Caffeinated\Shinobi\Models\Role;
+use App\Models\Speciality;
 use App\User;
 
 class UserController extends Controller
@@ -42,7 +43,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-         $this->validate($request,  [
+        $this->validate($request,  [
                 'name' => 'required',
                 'email' => 'required',
                 'password' => 'required'
@@ -54,17 +55,6 @@ class UserController extends Controller
             'success' => true,
             'message' => 'User Created'
         ]);    
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
     /**
      * Show the form for editing the specified resource.
@@ -88,11 +78,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-          $this->validate($request,  [
+        $this->validate($request,  [
                 'name' => 'required',
                 'email' => 'required',
                 'password' => ''
-         ]);
+        ]);
 
          $input = $request->all();
          $users= User::findOrFail($id);
@@ -126,9 +116,11 @@ class UserController extends Controller
 
     public function apiUsers()
     {
+        $speciality = Speciality::pluck('name','<id></id>');
         $users=User::all();
         
-        return Datatables::of($users)
+        return Datatables::of($users,$speciality)
+            ->with(['speciality'=>$speciality])
             ->addColumn('action', function($users){
                 return '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
