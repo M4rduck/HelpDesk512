@@ -7,18 +7,17 @@
 @stop
 
 @section('content')
-<h1>
-        Realice Creacion de la Empresa y el Area Donde se Presenta la Incidencia
+	<h1>
+		Realice Creacion de la Empresa y el Area Donde se Presenta la Incidencia
         <small>Bienvenido</small>
-      </h1>
-      <ol class="breadcrumb">
-        
-      </ol>
-   
+    </h1>
 
-      <!-- SELECT2 EXAMPLE -->
-      <div class="box box-default">
-        <div class="box-header with-border">
+    <ol class="breadcrumb"></ol>
+
+
+    <!-- SELECT2 EXAMPLE -->
+    <div class="box box-default">
+		<div class="box-header with-border">
           <h3 class="box-title">Registro En Nuestra Base de Datos</h3>
 
           <div class="box-tools pull-right">
@@ -113,4 +112,9 @@
                 <input class="form-control " multiple="multiple" placeholder="ingrese ciudad principal de la empresa" style="width: 500%;">
                   
               </div>
+
+<br>
+<br>
+
+              <input type="button" value="REGISTRAR">
 @stop

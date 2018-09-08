@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 class AreaController extends Controller
 {
     function index(){
-    	dd('hola');
+
+    	return view('areaEmpresa.area.index'); 
+    }
+
+    function store(Request $request){
+        dd($request->all());
+
     }
 }
