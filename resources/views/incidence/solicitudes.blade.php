@@ -48,7 +48,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Solicitudes</h3>
                     </div>
-                    <div class="box-body">DataTables con las incidencias</div>
+                <div class="box-body"><solicitudes-table solicitudes_route="{{ route('solicitudes.list') }}"></solicitudes-table></div>
                     <div class="box-footer clearfix">
                         <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
                             Nueva Solicitud

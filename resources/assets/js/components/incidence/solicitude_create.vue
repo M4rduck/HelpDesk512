@@ -5,7 +5,15 @@
                 <button class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Nueva Solicitud</h4>
             </div>
-            <div class="modal-body">   
+            <div class="modal-body">
+                <div v-if="form_errors" class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" v-on:click="set_form_values" aria-hidden="true">&times;</button>
+                    <ul>
+                        <li v-bind:key="error[0]" v-for="error in form_errors">
+                            {{ error[0] }}
+                        </li>
+                    </ul>
+                </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="form-group">
@@ -41,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button v-on:click="set_form_values" class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>
-                <button type = "submit" class = "btn btn-success pull-right"><!--<vue-element-loading :active="form.isLoading"  spinner="bar-fade-scale" color="#FF6700"/>-->Guardar</button>
+                <button type = "submit" class = "btn btn-success pull-right"><vue-element-loading :active="loading"  spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
             </div>
         </form>
     </div>
@@ -71,6 +79,11 @@
 
         data() {
             return {
+
+                form_errors: false,
+
+                loading: false,
+
                 solicitude_created: false,
 
                 area_options: [],
@@ -103,14 +116,19 @@
                     console.log(value); 
                 }
 
+                this.loading = true;
+
                 axios.post(this.submit_route, form_data, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 }).then(response => {
                     console.log(response.data);
+                    this.loading = false;
                     if(response.data.estado){
                         
+                        this.$root.$emit('solicitude_created', true);
+
                         swal(
                             'Exito',
                             response.data.mensaje,
@@ -120,8 +138,14 @@
                         this.set_form_values();
 
                     }
-                }).catch(function(error){
-                    console.log(error.response.data);
+                }).catch(error => {
+                    console.log(error.response);
+                    if(error.response.status === 422){
+                        this.form_errors = error.response.data.errors;
+                    }else{
+                        this.form_errors = false;
+                    }
+                    this.loading = false;
                 });
 
             },
@@ -134,6 +158,10 @@
                     description: '',
                     evidence: new File([''], '')
                 };
+
+                this.form_errors = false;
+
+                this.solicitude_created = false;
 
             },
 

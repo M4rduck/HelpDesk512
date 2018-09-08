@@ -79,4 +79,27 @@ class SolicitudeController extends Controller
 
     }
 
+    public function list(){
+        
+        $solicitudes = Solicitude::all();
+
+        $data = [];
+
+        foreach ($solicitudes as $solicitude) {
+            
+            $data[] = [
+                
+                'solicitude' => [
+                    'id' => $solicitude->id,
+                    'title' => $solicitude->title,
+                    'description' => $solicitude->description
+                ],
+
+                'area' => DB::table('area')->where('id', '=', $solicitude->area_id)->get()
+            ];
+        }
+
+        return response()->json($data, 200);
+    }
+
 }

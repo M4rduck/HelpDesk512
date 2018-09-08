@@ -15,11 +15,15 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+window.VuePaginate = require('vue-paginate');
+
 /**
  * Solicutdes Components
  */
+Vue.use(VuePaginate);
 Vue.component('v-select', vSelect.VueSelect);
-
+Vue.component('vue-element-loading',loading);
+Vue.component('solicitudes-table', require('./../../components/incidence/solicitude_table.vue'));
 Vue.component('solicitude-create-form', require('./../../components/incidence/solicitude_create.vue'));
 
 const solicitudes = new Vue({
