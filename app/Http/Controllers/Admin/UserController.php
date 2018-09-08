@@ -89,7 +89,7 @@ class UserController extends Controller
 
          $users->update($input);
 
-        $users->roles()->sync($request->get('roles'));
+         $users->roles()->sync($request->get('roles'));
 
         return response()->json([
             'success' => true,
@@ -116,11 +116,11 @@ class UserController extends Controller
 
     public function apiUsers()
     {
-        $speciality = Speciality::pluck('name','<id></id>');
-        $users=User::all();
+        $users=User::with('speciality')->get();
+        $speciality = User::with('speciality')->find($users);
         
-        return Datatables::of($users,$speciality)
-            ->with(['speciality'=>$speciality])
+        
+        return Datatables::of($users)
             ->addColumn('action', function($users){
                 return '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
@@ -133,6 +133,22 @@ class UserController extends Controller
                             <i class="fa fa-trash"></i> 
                           Delete</button>  
                           </td>';
-            })->make(true); 
+            })
+            ->editColumn('edit', function($users){
+                $specialitys = '';
+                if($users->speciality->isNotEmpty()){
+                    foreach($users->speciality as $speciality){
+                        $specialitys.='<span class="label label-primary">'
+                                    . $speciality->name .'</span>&nbsp;';
+                                             
+                    }
+                }else{
+                    $specialitys = '<span>User '.$users->name.' has not specialitys</span>';
+                }
+                return $specialitys;
+                
+            })
+            ->rawColumns(['edit' => 'edit', 'action' => 'action'])
+            ->make(true); 
     }
 }

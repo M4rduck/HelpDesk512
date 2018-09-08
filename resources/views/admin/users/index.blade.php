@@ -40,7 +40,9 @@
                     <th width="30px">ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Speciality</th>
                     <th>Options</th>
+                    
                 </tr>
                 </thead>
             </table>
@@ -73,8 +75,9 @@
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
                         {data: 'email', name: 'email'},
-                        {data: 'action', name: 'action', orderable: false, searchable: false}
-                      ]
+                        {data: 'edit', name: 'edit'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ]
                     });
         
     

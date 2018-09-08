@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Speciality;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
 
 class User extends Authenticatable
@@ -32,4 +33,10 @@ class User extends Authenticatable
     {   
     $this->attributes['password'] = bcrypt($password);
     }
+
+    public function speciality()
+    {
+        return $this->belongsToMany(Speciality::class, 'user_has_speciality');
+    }
+
 }
