@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button v-on:click="set_form_values" class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>
-                <button type = "submit" class = "btn btn-success pull-right"><vue-element-loading :active="loading"  spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
+                <button type = "submit" class = "btn btn-success pull-right" :disabled="solicitude.area == '' || solicitude.title === '' || solicitude.description === '' ? true : false"><vue-element-loading :active="loading"  spinner="bar-fade-scale" color="#FF6700"/>Guardar</button>
             </div>
         </form>
     </div>

@@ -73,29 +73,30 @@ class SolicitudeController extends Controller
                 'mensaje' => 'No se ha podido registrar la incidencia'
             ];
 
-        }  
+        }
 
         return response()->json($msg, 200);
 
     }
 
     public function list(){
-        
+
         $solicitudes = Solicitude::all();
 
         $data = [];
+
 
         foreach ($solicitudes as $solicitude) {
             
             $data[] = [
                 
-                'solicitude' => [
-                    'id' => $solicitude->id,
-                    'title' => $solicitude->title,
-                    'description' => $solicitude->description
-                ],
+                'id' => $solicitude->id,
+                'area' => DB::table('area')->where('id', $solicitude->area_id)->value('name'),
+                'title' => $solicitude->title,
+                'description' => $solicitude->description,
+                'details' => '<a class="btn btn-default btn-block" href="'.url('/incidence/solicitudes/'.$solicitude->id).'"><i class="fa fa-bars" aria-hidden="true"></i></a>'
 
-                'area' => DB::table('area')->where('id', '=', $solicitude->area_id)->get()
+                //'area' => DB::table('area')->where('id', '=', $solicitude->area_id)->get()
             ];
         }
 

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tracing extends Model
 {
+    protected $table = 'tracing';
+    
     /**
      * Campos que se van a utilizar en la BD.
      *

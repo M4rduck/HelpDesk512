@@ -6,7 +6,7 @@
           <input id="search" type="text" v-model="query" />
         </div>
         <div class="table-responsive">
-          <table id="solicitude_list" class="table">
+          <table id="solicitude_list" ref="solicitude_list" class="table">
             <thead>
               <tr>
                 <th>ID</th>
@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-bind:key="registro.solicitude.id" v-for="registro in filtered_solicitudes">
+              <tr v-bind:key="registro.solicitude.id" v-for="registro in paginated('solicitudes')">
                 <td>{{registro.solicitude.id}}</td>
                 <td>{{ registro.area[0].name }}</td>
                 <td>{{ registro.solicitude.title }}</td>
@@ -45,7 +45,9 @@ export default {
         return {
             solicitudes: [],
 
-            query: ''
+            query: '',
+
+            paginate: ['solicitudes'],
 
         }
     },
@@ -53,7 +55,8 @@ export default {
     computed: {
         filtered_solicitudes() {
             return this.solicitudes.filter(solicitude => {
-                return solicitude.area[0].name.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+                return solicitude.area[0].name.toLowerCase().indexOf(this.query.toLowerCase()) > -1 ||
+                    solicitude.solicitude.description.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
             })
         }
     },
@@ -69,7 +72,7 @@ export default {
             .catch(response => {
                 console.log(response);
             });
-        }
+        },
 
     },
 
@@ -86,4 +89,3 @@ export default {
 
 }
 </script>
-

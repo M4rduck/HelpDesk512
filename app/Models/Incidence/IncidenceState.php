@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class IncidenceState extends Model
 {
+    protected $table = 'incidence_state';
+
     /**
      * Campos que se van a utilizar en la BD.
      *
