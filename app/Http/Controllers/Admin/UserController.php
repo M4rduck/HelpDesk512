@@ -32,7 +32,9 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::pluck('name', 'id');
-        return view('admin.users.index')->with(['roles'=>$roles]);     
+        $speciality = Speciality::pluck('name','id');
+        return view('admin.users.index')
+                ->with(['roles'=>$roles,'speciality'=>$speciality]);     
     }
 
     /**
@@ -51,6 +53,7 @@ class UserController extends Controller
         $input = $request->all();
         $users = User::create($input);
         $users->roles()->sync($request->get('roles'));
+        $users->speciality()->sync($request->get('speciality'));
         return response()->json([
             'success' => true,
             'message' => 'User Created'
@@ -64,9 +67,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::pluck('name', 'id');
         $users = User::with('roles')->find($id);
-        return  array ("user"=>$users,"roles"=>$roles);
+        return  array ("user"=>$users);
     }
     /**
      * Update the specified resource in storage.
@@ -89,7 +91,7 @@ class UserController extends Controller
          $users->update($input);
 
         $users->roles()->sync($request->get('roles'));
-
+        $users->speciality()->sync($request->get('speciality'));
         return response()->json([
             'success' => true,
             'message' => 'User Updated'

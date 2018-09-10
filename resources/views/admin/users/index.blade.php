@@ -93,6 +93,9 @@
         $('#roles').select2({
             width:'100%'
         });
+        $('#speciality').select2({
+            width:'100%'
+        });
         $('form-users').validator();
     }
 
@@ -119,6 +122,9 @@
             $('#roles').select2({
             width:'100%'
             });
+            $('#speciality').select2({
+            width:'100%'
+        });
             
         },
           error : function() {
