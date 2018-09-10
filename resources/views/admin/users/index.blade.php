@@ -111,10 +111,16 @@
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
+            $('#roles').find('option').remove();
+            $.each(data.user.roles, function(i,item){
+                $('#roles').append('<option value="' + data.user.roles[i].id + '" selected>' 
+                                    + data.user.roles[i].name + '</option>');
+            });
             $('#roles').select2({
             width:'100%'
             });
-            },
+            
+        },
           error : function() {
               swal({
                         type: 'error',

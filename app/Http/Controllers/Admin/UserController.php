@@ -65,8 +65,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $roles = Role::pluck('name', 'id');
-        $users = User::findOrFail($id);
-        
+        $users = User::with('roles')->find($id);
         return  array ("user"=>$users,"roles"=>$roles);
     }
     /**
@@ -89,7 +88,7 @@ class UserController extends Controller
 
          $users->update($input);
 
-         $users->roles()->sync($request->get('roles'));
+        $users->roles()->sync($request->get('roles'));
 
         return response()->json([
             'success' => true,
