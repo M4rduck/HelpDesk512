@@ -74,12 +74,7 @@ class RoleController extends Controller
     {
         
         $roles = Role::findOrFail($id);
-<<<<<<< HEAD
-        
-        return array ('roles'=> $roles,"permissions"=>$permissions);
-=======
-        return array ("roles"=> $roles,"permissions"=>$permissions);
->>>>>>> 313851cbea601c0eca443ab2ea5376a21fa532c7
+        return array ('roles'=> $roles);
     }
 
     /**
