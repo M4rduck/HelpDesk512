@@ -36,10 +36,12 @@
             <div class="form-group">
             <label for="special" class="col-md-3 control-label">Special</label>
             <div class="col-md-12">            
-            {!! Form::select('special', ['null' => 'none', 'all-access' => 'All-access', 'no-access' => 'No-access'], 'null', ['class' => 'form-control']) !!}
+            {!! Form::select('special', ['null' => 'none', 'all-access' => 'All-access', 'no-access' => 'No-access'], 'null', ['class' => 'form-control', 
+                                            'id'=>'permissions']) !!}
             </div>
             </div> 
-            <! -- listo mas facil no podia ser ! -->
+
+            <! -- Permissions -->
             <div class="form-group">
             <label for="permisos" class="col-md-3 control-label"> permisos</label>
             <div class="col-md-12">
