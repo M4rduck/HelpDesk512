@@ -30,7 +30,7 @@
         <!--Box body -->
         <div class="box-body">
             <div class="table-responsive">
-            <table class="table table-hover" id="roles-table">
+            <table class="table table-striped" id="roles-table">
           <thead>
           <tr>
               <th width="30px">ID</th>
@@ -86,6 +86,7 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#roles').select2({ width:'100%' });
     }
 
      function editForm(id) {

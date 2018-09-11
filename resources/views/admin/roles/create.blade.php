@@ -1,16 +1,22 @@
+
 <div class="modal fade" id="modal-form" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
     <div class="modal-content">
+
       <form id="form-roles" method="post" class="form-horizontal" data-toggle="validator"
       autocomplete="off">
         {{ csrf_field() }} {{ method_field('POST') }}
-        <div class="modal-header">
-        <h3 class="modal-title"></h3>  
+
+        <div class="modal-header bg-warning">
+          
         {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
                               ,['class'=>'close', 'data-dismiss'=>'modal']) !!}
+             <h3 class="modal-title"></h3>
         </div>  
+        
         <div class="modal-body">
             <input type="hidden" id="id" name="id">
+
             <div class="form-group">              
               {!! Form::label('name', 'Name', ['class' => 'col-md-3 control-label']) !!}
               <div class="col-md-12">
