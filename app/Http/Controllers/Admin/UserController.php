@@ -7,6 +7,7 @@ use Mockery\Exception;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Caffeinated\Shinobi\Models\Role;
+use App\Models\Speciality;
 use App\User;
 
 class UserController extends Controller
@@ -31,7 +32,9 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::pluck('name', 'id');
-        return view('admin.users.index')->with(['roles'=>$roles]);     
+        $speciality = Speciality::pluck('name','id');
+        return view('admin.users.index')
+                ->with(['roles'=>$roles,'speciality'=>$speciality]);     
     }
 
     /**
@@ -42,7 +45,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-         $this->validate($request,  [
+        $this->validate($request,  [
                 'name' => 'required',
                 'email' => 'required',
                 'password' => 'required'
@@ -50,21 +53,11 @@ class UserController extends Controller
         $input = $request->all();
         $users = User::create($input);
         $users->roles()->sync($request->get('roles'));
+        $users->speciality()->sync($request->get('speciality'));
         return response()->json([
             'success' => true,
             'message' => 'User Created'
         ]);    
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
     /**
      * Show the form for editing the specified resource.
@@ -74,10 +67,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $roles = Role::pluck('name', 'id');
-        $users = User::findOrFail($id);
-        
-        return  array ("user"=>$users,"roles"=>$roles);
+        $users = User::with('roles')->find($id);
+        return  array ("user"=>$users);
     }
     /**
      * Update the specified resource in storage.
@@ -88,11 +79,11 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-          $this->validate($request,  [
+        $this->validate($request,  [
                 'name' => 'required',
                 'email' => 'required',
                 'password' => ''
-         ]);
+        ]);
 
          $input = $request->all();
          $users= User::findOrFail($id);
@@ -100,7 +91,7 @@ class UserController extends Controller
          $users->update($input);
 
         $users->roles()->sync($request->get('roles'));
-
+        $users->speciality()->sync($request->get('speciality'));
         return response()->json([
             'success' => true,
             'message' => 'User Updated'
@@ -126,7 +117,9 @@ class UserController extends Controller
 
     public function apiUsers()
     {
-        $users=User::all();
+        $users=User::with('speciality')->get();
+        $speciality = User::with('speciality')->find($users);
+        
         
         return Datatables::of($users)
             ->addColumn('action', function($users){
@@ -141,6 +134,22 @@ class UserController extends Controller
                             <i class="fa fa-trash"></i> 
                           Delete</button>  
                           </td>';
-            })->make(true); 
+            })
+            ->editColumn('edit', function($users){
+                $specialitys = '';
+                if($users->speciality->isNotEmpty()){
+                    foreach($users->speciality as $speciality){
+                        $specialitys.='<span class="label label-primary">'
+                                    . $speciality->name .'</span>&nbsp;';
+                                             
+                    }
+                }else{
+                    $specialitys = '<span>User '.$users->name.' has not specialitys</span>';
+                }
+                return $specialitys;
+                
+            })
+            ->rawColumns(['edit' => 'edit', 'action' => 'action'])
+            ->make(true); 
     }
 }

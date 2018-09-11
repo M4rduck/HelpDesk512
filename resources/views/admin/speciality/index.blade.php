@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Users')
+@section('title','Specialties')
 
 @section('content_header')
-    <h1>Users </h1>
+    <h1>Specialties</h1>
 @stop
 
 @push('js')
@@ -23,8 +23,8 @@
         <!--Box title -->
             <div class="box-header with-border">
                 <h1>
-                Administration
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Users', 
+                Speciality Manager
+                {!! Form::button('<i class="fas fa-file-alt"></i> Create Speciality', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -34,15 +34,13 @@
         <!--Box body -->
         <div class="box-body">
             <div class="table-responsive">
-            <table class="table table-striped" id="users-table">
+            <table class="table table-striped" id="specialties-table">
                 <thead>
                 <tr>
                     <th width="30px">ID</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Speciality</th>
+                    <th>Description</th>
                     <th>Options</th>
-                    
                 </tr>
                 </thead>
             </table>
@@ -54,7 +52,7 @@
 	</div>
 </div>
 </div>
-@include('admin.users.create')
+@include('admin.speciality.create')
 </div>
 
 @endsection
@@ -67,17 +65,16 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
      });
-    var table = $('#users-table').DataTable({
+    var table = $('#specialties-table').DataTable({
                       processing: true,
                       serverSide: true,
-                      ajax: "{{ route('api.users') }}",
+                      ajax: "{{ route('api.specialties') }}",
                       columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'email', name: 'email'},
-                        {data: 'edit', name: 'edit'},
-                        {data: 'action', name: 'action', orderable: false, searchable: false},
-                    ]
+                        {data: 'description', name: 'description'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false}
+                      ]
                     });
         
     
@@ -88,15 +85,9 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
+        $('.modal-title').html('<i class="far fa-file-alt"></i> Add Speciality');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#roles').select2({
-            width:'100%'
-        });
-        $('#speciality').select2({
-            width:'100%'
-        });
-        $('form-users').validator();
+        
     }
 
      function editForm(id) {
@@ -104,29 +95,17 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('admin/users') }}" + '/' + id + "/edit",
+          url: "{{ url('admin/specialties') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Users');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.user.id);
-            $('#name').val(data.user.name);
-            $('#email').val(data.user.email);
-            $('#roles').find('option').remove();
-            $.each(data.user.roles, function(i,item){
-                $('#roles').append('<option value="' + data.user.roles[i].id + '" selected>' 
-                                    + data.user.roles[i].name + '</option>');
-            });
-            $('#roles').select2({
-            width:'100%'
-            });
-            $('#speciality').select2({
-            width:'100%'
-        });
-            
-        },
+            $('#id').val(data.specility.id);
+            $('#name').val(data.specility.name);
+            $('#description').val(data.specility.description);
+            },
           error : function() {
               swal({
                         type: 'error',
@@ -149,7 +128,7 @@
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('admin/users') }}" + '/' + id,
+                  url : "{{ url('admin/specialties') }}" + '/' + id,
                   type : "POST",
                   data : {'_method' : 'DELETE', '_token' : csrf_token},
                   success : function(data) {
@@ -178,9 +157,9 @@
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
                     if (save_method == 'add') 
-                        url = "{{ url('admin/users') }}";
+                        url = "{{ url('admin/specialties') }}";
                     else 
-                        url = "{{ url('admin/users') . '/' }}" + id;
+                        url = "{{ url('admin/specialties') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",

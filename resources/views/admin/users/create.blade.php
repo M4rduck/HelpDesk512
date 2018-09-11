@@ -103,6 +103,21 @@
                     </div>
                     <!-- /Roles -->
                 </div>
+                <div class="col-md-12">
+                    <!-- Speciality -->
+                    <div class="from-group">
+                        {!! Form::label('speciality', 'Speciality') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-alt"></i>
+                            </span>
+                            {!! Form::select('speciality[]', $speciality,null, 
+                            ['id'=>'speciality', 'class'=>'form-control margin', 
+                            'multiple' => 'multiple']) !!}
+                        </div>
+                    </div>
+                    <!-- /Speciality -->
+                </div>
             </div>
         </div>
 

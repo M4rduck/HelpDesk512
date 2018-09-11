@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Controllers\Controller;
-use Caffeinated\Shinobi\Models\Permission;
+use App\Models\Speciality;
+use App\User;
 
-class PermissionController extends Controller
+class SpecialityController extends Controller
 {
     
-
+    
     /**
      * Create a new controller instance.
      *
@@ -20,8 +21,6 @@ class PermissionController extends Controller
     {
         $this->middleware('auth');
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +28,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin.permissions.index');
+        
+        return view('admin.speciality.index');   
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -40,23 +39,16 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        Permission::create($input);
-        return response()->json([
-            'success' => true,
-            'message' => 'Permission Created'
+        $this->validate($request,  [
+            'name' => 'required'
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $input = $request->all();
+        $specility = Speciality::create($input);
+        
+        return response()->json([
+        'success' => true,
+        'message' => 'Speciality Created'
+        ]); 
     }
 
     /**
@@ -67,8 +59,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permissions = Permission::findOrFail($id);
-        return $permissions;
+        
+        $specility = Speciality::findOrFail($id);
+        return  array ("specility"=>$specility);
     }
 
     /**
@@ -80,15 +73,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $input = $request->all();
-         $permissions = Permission::findOrFail($id);
-
-         $permissions->update($input);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Permission Updated'
+        $this->validate($request,  [
+            'name' => 'required'
         ]);
+
+     $input = $request->all();
+     $specility= Speciality::findOrFail($id);
+     $specility->update($input);
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Speciality Updated'
+    ]);
     }
 
     /**
@@ -99,29 +95,29 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        $permissions = Permission::whereId($id)->delete();
+        $specility = Speciality::whereId($id)->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Permission Delete'
+            'message' => 'Speciality Delete'
         ]); 
     }
 
-    public function apiPermissions()
+    public function apiSpeciality()
     {
-        $permissions=Permission::all();
+        $specility=Speciality::all();
         
-        return Datatables::of($permissions)
-            ->addColumn('action', function($permissions){
-                return  '<td width="10px">
+        return Datatables::of($specility)
+            ->addColumn('action', function($specility){
+                return '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
-                                onclick="editForm('. $permissions->id .')">
-                                <i class="far fa-edit"></i> Edit</button>
+                                onclick="editForm('. $specility->id .')">
+                                <i class="fa fa-pencil-square-o"></i> Edit</button>
                           </td>' .
                           '<td width="10px">
                            <button class="btn btn-danger btn-sm" href="#"
-                           onclick="deleteData('. $permissions->id .')">
-                            <i class="fas fa-trash"></i> 
+                           onclick="deleteData('. $specility->id .')">
+                            <i class="fa fa-trash"></i> 
                           Delete</button>  
                           </td>';
             })->make(true); 
