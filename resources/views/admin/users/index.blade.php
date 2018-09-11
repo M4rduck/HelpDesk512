@@ -97,6 +97,7 @@
             width:'100%'
         });
         $('form-users').validator();
+        
     }
 
      function editForm(id) {
@@ -108,23 +109,24 @@
           type: "GET",
           dataType: "JSON",
           success: function(data) {
+            roles = [];
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Users');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
-            $('#roles').find('option').remove();
+           // $('#roles').find('option').remove();
             $.each(data.user.roles, function(i,item){
-                $('#roles').append('<option value="' + data.user.roles[i].id + '" selected>' 
-                                    + data.user.roles[i].name + '</option>');
+                /*$('#roles').append('<option value="' + data.user.roles[i].id + '" selected>' 
+                                    + data.user.roles[i].name + '</option>');*/
+                roles.push(data.user.roles[i].id);                    
+
             });
-            $('#roles').select2({
-            width:'100%'
-            });
-            $('#speciality').select2({
-            width:'100%'
-        });
+            $('#roles').val(roles).change();
+            $('#roles').select2({width:'100%'});
+            
+            $('#speciality').select2({width:'100%'});
             
         },
           error : function() {
