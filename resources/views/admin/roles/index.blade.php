@@ -86,6 +86,7 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#permissions').select2({width:'100%'});
     }
 
      function editForm(id) {
@@ -100,11 +101,11 @@
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.id);
-            $('#name').val(data.name);
-            $('#slug').val(data.slug);
-            $('#description').val(data.description);
-            $('#special').val(data.special);
+            $('#id').val(data.roles.id);
+            $('#name').val(data.roles.name);
+            $('#slug').val(data.roles.slug);
+            $('#description').val(data.roles.description);
+            $('#special').val(data.roles.special);
           },
           error : function() {
               swal({

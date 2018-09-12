@@ -14,10 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Auth::routes();
+
+Route::get('/register',function(){
+    return redirect('login');
+ })->name('register')->middleware('guest');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -41,14 +45,18 @@ Route::group(['prefix' => 'area-empresa','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('area-empresa', 1);
 });
 
-Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('admin', 1);
-});
-
 Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('producto', 1);
 });
 
 Route::group(['prefix' => 'diagnosis','middleware' => ['auth']], function (){
-        \App\Clases\Configuration::routes('diagnosis', 1);
+    \App\Clases\Configuration::routes('diagnosis', 1);
+});
+
+Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('admin', 1);
+});
+
+Route::group(['prefix' => 'speciality','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('speciality', 1);
 });

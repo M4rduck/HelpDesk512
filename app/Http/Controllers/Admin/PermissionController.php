@@ -113,11 +113,7 @@ class PermissionController extends Controller
         
         return Datatables::of($permissions)
             ->addColumn('action', function($permissions){
-                return '<td width="10px">
-                            <button class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-eye"></i> View</button>
-                          </td>' .
-                          '<td width="10px">
+                return  '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
                                 onclick="editForm('. $permissions->id .')">
                                 <i class="far fa-edit"></i> Edit</button>
