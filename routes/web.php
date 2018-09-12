@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
 Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('producto', 1);
 });
-    Route::group(['prefix' => 'diagnosis','middleware' => ['auth']], function (){
+
+Route::group(['prefix' => 'diagnosis','middleware' => ['auth']], function (){
         \App\Clases\Configuration::routes('diagnosis', 1);
-    
 });
