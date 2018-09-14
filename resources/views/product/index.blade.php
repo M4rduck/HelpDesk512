@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'HelpDesk512 - Computadores')
+@section('title', 'HelpDesk512 - Hardware')
 
 @section('content_header')
     <h1>Hardware</h1>
