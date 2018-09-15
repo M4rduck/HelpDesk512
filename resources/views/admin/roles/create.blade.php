@@ -46,26 +46,18 @@
             </div>
             </div> 
             <! -- listo mas facil no podia ser ! -->
-            <div class="form-group">
-            <label for="permisos" class="col-md-3 control-label"> permisos</label>
-            <div class="col-md-12">
-            
-            <ul class="list-unstyled">
 
-              @foreach($permissions as $key => $permission)
-              <li>
-               <label>
-                {{ Form::checkbox('permissions[]', $key, null) }}
-                {{ $permission }}
-              <em>({{ $permission }})</em>
-                </label>
-              </li>
-
-              @endforeach
-
-            </ul>
-
-            </div>
+            <div class="from-group">
+                        {!! Form::label('permissions', 'Permissions') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-file-alt"></i>
+                            </span>
+                            {!! Form::select('permissions[]', $permissions,null, 
+                            ['id'=>'permissions', 'class'=>'form-control margin', 
+                            'multiple' => 'multiple']) !!}
+                        </div>
+                    </div>
             </div> 
            <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>

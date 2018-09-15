@@ -46,6 +46,9 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();        
+        ($input['special'] == 'null') ? $input['special'] = null : $input;
+        // esto es un if ! lo que hace es mirar si el campo que pide la bd es null
+        
         $roles = Role::create($input);
         $roles->permissions()->sync($request->get('permissions'));
         return response()->json([
