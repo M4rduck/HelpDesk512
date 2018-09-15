@@ -67,7 +67,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $users = User::with('roles')->find($id);
+        $users = User::with('roles','speciality')->find($id);
         return  array ("user"=>$users);
     }
     /**

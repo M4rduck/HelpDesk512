@@ -179,6 +179,11 @@ return [
          * krlove/eloquent-model-generator 
          */
         Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
+        /*
+         * Unisharp/Ckeditor
+         */
+        Unisharp\Ckeditor\ServiceProvider::class,
+
 
     ],
 
