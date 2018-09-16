@@ -19,7 +19,7 @@ class ModuleController extends Controller
                             return ['id' => $method->id, 'name' => $method->name];
                         });
             $methods->prepend(['id' => 0, 'name' => 'Elige un método']);
-                        
+
             $modules = Module::query()
                         ->where('main', 1)
                         ->get(['id', 'text'])
