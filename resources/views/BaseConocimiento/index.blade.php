@@ -97,13 +97,15 @@
   <div id="home" class="tab-pane fade ">
 <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
   <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="SOFTWARE"></textarea>         
+
+<textarea  cols=115 id="Softwaretx1" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:" disabled=""></textarea>         
            </div>
            <br>
-           <br>
-           <br>
-
+      
+<br>
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
+ <button type="button" id="eliminarinc" class="btn btn-danger btn-sm">Borrar</button> <br>
+ <br>
 <button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong1">Solucion</button>
 <!-- modal -->   
 <div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -142,12 +144,13 @@
   <div id="menu1" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
         <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx2" rows=4 style="background-color: #eee; border: none;" placeholder="HARDWARE"></textarea>         
+<textarea  cols=115 id="hardwaretx2" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:"></textarea>         
            </div>
            <br>
-           <br>
-           <br>
+    <br>       
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
+   <button type="button" id="eliminarinc" class=" btn btn-danger btn-sm ">Borrar</button> <br>
+<br>
 <button type="button" id="tx2b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong2">Solucion</button>
 <!-- modal -->   
 <div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -185,13 +188,14 @@
   <div id="menu2" class="tab-pane fade">
     <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
         <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="tx1" rows=4 style="background-color: #eee; border: none;" placeholder="RED"></textarea>         
+<textarea  cols=115 id="redtx3" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:"></textarea>         
            </div>
            <br>
            <br>
-           <br>
-
  <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
+   <button type="button" id="eliminarinc" class=" btn btn-danger btn-sm ">Borrar</button> <br>
+   <br>
+   
 <button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong3">Solucion</button>
 <!-- modal -->   
 <div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
