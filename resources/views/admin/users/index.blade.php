@@ -136,7 +136,7 @@
         $('#form-users').validator();
         $('#password').attr('required', true);
         $('#password1').attr('required', true);
-        span.hide();
+        span.hide().removeClass();
     }
 
      function editForm(id) {
@@ -156,6 +156,7 @@
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
+            span.hide().removeClass();
             $('#password').removeClass('required').removeAttr('required');
             $('#password1').removeClass('required').removeAttr('required');
             $.each(data.user.roles, function(i,item){
