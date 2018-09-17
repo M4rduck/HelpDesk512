@@ -67,6 +67,15 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
      });
+        var pass = $('#password');
+	    var pass1 = $('#password1');
+	    var confirmacion = "Las contraseñas si coinciden";
+        var longitud = "La contraseña debe estar formada entre 6-10 carácteres (ambos inclusive)";
+        var negacion = "No coinciden las contraseñas";
+        var vacio = "La contraseña no puede estar vacía";
+	    //oculto por defecto el elemento small
+	    var span = $('#Help');
+	    span.hide();
     var table = $('#users-table').DataTable({
                       processing: true,
                       serverSide: true,
@@ -80,7 +89,35 @@
                     ]
                     });
         
-    
+    function Validacion()
+    {
+        var valor1 = pass.val();
+	    var valor2 = pass1.val();
+        span.show().removeClass();
+        if(valor1 != valor2){
+	        span.text(negacion).addClass('negacion');	
+	    }
+        if(valor1.length==0 || valor1==""){
+            span.text(vacio).addClass('negacion');	
+        }
+        if(valor1.length<6 || valor1.length>12){
+            span.text(longitud).addClass('negacion');
+        }
+        if(valor1.length!=0 && valor1==valor2){
+            span.text(confirmacion).removeClass("negacion").addClass('confirmacion');
+        }
+	}
+    pass.keyup(function(){
+	    Validacion();
+	});
+    pass1.keyup(function(){
+	    Validacion();
+	});
+    pass.click(function(){
+	    Validacion();
+	});
+
+
 
     function addFrom()
     {
@@ -96,8 +133,10 @@
         $('#speciality').select2({
             width:'100%'
         });
-        $('form-users').validator();
-        
+        $('#form-users').validator();
+        $('#password').attr('required', true);
+        $('#password1').attr('required', true);
+        span.hide();
     }
 
      function editForm(id) {
@@ -117,6 +156,8 @@
             $('#id').val(data.user.id);
             $('#name').val(data.user.name);
             $('#email').val(data.user.email);
+            $('#password').removeClass('required').removeAttr('required');
+            $('#password1').removeClass('required').removeAttr('required');
             $.each(data.user.roles, function(i,item){
                 roles.push(data.user.roles[i].id);                    
 

@@ -1,12 +1,12 @@
 <!-- Modal Users -->
-<div class="modal fade" id="modal-form" role="dialog">  
+<div class="modal fade" id="modal-form" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       
       
 
-      {!! Form::open(array('method'=>'POST','id'=>'form-users','data-toggle'=>'validator',
-                            'autocomplete'=>'off')) !!}
+      {!! Form::open(array('method'=>'POST','id'=>'form-users','data-toggle'=>'validator', 
+                                'role'=>'form','autocomplete'=>'off' )) !!}
            {{ method_field('POST') }}
 
         <!-- Header Modal -->  
@@ -60,8 +60,13 @@
                             {!! Form::password('password',['class' => 'form-control',
                                                            'id'=>'password',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Password']) !!}
+                                                           'placeholder'=>'Password',
+                                                           'min'=>'6',
+                                                           'max'=>'12',
+                                                           'autofocus required']) !!}
+                                                           
                         </div>
+                        <p><small id="Help" class="form-text text-muted"></small></p>
                     </div>
                     <!-- /Password -->
                     <!-- Password -->
@@ -74,7 +79,10 @@
                             {!! Form::password('password1',['class' => 'form-control',
                                                            'id'=>'password1',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Confirmed Password']) !!}
+                                                           'placeholder'=>'Confirmed Password',
+                                                           'min'=>'6',
+                                                           'max'=>'12',
+                                                           'autofocus required']) !!}
                         </div>
                     </div>
                     <!-- /Password -->
