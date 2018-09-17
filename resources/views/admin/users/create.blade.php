@@ -1,12 +1,12 @@
 <!-- Modal Users -->
-<div class="modal fade" id="modal-form" role="dialog">
+<div class="modal fade" id="modal-form" role="dialog">  
   <div class="modal-dialog">
     <div class="modal-content">
       
       
 
-      {!! Form::open(array('method'=>'POST','id'=>'form-users','class'=>'form-horizontal',
-                                    'data-toggle'=>'validator','autocomplete'=>'off')) !!}
+      {!! Form::open(array('method'=>'POST','id'=>'form-users','data-toggle'=>'validator',
+                            'autocomplete'=>'off')) !!}
            {{ method_field('POST') }}
 
         <!-- Header Modal -->  
@@ -19,9 +19,7 @@
       
         <!-- Body Modal-->
         <div class="modal-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="hidden" id="id" name="id"> 
+            <input type="hidden" id="id" name="id"> 
                     <!-- Name -->
                     <div class="from-group">
                         {!! Form::label('name', 'Name') !!}
@@ -37,8 +35,6 @@
                         </div>
                     </div>
                     <!-- /Name -->
-                </div>
-                <div class="col-md-12">
                     <!-- Email -->
                     <div class="from-group">
                         {!! Form::label('email', 'Email') !!}
@@ -54,9 +50,6 @@
                         </div>
                     </div>
                     <!-- /Email -->
-                </div>
-                
-                <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password', 'Password') !!}
@@ -71,8 +64,6 @@
                         </div>
                     </div>
                     <!-- /Password -->
-                </div>
-                <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password1', 'Confirmed Password') !!}
@@ -87,8 +78,6 @@
                         </div>
                     </div>
                     <!-- /Password -->
-                </div>
-                <div class="col-md-12">
                     <!-- Roles -->
                     <div class="from-group">
                         {!! Form::label('roles', 'Roles') !!}
@@ -102,8 +91,6 @@
                         </div>
                     </div>
                     <!-- /Roles -->
-                </div>
-                <div class="col-md-12">
                     <!-- Speciality -->
                     <div class="from-group">
                         {!! Form::label('speciality', 'Speciality') !!}
@@ -117,8 +104,7 @@
                         </div>
                     </div>
                     <!-- /Speciality -->
-                </div>
-            </div>
+            
         </div>
 
         <div class="modal-footer">
