@@ -10,7 +10,27 @@ use DB;
 class SolicitudeController extends Controller
 {
     public function index(){
-        return view('incidence.solicitudes');
+
+        $solicitudes = Solicitude::all();
+
+        $data = [];
+
+
+        foreach ($solicitudes as $solicitude) {
+            
+            $data[] = [
+                
+                'id' => $solicitude->id,
+                'area' => DB::table('area')->where('id', $solicitude->area_id)->value('name'),
+                'title' => $solicitude->title,
+                'description' => $solicitude->description,
+                'details' => '<a class="btn btn-default btn-block" href="'.url('/incidence/solicitudes/'.$solicitude->id).'"><i class="fa fa-bars" aria-hidden="true"></i></a>'
+
+                //'area' => DB::table('area')->where('id', '=', $solicitude->area_id)->get()
+            ];
+        }
+
+        return view('incidence.solicitudes')->with('solicitudes', $data);
     }
 
     public function temp_areas(){
@@ -37,7 +57,7 @@ class SolicitudeController extends Controller
             'area' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'evidence' => 'file|mimetypes:image/jpeg',
+            'evidence' => 'file|mimetypes:image/jpeg,image/png',
         ];
 
         $mensajes = [
@@ -55,11 +75,12 @@ class SolicitudeController extends Controller
         
         if($solicitude->save()){
             
-            /*if($req->evidence){
+            if($req->hasFile('evidence')){
                 //TODO guardar con id de incidencia
-                $solicitude->evidence_route = $req->file('evidencia')->store('/', 'incidences');
-                $incidencia->save();
-            }*/
+                $solicitude->evidence_route = $req->file('evidence')->storeAs('public', $solicitude->id);
+                $solicitude->evidence_route .= '.'.$req->file('evidence')->extension();
+                $solicitude->save();
+            }
 
             $msg = [
                 'estado' => true,
@@ -101,6 +122,20 @@ class SolicitudeController extends Controller
         }
 
         return response()->json($data, 200);
+    }
+
+    public function show($id) {
+
+        $solicitude = Solicitude::findOrFail($id);
+        $area = DB::table('area')->where('id', $solicitude->area_id)->value('name');
+        $incidencias_solicitud = $solicitude->incidence();
+
+        return view('incidence.solicitude', [
+            'solicitude' => $solicitude,
+            'area' => $area,
+            'incidences' => $incidencias_solicitud   
+        ]);
+
     }
 
 }

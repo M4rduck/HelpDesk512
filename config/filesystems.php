@@ -57,7 +57,9 @@ return [
 
         'incidences' => [
             'driver' => 'local',
-            'root' => storage_path('app/incidences'),
+            'root' => storage_path('app/public/incidences'),
+            'url' => env('APP_URL').'/storage/incidences',
+            'visibility' => 'public',
         ],
 
         's3' => [

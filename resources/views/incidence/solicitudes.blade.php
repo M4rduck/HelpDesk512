@@ -109,6 +109,9 @@
             </div>
         </div>
         <!-- Fin modal registrar solicitud -->
+        <script>
+            var initial_solicitudes = @json($solicitudes);
+        </script>
         <div class="row">
             <div class="col-md-12">
                 <div class="box">

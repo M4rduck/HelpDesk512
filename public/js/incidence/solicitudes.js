@@ -64,6 +64,11 @@ $(function() {
                 errorTemplate: '<div></div>'
 
             });
+
+            this.element.elements['solicitude_evidence'].addEventListener('change', function(){
+                console.log(this);
+                self.evidence = this.files[0];
+            });
             
             this.element.addEventListener('submit', function(e){
                 e.preventDefault();
@@ -72,7 +77,7 @@ $(function() {
                     
                     var form_data = new FormData();
                     form_data.append('area', self.$area.val());
-                    //form_data.append('title', self.title.value);
+                    form_data.append('title', self.title.value);
                     form_data.append('description', self.description.value);
                     form_data.append('evidence', self.evidence);
 
@@ -103,9 +108,12 @@ $(function() {
                                     response.mensaje,
                                     'success'
                                 );
-
+                                
+                                /*
                                 table_solicitudes.datatable.destroy();
                                 table_solicitudes.render();
+                                */
+                                table_solicitudes.update();
         
                             }
                         },
@@ -145,32 +153,54 @@ $(function() {
 
         },
 
+        update: function(){
+
+        },
+
         render: function(){
 
             var data = null;
             var self = this;
 
-            this.parent_element.style.display = 'none';
-            $.getJSON({
-                url: this.solicitudes_route,
-                success: function(response){
-                    console.log(response);
-                    data = response;
-                },
-                complete: function(){
-                    self.datatable = $(self.element).DataTable({
-                        columns: [
-                            {data: 'id'},
-                            {data: 'area'},
-                            {data: 'title'},
-                            {data: 'description'},
-                            {data: 'details'}
-                        ],
-                        data: data
-                    });
-                    self.parent_element.style.display = 'block';
-                }
-            });
+            if(initial_solicitudes){
+
+                self.datatable = $(self.element).DataTable({
+                    columns: [
+                        {data: 'id'},
+                        {data: 'area'},
+                        {data: 'title'},
+                        {data: 'description'},
+                        {data: 'details'}
+                    ],
+                    data: initial_solicitudes
+                });
+
+            }else{
+
+                this.parent_element.style.display = 'none';
+
+                $.getJSON({
+                    url: this.solicitudes_route,
+                    success: function(response){
+                        console.log(response);
+                        data = response;
+                    },
+                    complete: function(){
+                        self.datatable = $(self.element).DataTable({
+                            columns: [
+                                {data: 'id'},
+                                {data: 'area'},
+                                {data: 'title'},
+                                {data: 'description'},
+                                {data: 'details'}
+                            ],
+                            data: data
+                        });
+                        self.parent_element.style.display = 'block';
+                    }
+                });
+
+            }
 
             console.log(self.datatable);
 
