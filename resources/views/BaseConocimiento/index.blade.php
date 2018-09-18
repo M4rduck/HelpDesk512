@@ -1,313 +1,39 @@
-@extends('adminlte::page')
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
-
-@section('content')
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="box">
-				<div class="box-header">
-					
-				</div>
-
-				<div class="box-body">
-					<div class="form-group">
-						<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <script src = " https://unpkg.com/sweetalert/dist/sweetalert.min.js "> </script> 
-  <title>BASE DE CONOCIMIENTO</title>
-<!-- Libreria CSS de Bootstrap -->
-  
-
+<link rel="stylesheet" type="text/css" href="estilos.css">
+	<meta charset="utf-8">
+	<title></title>
 </head>
 <body>
-<!-- Barra de navegacion -->
+<form action="" class="formulario">
+	<h1 class="formulario__titulo">Nueva Incidencia</h1><br>
+	<input type="text" class="formulario__input">
+	<label for="" class="formulario__label">Nombre</label>
+	<input type="text" class="formulario__input">
+	<label for="" class="formulario__label">Descripcion</label>
+	<input type="text" class="formulario__input">
+	<label for="" class="formulario__label">Solucion</label>
+	<input type="text" class="formulario__input">
+	<label for="" class="formulario__label">Sw Faq</label>
+	<input type="text" class="formulario__input">
+	<label for="" class="formulario__label">Puntuacion</label>	
+	<input type="submit" class="formulario__submit">
+</form>
+<script>
+	var inputs = document.getElementsByClassName('formulario__input');
+	for(var i =0; i < inputs.length; i++){
+inputs[i].addEventListener('keyup', function(){
+	if(this.value.length>=1){
+		this.nextElementSibling.classList.add('fijar');
+	}else{
+		this.nextElementSibling.classList.remove('fijar');
+	}
+});
+	}
 
-<!-- Contenedor del cuerpo de la pagina -->
-  <div class="container">
-<br>
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Software</a></li>
-  <li><a data-toggle="tab" href="#menu1">Hardware</a></li>
-  <li><a data-toggle="tab" href="#menu2">Red</a></li>
-  <button type="button" id="tml" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong5">Crear nueva Incidencia</button>
-<div class="modal fade" id="exampleModalLong5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle" align="center">Crear incidencia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-        <div class="form-group">
-    <label for="exampleFormControlSelect2">Categoria incidencia</label>
-    <select multiple class="form-control" id="exampleFormControlSelect2">
-      <option>Software</option>
-      <option>Hardware</option>
-      <option>Red</option>
-    
-    </select>
-    <br>
-    <input  type="text" placeholder="Nombre Incidencia">  <label>Prioridad</label>
-    <select  id="exampleFormControlSelect1">
-      <option>Alta</option>
-      <option>Media</option>
-      <option>Baja</option>
-      
-    </select> <label>Fecha</label> <input type="date" name="fe"><br>
-    <br>
-    <hr>
-    <textarea placeholder="Descripcion incidencia"  cols=70></textarea>
-<hr>
-<br>
-<textarea placeholder="Solucion incidencia"  cols=70></textarea>
-<br>
-<hr>
-<!-- <input type="submit"  class="btn btn-primary btn-sm" value="Eviar">
--->
-<button class="buttonload" type="submit">
-  <i class="fa fa-spinner fa-spin"></i>Enviar
-</button>
 
-  </div>
-      </div>
-    </form>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-</ul>
-<br>
+</script>
 
-<div class="tab-content">
-  <div id="home" class="tab-pane fade ">
-<div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-  <label>Nombre Incidencia: </label><label></label>
-
-<textarea  cols=115 id="Softwaretx1" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:" disabled=""></textarea>         
-           </div>
-           <br>
-      
-<br>
- <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
- <button type="button" id="eliminarinc" class="btn btn-danger btn-sm">Borrar</button> <br>
- <br>
-<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong1">Solucion</button>
-<!-- modal -->   
-<div class="modal fade" id="exampleModalLong1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ..sof  hablame mono interconection
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--- fin de modal -->
-</div><br>
-<br>
- <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-   <label>Fecha:
-  </label> <label></label>
-</div>
-   <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-  <label>Prioridad:
-  </label> <label></label>
- </div>
-<div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
-<hr class='separador_post'/>
-</div>
-      </div>
-  <div id="menu1" class="tab-pane fade">
-    <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-        <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="hardwaretx2" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:"></textarea>         
-           </div>
-           <br>
-    <br>       
- <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
-   <button type="button" id="eliminarinc" class=" btn btn-danger btn-sm ">Borrar</button> <br>
-<br>
-<button type="button" id="tx2b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong2">Solucion</button>
-<!-- modal -->   
-<div class="modal fade" id="exampleModalLong2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-..har
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--- fin de modal -->
-</div>
- <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-   <label>Fecha:
-  </label> <label></label>
-</div>
-   <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-  <label>Prioridad:
-  </label> <label></label>
- </div>
-<div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
-<hr class='separador_post'/>
-</div>
-  </div>
-  <div id="menu2" class="tab-pane fade">
-    <div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text">
-        <label>Nombre Incidencia: </label><label></label>
-<textarea  cols=115 id="redtx3" rows=4 style="background-color: #eee; border: none;" placeholder="DESCRIPCION:"></textarea>         
-           </div>
-           <br>
-           <br>
- <div class="row col-xs-12 col-sm--12 col-md-2 col-lg-2 text">
-   <button type="button" id="eliminarinc" class=" btn btn-danger btn-sm ">Borrar</button> <br>
-   <br>
-   
-<button type="button" id="tx1b" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalLong3">Solucion</button>
-<!-- modal -->   
-<div class="modal fade" id="exampleModalLong3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Solucion de Incidencia</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ..re
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--- fin de modal -->
-</div><br>
-<br>
- <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-   <label>Fecha:
-  </label> <label></label>
-</div>
-   <div class="row col-xs-4 col-sm--4 col-md-4 col-lg-4 text">
-  <label>Prioridad:
-  </label> <label></label>
- </div>
-<div class="row col-xs-12 col-sm--12 col-md-10 col-lg-10 text-left">
-<hr class='separador_post'/>
-</div>
-  </div>
-</div>
-</div>
-
- <!-- <div class="row">
-<div class="row col-xs-12 col-sm--12 col-md-12 col-lg-12 text-center ">
-<nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
-</div>
-</div> -->
-<!-- Libreria de jQuery -->
-<!-- Libreria JavaScript de Bootstrap -->
 </body>
-<style type="text/css">
-  
-  hr.separador_post { 
- height: 30px;
- border-style: solid;
- border-color: #BFBFBF;
- border-width: 2px 0 0 0;
- border-radius: 20px;
- text-align: center;
-}
-
-hr.separador_post:before {
-    display: block;
-    content: "";
-    height: 30px;
-    margin-top: -31px;
-    border-style: solid;
-    border-color: black;
-    border-width: 0 0 1px 0;
-    -webkit-border-radius:20px;
-       -moz-border-radius:20px;
-            border-radius:20px;
-}
-
-hr.separador_post:after {
-    content: '★';
-    color: #DC5500;
-    display: inline-block;
-    position: relative;
-    top: -0.7em;
-    font-size: 1.5em;
-    padding: 0 1.25em;
-    background: white;
-}
-.buttonload {
-    background-color:  #274b77 ; /* Green background */
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    padding: 12px 24px; /* Some padding */
-    font-size: 16px; /* Set a font-size */
-}
-
-/* Add a right margin to each icon */
-.fa {
-    margin-left: -12px;
-    margin-right: 8px;
-}
-
-</style>
 </html>
-					</div>
-				</div>
-				
-			</div>
-		</div>		
-	</div>
-@stop
