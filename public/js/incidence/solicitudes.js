@@ -155,6 +155,22 @@ $(function() {
 
         update: function(){
 
+            var data = null;
+            var self = this;
+            
+            $.getJSON({
+                url: this.solicitudes_route,
+                success: function(response){
+                    console.log(response);
+                    data = response;
+                },
+                complete: function(){
+                    self.datatable.clear();
+                    self.datatable.rows.add(data);
+                    self.datatable.draw();
+                }
+            });
+
         },
 
         render: function(){

@@ -73,7 +73,7 @@
                         @if ($solicitude->evidence_route)
                             <div class="form-group">
                                 <label for="evidence">Evidencia</label>
-                                <p><a id="evidence" href="">{{ Storage::url('28.png') }}</a></p>
+                                <p><a id="evidence" href="{{ asset(Storage::url('28')) }}">{{ asset(Storage::url('28')) }}</a></p>
                             </div>
                         @endif
                     </div>

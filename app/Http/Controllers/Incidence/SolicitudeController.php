@@ -78,7 +78,7 @@ class SolicitudeController extends Controller
             if($req->hasFile('evidence')){
                 //TODO guardar con id de incidencia
                 $solicitude->evidence_route = $req->file('evidence')->storeAs('public', $solicitude->id);
-                $solicitude->evidence_route .= '.'.$req->file('evidence')->extension();
+                //$solicitude->evidence_route .= '.'.$req->file('evidence')->extension();
                 $solicitude->save();
             }
 
