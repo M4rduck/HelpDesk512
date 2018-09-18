@@ -62,7 +62,6 @@
                         <h3 class="box-title center-block">Informaci&oacute;n</h3>
                     </div>
                     <div class="box-body">
-                        <div>jajajajaj</div>
                         <div class="form-group">
                             <label for="area">Area</label>
                             <p id="area">{{ $area }}</p>
