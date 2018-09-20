@@ -88,7 +88,7 @@
                         {data: 'action', name: 'action', orderable: false, searchable: false},
                     ]
                     });
-        
+    /*Funcion para validar los dos campos de contraseña  Nota: aun falta validar campos Email*/
     function Validacion()
     {
         var valor1 = pass.val();
