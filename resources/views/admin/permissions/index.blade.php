@@ -78,7 +78,7 @@
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
                         {data: 'slug', name: 'slug'},
-                        {data: 'description', name: 'description'},
+                        {data: 'edit', name: 'edit'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
@@ -93,6 +93,14 @@
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         $('#form-users').validator();
         $('#description').ckeditor();
+        $('#description').val("");
+             
+             CKEDITOR.config.height= 200;
+             CKEDITOR.config.widht='auto';
+             CKEDITOR.replace('description');
+               
+
+           
     }
 
      function editForm(id) {
@@ -105,12 +113,17 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="material-icons">border_color</i> Edit Roles');
+            $('.modal-title').html('<i class="material-icons"></i> Edit Permissions');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#slug').val(data.slug);
+            $('#description').ckeditor();
             $('#description').val(data.description);
+            CKEDITOR.config.height= 200;
+             CKEDITOR.config.widht='auto';
+             CKEDITOR.replace('description');
+           
           },
           error : function() {
               swal({
@@ -164,6 +177,12 @@
                     var id = $('#id').val();
                     if (save_method == 'add') url = "{{ url('admin/permissions') }}";
                     else url = "{{ url('admin/permissions') . '/' }}" + id;
+                    
+                    for (instance in CKEDITOR.instances){
+                        CKEDITOR.instances[instance].updateElement();
+                        /*CKEDITOR.instances[$('#description')].setData("");*/
+                    }
+                   
                     $.ajax({
                         url : url,
                         type : "POST",

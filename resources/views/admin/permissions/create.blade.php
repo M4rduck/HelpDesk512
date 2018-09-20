@@ -53,17 +53,19 @@
              <div class="from-group">
                         {!! Form::label('description', 'Description') !!}
                         <div class="textarea-group">
-                        <span class="input-group-addon">
-                          
-                            </span>
-                            {!! Form::textarea('description',null, ['class'=>'form-control',
+                        
+                            {!! Form::textarea ('description',null, ['class'=>'form-control',
                                                          'title'=>'Descripcion de Permisos',
                                                          'placeholder' => 'Description',
                                                          'id'=>'description',
                                                          'autofocus required']) !!}
+
+                                                      
                        </div>
+                 
                     </div>
                     <!-- /Description -->
+                
            
             </div>
            <div class="modal-footer">
