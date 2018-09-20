@@ -54,7 +54,7 @@
                         {!! Form::label('description', 'Description') !!}
                         <div class="textarea-group">
                         <span class="input-group-addon">
-                            <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                          
                             </span>
                             {!! Form::textarea('description',null, ['class'=>'form-control',
                                                          'title'=>'Descripcion de Permisos',

@@ -92,6 +92,7 @@
         $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Permissions');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         $('#form-users').validator();
+        $('#description').ckeditor();
     }
 
      function editForm(id) {
