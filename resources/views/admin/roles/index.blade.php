@@ -86,7 +86,12 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#permissions').select2({width:'100%'});
+        $('#special').select2({
+            width:'100%'
+        });
+        $('#permissions').select2({
+            width:'100%'
+        });
     }
 
      function editForm(id) {

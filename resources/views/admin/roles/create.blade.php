@@ -43,7 +43,7 @@
             <label for="special" class="col-md-3 control-label">Special</label>
             <div class="col-md-12">            
             {!! Form::select('special', ['null' => 'none', 'all-access' => 'All-access', 'no-access' => 'No-access'], 'null', ['class' => 'form-control', 
-                                            'id'=>'permissions']) !!}
+                                            'id'=>'special']) !!}
             </div>
             </div> 
 
