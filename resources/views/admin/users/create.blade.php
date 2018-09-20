@@ -5,8 +5,8 @@
       
       
 
-      {!! Form::open(array('method'=>'POST','id'=>'form-users','class'=>'form-horizontal',
-                                    'data-toggle'=>'validator','autocomplete'=>'off')) !!}
+      {!! Form::open(array('method'=>'POST','id'=>'form-users','data-toggle'=>'validator', 
+                                'role'=>'form','autocomplete'=>'off' )) !!}
            {{ method_field('POST') }}
 
         <!-- Header Modal -->  
@@ -19,9 +19,7 @@
       
         <!-- Body Modal-->
         <div class="modal-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="hidden" id="id" name="id"> 
+            <input type="hidden" id="id" name="id"> 
                     <!-- Name -->
                     <div class="from-group">
                         {!! Form::label('name', 'Name') !!}
@@ -37,8 +35,6 @@
                         </div>
                     </div>
                     <!-- /Name -->
-                </div>
-                <div class="col-md-12">
                     <!-- Email -->
                     <div class="from-group">
                         {!! Form::label('email', 'Email') !!}
@@ -54,9 +50,6 @@
                         </div>
                     </div>
                     <!-- /Email -->
-                </div>
-                
-                <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password', 'Password') !!}
@@ -67,12 +60,15 @@
                             {!! Form::password('password',['class' => 'form-control',
                                                            'id'=>'password',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Password']) !!}
+                                                           'placeholder'=>'Password',
+                                                           'min'=>'6',
+                                                           'max'=>'12',
+                                                           'autofocus required']) !!}
+                                                           
                         </div>
+                        <p><small id="Help" class="form-text text-muted"></small></p>
                     </div>
                     <!-- /Password -->
-                </div>
-                <div class="col-md-12">
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password1', 'Confirmed Password') !!}
@@ -83,12 +79,13 @@
                             {!! Form::password('password1',['class' => 'form-control',
                                                            'id'=>'password1',
                                                            'title'=>'Contraseña del usuario',
-                                                           'placeholder'=>'Confirmed Password']) !!}
+                                                           'placeholder'=>'Confirmed Password',
+                                                           'min'=>'6',
+                                                           'max'=>'12',
+                                                           'autofocus required']) !!}
                         </div>
                     </div>
                     <!-- /Password -->
-                </div>
-                <div class="col-md-12">
                     <!-- Roles -->
                     <div class="from-group">
                         {!! Form::label('roles', 'Roles') !!}
@@ -102,8 +99,6 @@
                         </div>
                     </div>
                     <!-- /Roles -->
-                </div>
-                <div class="col-md-12">
                     <!-- Speciality -->
                     <div class="from-group">
                         {!! Form::label('speciality', 'Speciality') !!}
@@ -117,8 +112,7 @@
                         </div>
                     </div>
                     <!-- /Speciality -->
-                </div>
-            </div>
+            
         </div>
 
         <div class="modal-footer">

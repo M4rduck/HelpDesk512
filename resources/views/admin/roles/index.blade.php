@@ -30,7 +30,7 @@
         <!--Box body -->
         <div class="box-body">
             <div class="table-responsive">
-            <table class="table table-hover" id="roles-table">
+            <table class="table table-striped" id="roles-table">
           <thead>
           <tr>
               <th width="30px">ID</th>
@@ -86,7 +86,12 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#permissions').select2({width:'100%'});
+        $('#special').select2({
+            width:'100%'
+        });
+        $('#permissions').select2({
+            width:'100%'
+        });
     }
 
      function editForm(id) {
@@ -98,6 +103,7 @@
           type: "GET",
           dataType: "JSON",
           success: function(data) {
+            permissions = [];
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
@@ -106,6 +112,10 @@
             $('#slug').val(data.roles.slug);
             $('#description').val(data.roles.description);
             $('#special').val(data.roles.special);
+
+
+            $('#permissions').val(permissions).change();
+            $('#permissions').select2({width:'100%'});
           },
           error : function() {
               swal({
