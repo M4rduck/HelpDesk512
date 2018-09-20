@@ -10,28 +10,61 @@
                 <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
         </button>
         </div>  
+       
+    
+         <!-- Body Modal-->
         <div class="modal-body">
+        <div class="col-md-12">
+            <!-- id-->
             <input type="hidden" id="id" name="id">
-            <div class="form-group">
-              <label for="name" class="col-md-3 control-label">Name</label>
-              <div class="col-md-12">
-                <input type="text" id="name" name="name" class="form-control" placeholder="Name" autofocus required>
-                <span class="help-block with-errors"></span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="slug" class="col-md-3 control-label">Slug</label>
-              <div class="col-md-12">
-                <input type="text" id="slug" name="slug" class="form-control" placeholder="slug" autofocus required>
-                <span class="help-block with-errors"></span>
-              </div>  
-            </div>
-            <div class="form-group">
-              <label for="description" class="col-md-3 control-label">Description</label>
-              <div class="col-md-12">
-                <textarea id="description" name="description" class="form-control" cols="5" maxlength="50"></textarea>
-                <span class="help-block with-errors"></span>
-              </div>  
+
+              <!-- Name -->
+              <div class="from-group">
+                        {!! Form::label('name', 'Name') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {!! Form::text('name',null, ['class'=>'form-control',
+                                                         'title'=>'Nombre del permiso',
+                                                         'placeholder' => 'Name',
+                                                         'id'=>'name',
+                                                         'autofocus required']) !!}
+                        </div>
+                    </div>
+                    <!-- /Name -->
+             <!-- Slug -->
+             <div class="from-group">
+                        {!! Form::label('slug', 'Slug') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                            <i class="fa fa-address-card" aria-hidden="true"></i>
+                            </span>
+                            {!! Form::text('slug',null, ['class'=>'form-control',
+                                                         'title'=>'Slug de Permisos',
+                                                         'placeholder' => 'Slug',
+                                                         'id'=>'slug',
+                                                         'autofocus required']) !!}
+                        </div>
+                    </div>
+                    <!-- /Slug -->
+     
+                     <!-- Description -->
+             <div class="from-group">
+                        {!! Form::label('description', 'Description') !!}
+                        <div class="textarea-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-address-book-o" aria-hidden="true"></i>
+                            </span>
+                            {!! Form::textarea('description',null, ['class'=>'form-control',
+                                                         'title'=>'Descripcion de Permisos',
+                                                         'placeholder' => 'Description',
+                                                         'id'=>'description',
+                                                         'autofocus required']) !!}
+                       </div>
+                    </div>
+                    <!-- /Description -->
+           
             </div>
            <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
@@ -41,6 +74,7 @@
            </div>
       </div>
         </div>
+        
       </form>
     </div>  
   </div>
