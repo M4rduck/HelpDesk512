@@ -113,15 +113,15 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="material-icons"></i> Edit Permissions');
+            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Permissions');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#slug').val(data.slug);
             $('#description').ckeditor();
             $('#description').val(data.description);
-            CKEDITOR.config.height= 200;
-             CKEDITOR.config.widht='auto';
+            CKEDITOR.config.height= 100;
+             CKEDITOR.config.widht= 100;
              CKEDITOR.replace('description');
            
           },

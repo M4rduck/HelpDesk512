@@ -4,12 +4,12 @@
       <form id="form-permissions" method="post" class="form-horizontal" data-toggle="validator"
       autocomplete="off">
         {{ csrf_field() }} {{ method_field('POST') }}
-        <div class="modal-header">
-        <h3 class="modal-title"></h3>  
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
-        </button>
-        </div>  
+        <div class="modal-header bg-warning">
+            {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
+                              ,['class'=>'close', 'data-dismiss'=>'modal']) !!}
+            <h3 class="modal-title"></h3>
+             
+        </div> 
        
     
          <!-- Body Modal-->
@@ -31,6 +31,7 @@
                                                          'id'=>'name',
                                                          'autofocus required']) !!}
                         </div>
+                        <br>
                     </div>
                     <!-- /Name -->
              <!-- Slug -->
@@ -48,11 +49,11 @@
                         </div>
                     </div>
                     <!-- /Slug -->
-     
+                    <br>
                      <!-- Description -->
              <div class="from-group">
                         {!! Form::label('description', 'Description') !!}
-                        <div class="textarea-group">
+                        <div class="textarea-group" cols="200" rows="5">
                         
                             {!! Form::textarea ('description',null, ['class'=>'form-control',
                                                          'title'=>'Descripcion de Permisos',
@@ -65,16 +66,21 @@
                  
                     </div>
                     <!-- /Description -->
+                <br>
+                <br>
                 
            
             </div>
-           <div class="modal-footer">
+            
+           
+      </div>
+      <br>
+      <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                     <i class="fas fa-times-circle"></i> Close
                     </button>
            </div>
-      </div>
         </div>
         
       </form>
