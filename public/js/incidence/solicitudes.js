@@ -141,7 +141,7 @@ $(function() {
         }
     }
 
-    table_solicitudes = {
+    var table_solicitudes = {
 
         init: function(){
 

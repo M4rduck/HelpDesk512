@@ -43,10 +43,107 @@
 @push('js')
     {!! Html::script('js/incidence/sweetalert2.min.js') !!}
     {!! Html::script('js/incidence/parsley.min.js') !!}
+    {!! Html::script('js/incidence/incidences.js') !!}
 @endpush
 
 @section('content')
-
+    <!-- Modal para registrar una incidencia -->
+    <div id="incidence_create_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="form_incidence" method="post" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nueva Incidencia</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--
+                        <div v-if="form_errors" class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" v-on:click="set_form_values" aria-hidden="true">&times;</button>
+                            <ul>
+                                <li v-bind:key="error[0]" v-for="error in form_errors">
+                                    
+                                </li>
+                            </ul>
+                        </div>
+                        -->
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="contact">Contacto:</label>
+                                    <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="contact" name="contact" required>
+                                        <option value="d">d</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="theme">Tema</label>
+                                    <input data-parsley-required-message="Este campo no puede estar vacio" class="form-control" type="text" name="theme" id="theme" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">Descripcion</label>
+                                    <textarea data-parsley-required-message="Este campo no puede estar vacio" style="width: 100%;" tabindex="-1" class="form-control" name="description" id="description" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="evidence">Evidencia</label>
+                                    <input type="file" style="width: 100%;" ref="evidence" tabindex="-1" class="form-control" name="evidence" id="evidence">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="label">Etiquetas:</label>
+                                    <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir al menos una opci&oacute;n" class="form-control" id="label" name="label" required multiple></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="agent">Asignar a:</label>
+                                    <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="agent" name="agent" required></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="state">Estado</label>
+                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label for="priority">Prioridad:</label>
+                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="priority" name="priority" required></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class = "btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+                        <button id="btn_submit" type="submit" class="btn btn-success pull-right">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            <!--<solicitude-create-form areas_route="{{ route('solicitudes.temp_areas') }}" submit_route = "{{ route('solicitudes.store') }}"></solicitude-create-form>-->
+        </div>
+    </div>
+    <!-- Fin modal registrar incidencia -->
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-lg-8 col-sm-12">
@@ -73,12 +170,12 @@
                         @if ($solicitude->evidence_route)
                             <div class="form-group">
                                 <label for="evidence">Evidencia</label>
-                                <p><a id="evidence" href="{{ asset(Storage::url('28')) }}">{{ asset(Storage::url('28')) }}</a></p>
+                                <p><a id="evidence" href="{{ asset(Storage::url($solicitude->id)) }}" download>{{ asset(Storage::url($solicitude->id)) }}</a></p>
                             </div>
                         @endif
                     </div>
                     <div class="box-footer">
-                        <button id="btn_incidencia" class="btn btn-primary pull-right">Nueva Incidencia</button>
+                        <button id="btn_incidencia" data-target="#incidence_create_modal" data-toggle="modal" class="btn btn-default pull-right">Nueva Incidencia</button>
                     </div>
                 </div>
             </div>
