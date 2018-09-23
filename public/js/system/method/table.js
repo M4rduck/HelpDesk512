@@ -1,8 +1,7 @@
-const host = '/HelpDesk512/public';
 $('#method-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: host+'/general/method/getData',
+    ajax: '/general/method/getData',
     columns: [
         {data: 'Controlador', name: 'name'},
         {data: 'name_function', name: 'name_function'},
