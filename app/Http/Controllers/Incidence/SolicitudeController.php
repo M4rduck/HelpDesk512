@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Incidence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
+use App\User;
 use DB;
 
 class SolicitudeController extends Controller
@@ -13,8 +14,8 @@ class SolicitudeController extends Controller
 
         $solicitudes = Solicitude::all();
 
+        //solicitudes unidas con el area
         $data = [];
-
 
         foreach ($solicitudes as $solicitude) {
             
@@ -30,7 +31,10 @@ class SolicitudeController extends Controller
             ];
         }
 
-        return view('incidence.solicitudes')->with('solicitudes', $data);
+        return view('incidence.solicitudes', 
+            [
+                'solicitudes' => $data,
+            ]);
     }
 
     public function temp_areas(){
@@ -126,14 +130,15 @@ class SolicitudeController extends Controller
 
     public function show($id) {
 
-        $solicitude = Solicitude::findOrFail($id);
+        //$solicitude = Solicitude::findOrFail($id);
+        $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name'])->findOrFail($id);
         $area = DB::table('area')->where('id', $solicitude->area_id)->value('name');
-        $incidencias_solicitud = $solicitude->incidence();
+        $contactos = User::all();
 
         return view('incidence.solicitude', [
             'solicitude' => $solicitude,
             'area' => $area,
-            'incidences' => $incidencias_solicitud   
+            'contactos' => $contactos   
         ]);
 
     }

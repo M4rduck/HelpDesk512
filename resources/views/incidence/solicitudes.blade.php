@@ -118,26 +118,27 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">Solicitudes</h3>
                     </div>
-                <div class="box-body">
-                    <!-- <solicitudes-table solicitudes_route=""></solicitudes-table></div>-->
-                    <br><br>
-                    <div class="container" id="table_container">
-                        <div class="table-responsive">
-                            <table id="solicitudes_table" style="width: 100%">
-                                <input type="hidden" name="solicitudes_route" id="solicitudes_route" value="{{ route('solicitudes.list') }}">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Area</th>
-                                        <th>Titulo</th>
-                                        <th>Descripcion</th>
-                                        <th>Detalles</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                    <div class="box-body">
+                        <!-- <solicitudes-table solicitudes_route=""></solicitudes-table></div>-->
+                        <br><br>
+                        <div class="container" id="table_container">
+                            <div class="table-responsive">
+                                <table id="solicitudes_table" style="width: 100%">
+                                    <input type="hidden" name="solicitudes_route" id="solicitudes_route" value="{{ route('solicitudes.list') }}">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Area</th>
+                                            <th>Titulo</th>
+                                            <th>Descripcion</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
+                        <br><br>
                     </div>
-                    <br><br>
                     <div class="box-footer clearfix">
                         <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
                             Nueva Solicitud

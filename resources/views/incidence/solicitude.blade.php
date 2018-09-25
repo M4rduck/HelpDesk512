@@ -72,7 +72,9 @@
                                 <div class="form-group">
                                     <label for="contact">Contacto:</label>
                                     <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="contact" name="contact" required>
-                                        <option value="d">d</option>
+                                        @foreach ($contactos as $contacto)
+                                            <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -144,16 +146,43 @@
         </div>
     </div>
     <!-- Fin modal registrar incidencia -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-lg-8 col-sm-12">
-                @if (!$incidences)
-                    
+            <div class="col-md-9 col-lg-9 col-sm-12">
+                @if ($solicitude->incidence->count())
+                    <script>var initial_incidences = @json($solicitude->incidence); console.log(initial_incidences);</script>
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Incidencias</h3>
+                        </div>
+                        <div class="box-body">
+                            <br><br>
+                            <div id="table_container">
+                                <div>
+                                    <table id="incidences_table" style="width: 100%">
+                                        <input type="hidden" name="incidences_route" id="incidences_route" value="{{ "route('incidences.list')" }}">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Tema</th>
+                                                <th>Descripcion</th>
+                                                <th>Estado</th>
+                                                <th>Agente</th>
+                                                <th>Detalles</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
                 @else
                     <h3>No hay incidencias para esta solicitud</h3>
+                    
                 @endif
             </div>
-            <div class="col-md-4 col-lg-4 col-sm-12">
+            <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title center-block">Informaci&oacute;n</h3>
