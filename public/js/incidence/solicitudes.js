@@ -178,7 +178,7 @@ $(function() {
             var data = null;
             var self = this;
 
-            if(initial_solicitudes){
+            if(typeof initial_solicitudes !== 'undefined' && Array.isArray(initial_solicitudes)){
 
                 self.datatable = $(self.element).DataTable({
                     columns: [
