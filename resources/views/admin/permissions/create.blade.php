@@ -4,43 +4,85 @@
       <form id="form-permissions" method="post" class="form-horizontal" data-toggle="validator"
       autocomplete="off">
         {{ csrf_field() }} {{ method_field('POST') }}
-        <div class="modal-header">
-        <h3 class="modal-title"></h3>  
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><i class="fas fa-times-circle"></i></span>
-        </button>
-        </div>  
+        <div class="modal-header bg-warning">
+            {!! Form::button('<span aria-hidden="true"><i class="glyphicon glyphicon-remove-circle"></i></span>'
+                              ,['class'=>'close', 'data-dismiss'=>'modal']) !!}
+            <h3 class="modal-title"></h3>
+             
+        </div> 
+       
+    
+         <!-- Body Modal-->
         <div class="modal-body">
+        <div class="col-md-12">
+            <!-- id-->
             <input type="hidden" id="id" name="id">
-            <div class="form-group">
-              <label for="name" class="col-md-3 control-label">Name</label>
-              <div class="col-md-12">
-                <input type="text" id="name" name="name" class="form-control" placeholder="Name" autofocus required>
-                <span class="help-block with-errors"></span>
-              </div>
+
+              <!-- Name -->
+              <div class="from-group">
+                        {!! Form::label('name', 'Name') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                            {!! Form::text('name',null, ['class'=>'form-control',
+                                                         'title'=>'Nombre del permiso',
+                                                         'placeholder' => 'Name',
+                                                         'id'=>'name',
+                                                         'autofocus required']) !!}
+                        </div>
+                        <br>
+                    </div>
+                    <!-- /Name -->
+             <!-- Slug -->
+             <div class="from-group">
+                        {!! Form::label('slug', 'Slug') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                            <i class="fa fa-address-card" aria-hidden="true"></i>
+                            </span>
+                            {!! Form::text('slug',null, ['class'=>'form-control',
+                                                         'title'=>'Slug de Permisos',
+                                                         'placeholder' => 'Slug',
+                                                         'id'=>'slug',
+                                                         'autofocus required']) !!}
+                        </div>
+                    </div>
+                    <!-- /Slug -->
+                    <br>
+                     <!-- Description -->
+             <div class="from-group">
+                        {!! Form::label('description', 'Description') !!}
+                        <div class="textarea-group" cols="200" rows="5">
+                        
+                            {!! Form::textarea ('description',null, ['class'=>'form-control',
+                                                         'title'=>'Descripcion de Permisos',
+                                                         'placeholder' => 'Description',
+                                                         'id'=>'description',
+                                                         'autofocus required']) !!}
+
+                                                      
+                       </div>
+                 
+                    </div>
+                    <!-- /Description -->
+                <br>
+                <br>
+                
+           
             </div>
-            <div class="form-group">
-              <label for="slug" class="col-md-3 control-label">Slug</label>
-              <div class="col-md-12">
-                <input type="text" id="slug" name="slug" class="form-control" placeholder="slug" autofocus required>
-                <span class="help-block with-errors"></span>
-              </div>  
-            </div>
-            <div class="form-group">
-              <label for="description" class="col-md-3 control-label">Description</label>
-              <div class="col-md-12">
-                <textarea id="description" name="description" class="form-control" cols="5" maxlength="50"></textarea>
-                <span class="help-block with-errors"></span>
-              </div>  
-            </div>
-           <div class="modal-footer">
+            
+           
+      </div>
+      <br>
+      <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">
                     <i class="fas fa-times-circle"></i> Close
                     </button>
            </div>
-      </div>
         </div>
+        
       </form>
     </div>  
   </div>

@@ -123,7 +123,17 @@ class PermissionController extends Controller
                            onclick="deleteData('. $permissions->id .')">
                             <i class="fas fa-trash"></i> 
                           Delete</button>  
-                          </td>';
-            })->make(true); 
+                         </td>';
+            })              
+            ->editColumn('edit', function($permissions){
+                $desc = '';
+                
+                $desc = ''.$permissions->description.'';   
+                
+                return $desc;
+                
+            })
+            ->rawColumns(['edit' => 'edit', 'action' => 'action'])
+            ->make(true); 
     }
 }
