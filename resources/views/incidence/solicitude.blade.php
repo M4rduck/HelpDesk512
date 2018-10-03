@@ -157,7 +157,7 @@
                         </div>
                         <div class="box-body">
                             <br><br>
-                            <div id="table_container">
+                            <div style="padding-left: 20px; padding-right: 20px;" id="table_container">
                                 <div>
                                     <table id="incidences_table" style="width: 100%">
                                         <input type="hidden" name="incidences_route" id="incidences_route" value="{{ "route('incidences.list')" }}">
