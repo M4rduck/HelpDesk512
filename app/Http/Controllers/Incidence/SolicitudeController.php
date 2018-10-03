@@ -131,7 +131,7 @@ class SolicitudeController extends Controller
     public function show($id) {
 
         //$solicitude = Solicitude::findOrFail($id);
-        $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name'])->findOrFail($id);
+        $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
         $area = DB::table('area')->where('id', $solicitude->area_id)->value('name');
         $contactos = User::all();
 

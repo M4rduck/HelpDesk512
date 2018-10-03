@@ -71,18 +71,18 @@ $(function(){
             var data = null;
             var self = this;
 
-            if(initial_incidences){
+            if(typeof initial_incidences !== 'undefined' && Array.isArray(initial_incidences)){
 
                 self.datatable = $(self.element).DataTable({
                     columns: [
                         {data: 'id'},
                         {data: 'theme'},
                         {data: 'description'},
-                        {data: 'id_incidence_state'},
+                        {data: 'incidence_state.name'},
                         {data: 'agent.name'},
                         {
                             data: null,
-                            defaultContent: '<a href="#">jojo</a>'
+                            defaultContent: '<a class="btn btn-default btn-block" href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>'
                         }
                         
                     ],
@@ -90,6 +90,8 @@ $(function(){
                 });
 
             }else{
+
+                //TODO modificar para acoplar con incidencias
 
                 this.parent_element.style.display = 'none';
 
