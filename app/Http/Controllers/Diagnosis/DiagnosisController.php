@@ -12,6 +12,7 @@ class DiagnosisController extends Controller
     }
 
     public function create(){
-        return 'Hi';
-    }
+        //dd(route('input.index'));
+        return view('diagnosis.parameterization.create');
+    }    
 }
