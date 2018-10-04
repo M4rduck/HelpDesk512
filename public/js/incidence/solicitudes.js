@@ -9,7 +9,7 @@ $(function() {
             this.$area.val(null);
             this.title.value = null;
             this.description.value = null;
-            this.evidence = new File([''], '');
+            document.getElementById('solicitude_evidence').value = "";
 
         },
 
@@ -39,7 +39,8 @@ $(function() {
             this.$area = $(this.element.elements['solicitude_area']);
             this.title = this.element.elements['solicitude_title'];
             this.description = this.element.elements['solicitude_description'];
-            this.evidence = new File([''], '');//this.element.elements['solicitude_evidence'];
+            this.evidence = new File([''], '');
+            console.log('evidencia_inicial', this.evidence)
             //inicializar
             this.render();
         },
@@ -68,6 +69,7 @@ $(function() {
             this.element.elements['solicitude_evidence'].addEventListener('change', function(){
                 console.log(this);
                 self.evidence = this.files[0];
+                console.log('nueva_evidencia', self.evidence);
             });
             
             this.element.addEventListener('submit', function(e){
@@ -85,7 +87,8 @@ $(function() {
                         console.log(value); 
                     }
 
-                    self.btn_submit.innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
+                    self.btn_submit.innerHTML = "Cargando&nbsp;&nbsp;<i class='fa fa-spinner fa-spin'></i>";
+
                     $.ajax({
 
                         processData: false,

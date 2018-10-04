@@ -61,7 +61,7 @@ class SolicitudeController extends Controller
             'area' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'evidence' => 'file|mimetypes:image/jpeg,image/png',
+            'evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip',
         ];
 
         $mensajes = [
