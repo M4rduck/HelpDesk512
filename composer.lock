@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "89fd7a58c930a634d244774931e95a24",
@@ -579,20 +579,20 @@
         },
         {
             "name": "jeroennoten/laravel-adminlte",
-            "version": "v1.23.2",
+            "version": "v1.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
-                "reference": "4d3c2d9cc7c8a475dd1230ba2e343d210a3698fd"
+                "reference": "28ad0b37b5d73ba9a08781a4504f1464367de213"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/4d3c2d9cc7c8a475dd1230ba2e343d210a3698fd",
-                "reference": "4d3c2d9cc7c8a475dd1230ba2e343d210a3698fd",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/28ad0b37b5d73ba9a08781a4504f1464367de213",
+                "reference": "28ad0b37b5d73ba9a08781a4504f1464367de213",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0",
+                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0|~5.7.0",
                 "php": ">=5.5.9"
             },
             "require-dev": {
@@ -628,20 +628,20 @@
                 "administrator",
                 "laravel"
             ],
-            "time": "2018-07-22T14:15:15+00:00"
+            "time": "2018-09-05T16:18:29+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.6.35",
+            "version": "v5.6.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "02abbe2091404ebe032a6d5a83075031b7072ebe"
+                "reference": "38d838bab9434af79e8ab274ae63f52f7ed45d6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/02abbe2091404ebe032a6d5a83075031b7072ebe",
-                "reference": "02abbe2091404ebe032a6d5a83075031b7072ebe",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/38d838bab9434af79e8ab274ae63f52f7ed45d6e",
+                "reference": "38d838bab9434af79e8ab274ae63f52f7ed45d6e",
                 "shasum": ""
             },
             "require": {
@@ -767,7 +767,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2018-08-27T13:18:24+00:00"
+            "time": "2018-09-04T13:15:09+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1050,23 +1050,23 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "2.1.29",
+            "version": "2.1.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Maatwebsite/Laravel-Excel.git",
-                "reference": "e1e1e1a9f69ba98ce6946e4f150e5531a5250d08"
+                "reference": "f5540c4ba3ac50cebd98b09ca42e61f926ef299f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/e1e1e1a9f69ba98ce6946e4f150e5531a5250d08",
-                "reference": "e1e1e1a9f69ba98ce6946e4f150e5531a5250d08",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Excel/zipball/f5540c4ba3ac50cebd98b09ca42e61f926ef299f",
+                "reference": "f5540c4ba3ac50cebd98b09ca42e61f926ef299f",
                 "shasum": ""
             },
             "require": {
-                "illuminate/cache": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/config": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/filesystem": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/support": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
+                "illuminate/cache": "^5.0",
+                "illuminate/config": "^5.0",
+                "illuminate/filesystem": "^5.0",
+                "illuminate/support": "^5.0",
                 "jeremeamia/superclosure": "^2.3",
                 "nesbot/carbon": "~1.0",
                 "php": ">=5.5",
@@ -1080,10 +1080,10 @@
                 "phpunit/phpunit": "~4.0"
             },
             "suggest": {
-                "illuminate/http": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/queue": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/routing": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*",
-                "illuminate/view": "5.0.*|5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*"
+                "illuminate/http": "^5.0",
+                "illuminate/queue": "^5.0",
+                "illuminate/routing": "^5.0",
+                "illuminate/view": "^5.0"
             },
             "type": "library",
             "extra": {
@@ -1114,7 +1114,7 @@
                     "email": "patrick@maatwebsite.nl"
                 }
             ],
-            "description": "An eloquent way of importing and exporting Excel and CSV in Laravel 4 with the power of PHPExcel",
+            "description": "Supercharged Excel exports in Laravel",
             "keywords": [
                 "PHPExcel",
                 "batch",
@@ -1124,7 +1124,7 @@
                 "import",
                 "laravel"
             ],
-            "time": "2018-08-29T06:46:16+00:00"
+            "time": "2018-09-04T19:00:09+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1557,16 +1557,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.9.7",
+            "version": "v0.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "4f5b6c090948773a8bfeea6a0f07ab7d0b24e932"
+                "reference": "ed3c32c4304e1a678a6e0f9dc11dd2d927d89555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/4f5b6c090948773a8bfeea6a0f07ab7d0b24e932",
-                "reference": "4f5b6c090948773a8bfeea6a0f07ab7d0b24e932",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/ed3c32c4304e1a678a6e0f9dc11dd2d927d89555",
+                "reference": "ed3c32c4304e1a678a6e0f9dc11dd2d927d89555",
                 "shasum": ""
             },
             "require": {
@@ -1627,7 +1627,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-08-11T15:54:43+00:00"
+            "time": "2018-09-05T11:40:09+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3016,20 +3016,20 @@
         },
         {
             "name": "yajra/laravel-datatables-html",
-            "version": "v3.7.2",
+            "version": "v3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-html.git",
-                "reference": "55e9b088429c5b5d727085b7081113b831d2b2bb"
+                "reference": "84a3b61e0ecba78108c55a508db150e8c8db2e59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/55e9b088429c5b5d727085b7081113b831d2b2bb",
-                "reference": "55e9b088429c5b5d727085b7081113b831d2b2bb",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/84a3b61e0ecba78108c55a508db150e8c8db2e59",
+                "reference": "84a3b61e0ecba78108c55a508db150e8c8db2e59",
                 "shasum": ""
             },
             "require": {
-                "laravelcollective/html": "5.4.*|5.5.*|5.6.*",
+                "laravelcollective/html": "^5.4",
                 "php": ">=7.0",
                 "yajra/laravel-datatables-oracle": "8.*"
             },
@@ -3071,38 +3071,38 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-07-06T01:59:07+00:00"
+            "time": "2018-09-05T06:10:14+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",
-            "version": "v8.7.1",
+            "version": "v8.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables.git",
-                "reference": "1643ba54cf9c7556ac7bba90564f5900cc2473fe"
+                "reference": "f2959bf773fc315e1b3319fb0a34c880b97706d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/1643ba54cf9c7556ac7bba90564f5900cc2473fe",
-                "reference": "1643ba54cf9c7556ac7bba90564f5900cc2473fe",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables/zipball/f2959bf773fc315e1b3319fb0a34c880b97706d5",
+                "reference": "f2959bf773fc315e1b3319fb0a34c880b97706d5",
                 "shasum": ""
             },
             "require": {
-                "illuminate/database": "5.4.*|5.5.*|5.6.*",
-                "illuminate/filesystem": "5.4.*|5.5.*|5.6.*",
-                "illuminate/http": "5.4.*|5.5.*|5.6.*",
-                "illuminate/support": "5.4.*|5.5.*|5.6.*",
-                "illuminate/view": "5.4.*|5.5.*|5.6.*",
+                "illuminate/database": "5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/filesystem": "5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/http": "5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/support": "5.4.*|5.5.*|5.6.*|5.7.*",
+                "illuminate/view": "5.4.*|5.5.*|5.6.*|5.7.*",
                 "php": ">=7.0"
             },
             "require-dev": {
                 "orchestra/testbench": "~3.5"
             },
             "suggest": {
-                "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTable.",
-                "yajra/laravel-datatables-editor": "Plugin to use Datatables Editor (requires a license).",
+                "yajra/laravel-datatables-buttons": "Plugin for server-side exporting of dataTables.",
+                "yajra/laravel-datatables-editor": "Plugin to use DataTables Editor (requires a license).",
                 "yajra/laravel-datatables-fractal": "Plugin for server-side response using Fractal.",
-                "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTable."
+                "yajra/laravel-datatables-html": "Plugin for server-side HTML builder of dataTables."
             },
             "type": "library",
             "extra": {
@@ -3142,7 +3142,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-07-06T01:19:37+00:00"
+            "time": "2018-09-05T05:43:38+00:00"
         }
     ],
     "packages-dev": [
@@ -3430,16 +3430,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "181c4502d8f34db7aed7bfe88d4f87875b8e947a"
+                "reference": "e79cd403fb77fc8963a99ecc30e80ddd885b3311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/181c4502d8f34db7aed7bfe88d4f87875b8e947a",
-                "reference": "181c4502d8f34db7aed7bfe88d4f87875b8e947a",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/e79cd403fb77fc8963a99ecc30e80ddd885b3311",
+                "reference": "e79cd403fb77fc8963a99ecc30e80ddd885b3311",
                 "shasum": ""
             },
             "require": {
@@ -3458,7 +3458,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -3487,7 +3487,7 @@
                 "throwable",
                 "whoops"
             ],
-            "time": "2018-03-03T17:56:25+00:00"
+            "time": "2018-06-30T13:14:06+00:00"
         },
         {
             "name": "fzaninotto/faker",
@@ -4399,16 +4399,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.3.3",
+            "version": "7.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "1bd5629cccfb2c0a9ef5474b4ff772349e1ec898"
+                "reference": "7b331efabbb628c518c408fdfcaf571156775de2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1bd5629cccfb2c0a9ef5474b4ff772349e1ec898",
-                "reference": "1bd5629cccfb2c0a9ef5474b4ff772349e1ec898",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7b331efabbb628c518c408fdfcaf571156775de2",
+                "reference": "7b331efabbb628c518c408fdfcaf571156775de2",
                 "shasum": ""
             },
             "require": {
@@ -4479,7 +4479,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2018-09-01T15:49:55+00:00"
+            "time": "2018-09-08T15:14:29+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

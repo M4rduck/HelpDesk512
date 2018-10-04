@@ -35,15 +35,7 @@
     {!! Html::style('./css/button_float.css') !!}
 @endpush
 
-@section('content')
-    <div class="absolute bottom-btn">
-        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
-                                                                                          'title' => 'Crear Controlador',
-                                                                                          'data-toggle' =>'modal',
-                                                                                          'data-target'=>'#modalCreateModule'
-        ]) !!}
-    </div>
-
+@section('content')    
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
@@ -79,6 +71,14 @@
 
             </div>
         </div>
+    </div>
+
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Controlador',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#modalCreateModule'
+        ]) !!}
     </div>
 @stop
 
