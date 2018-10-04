@@ -277,16 +277,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "54859fabea8b3beecbb1a282888d5c990036b9e3"
+                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/54859fabea8b3beecbb1a282888d5c990036b9e3",
-                "reference": "54859fabea8b3beecbb1a282888d5c990036b9e3",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/0578b32b30b22de3e8664f797cf846fc9246f786",
+                "reference": "0578b32b30b22de3e8664f797cf846fc9246f786",
                 "shasum": ""
             },
             "require": {
@@ -330,7 +330,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-08-16T20:49:45+00:00"
+            "time": "2018-09-25T20:47:26+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -521,16 +521,16 @@
         },
         {
             "name": "jeroennoten/laravel-adminlte",
-            "version": "v1.24.0",
+            "version": "v1.24.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
-                "reference": "28ad0b37b5d73ba9a08781a4504f1464367de213"
+                "reference": "ec38b6ac3cc845347f604dc387adf60b063d0b7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/28ad0b37b5d73ba9a08781a4504f1464367de213",
-                "reference": "28ad0b37b5d73ba9a08781a4504f1464367de213",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/ec38b6ac3cc845347f604dc387adf60b063d0b7e",
+                "reference": "ec38b6ac3cc845347f604dc387adf60b063d0b7e",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +570,7 @@
                 "administrator",
                 "laravel"
             ],
-            "time": "2018-09-05T16:18:29+00:00"
+            "time": "2018-09-20T20:51:42+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2892,16 +2892,16 @@
         },
         {
             "name": "yajra/laravel-datatables-buttons",
-            "version": "v4.2.0",
+            "version": "v4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-buttons.git",
-                "reference": "1f497104fb10e071e0af7aabd555d960b71721f4"
+                "reference": "3a4844d609bc086b9ce2ea2e20d8f62370ab3bbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/1f497104fb10e071e0af7aabd555d960b71721f4",
-                "reference": "1f497104fb10e071e0af7aabd555d960b71721f4",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-buttons/zipball/3a4844d609bc086b9ce2ea2e20d8f62370ab3bbc",
+                "reference": "3a4844d609bc086b9ce2ea2e20d8f62370ab3bbc",
                 "shasum": ""
             },
             "require": {
@@ -2952,7 +2952,7 @@
                 "jquery",
                 "laravel"
             ],
-            "time": "2018-09-05T06:05:49+00:00"
+            "time": "2018-09-25T05:03:12+00:00"
         },
         {
             "name": "yajra/laravel-datatables-fractal",
