@@ -22,4 +22,5 @@
         {{ $incidence }}
     </div>
     
+    
 @stop
