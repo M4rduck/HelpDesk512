@@ -143,4 +143,11 @@ class SolicitudeController extends Controller
 
     }
 
+    public function destroy($id){
+
+        return response()->json(Solicitude::destroy($id), 200);
+        
+
+    }
+
 }

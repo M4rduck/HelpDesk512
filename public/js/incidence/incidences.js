@@ -40,7 +40,8 @@ $(function(){
 
             this.parent_element = document.getElementById('table_container');
             this.element = document.getElementById('incidences_table');
-            this.solicitudes_route = document.getElementById('incidences_route').value;
+            this.incidences_route = document.getElementById('incidences_route').value;
+            this.show_incidence_route = document.getElementById('show_incidence_route').value;
             this.datatable = null;
             this.render();
 
@@ -52,7 +53,7 @@ $(function(){
             var self = this;
             
             $.getJSON({
-                url: this.solicitudes_route,
+                url: this.incidences_route,
                 success: function(response){
                     console.log(response);
                     data = response;
@@ -82,7 +83,11 @@ $(function(){
                         {data: 'agent.name'},
                         {
                             data: null,
-                            defaultContent: '<a class="btn btn-default btn-block" href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>'
+                            //defaultContent: '<a class="btn btn-default btn-block" href=""><i class="fa fa-bars" aria-hidden="true"></i></a>',
+                            render: function(data, type, row){
+                                console.log('datatable', row);
+                                return '<a class="btn btn-default btn-block" href="'+ self.show_incidence_route +"/"+ row.id +'"><i class="fa fa-bars" aria-hidden="true"></i></a>';
+                            }
                         }
                         
                     ],
@@ -93,10 +98,12 @@ $(function(){
 
                 //TODO modificar para acoplar con incidencias
 
+                /*
+
                 this.parent_element.style.display = 'none';
 
                 $.getJSON({
-                    url: this.solicitudes_route,
+                    url: this.incidences_route,
                     success: function(response){
                         console.log(response);
                         data = response;
@@ -116,6 +123,8 @@ $(function(){
                     }
                 });
 
+                */
+
             }
 
             console.log(self.datatable);
@@ -124,7 +133,67 @@ $(function(){
    
     };
 
+    var options_group = {
+
+        init: function(){
+
+            this.btn_delete = document.getElementById('btn_delete');
+            this.btn_edit = document.getElementById('btn_edit');
+
+            this.render();
+
+        },
+
+        render: function(){
+
+            _this = this;
+
+            console.log(this.btn_edit, this.btn_delete);
+            
+            this.btn_delete.addEventListener('click', function(e){
+
+                e.preventDefault();
+                
+                swal({
+                    title: '¿Esta seguro de eliminar esta solicitud?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'SI',
+                    cancelButtonText: 'NO',
+                    
+                }).then(function(isConfirm){
+                    
+                    if(isConfirm.value){
+
+                        $.ajax({
+
+                            url: _this.href,
+                            type: 'DELETE',
+                            data: {
+                                _method: 'delete',
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response){
+                                window.location = 'http://www.helpdesk.local/incidence/solicitudes';
+                            },
+                            error: function(response){
+                                console.log(response);
+                            }
+        
+                        });
+
+                    }
+
+                });
+
+            });
+
+        }
+
+    };
+
     form_incidence.init();
     table_incidences.init();
+    options_group.init();
 
 });
