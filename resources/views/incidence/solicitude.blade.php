@@ -149,8 +149,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 col-lg-9 col-sm-12">
+                <input type="hidden" name="incidences_route" id="incidences_route" value="{{ "route('incidences.list')" }}">
                 @if ($solicitude->incidence->count())
-                    <script>var initial_incidences = @json($solicitude->incidence); console.log(initial_incidences);</script>
+                    <script>
+                        var initial_incidences = @json($solicitude->incidence); 
+                        var solicitude = @json($solicitude);
+                        console.log(initial_incidences, solicitude);
+                    </script>
                     <div class="box">
                         <div class="box-header with-border">
                             <h3 class="box-title">Incidencias</h3>
@@ -159,8 +164,8 @@
                             <br><br>
                             <div style="padding-left: 20px; padding-right: 20px;" id="table_container">
                                 <div>
+                                    <input id="show_incidence_route" type="hidden" value="{{ route('incidence.show', ['incidence' => ""]) }}">
                                     <table id="incidences_table" style="width: 100%">
-                                        <input type="hidden" name="incidences_route" id="incidences_route" value="{{ "route('incidences.list')" }}">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -206,6 +211,10 @@
                     <div class="box-footer">
                         <button id="btn_incidencia" data-target="#incidence_create_modal" data-toggle="modal" class="btn btn-default pull-right">Nueva Incidencia</button>
                     </div>
+                </div>
+                <div class="pull-right">
+                    <a id="btn_edit" href="" class="btn btn-info">Editar</a>
+                    <a id="btn_delete" href="{{ route('solicitudes.destroy',['id' => $solicitude->id]) }}" class="btn btn-danger">Eliminar</a>
                 </div>
             </div>
         </div>

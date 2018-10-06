@@ -61,7 +61,7 @@ class SolicitudeController extends Controller
             'area' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'evidence' => 'file|mimetypes:image/jpeg,image/png',
+            'evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip',
         ];
 
         $mensajes = [
@@ -140,6 +140,13 @@ class SolicitudeController extends Controller
             'area' => $area,
             'contactos' => $contactos   
         ]);
+
+    }
+
+    public function destroy($id){
+
+        return response()->json(Solicitude::destroy($id), 200);
+        
 
     }
 
