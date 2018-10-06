@@ -17,5 +17,9 @@
 @endpush
 
 @section('content')
+
+    <div id="incidence">
+        {{ $incidence }}
+    </div>
     
 @stop

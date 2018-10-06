@@ -8,13 +8,6 @@ use App\Models\Incidence\Incidence;
 
 class IncidenceController extends Controller
 {
-    public function index(){
-        return view('incidence.index');
-    }
-
-    public function create(){
-        return view('incidence.register');
-    }
 
     public function store(Request $request){
         
@@ -82,4 +75,12 @@ class IncidenceController extends Controller
     
     }
 
+    public function show($id){
+
+        $incidence= Incidence::with(['agent:id,name', 'contact:id,name', 'incidenceState:id,name'])->findOrFail($id);
+
+        return view('incidence.incidence',[
+            'incidence'=>$incidence
+        ]);
+    }
 }
