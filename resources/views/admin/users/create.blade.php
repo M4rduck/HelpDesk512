@@ -35,6 +35,7 @@
                         </div>
                     </div>
                     <!-- /Name -->
+                    <br>
                     <!-- Email -->
                     <div class="from-group">
                         {!! Form::label('email', 'Email') !!}
@@ -50,6 +51,7 @@
                         </div>
                     </div>
                     <!-- /Email -->
+                    <br>
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password', 'Password') !!}
@@ -69,6 +71,7 @@
                         <p><small id="Help" class="form-text text-muted"></small></p>
                     </div>
                     <!-- /Password -->
+                    <br>
                     <!-- Password -->
                     <div class="from-group">
                         {!! Form::label('password1', 'Confirmed Password') !!}
@@ -86,6 +89,7 @@
                         </div>
                     </div>
                     <!-- /Password -->
+                    <br>
                     <!-- Roles -->
                     <div class="from-group">
                         {!! Form::label('roles', 'Roles') !!}
@@ -99,6 +103,7 @@
                         </div>
                     </div>
                     <!-- /Roles -->
+                    <br>
                     <!-- Speciality -->
                     <div class="from-group">
                         {!! Form::label('speciality', 'Speciality') !!}

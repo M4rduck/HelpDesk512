@@ -60,3 +60,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
 Route::group(['prefix' => 'speciality','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('speciality', 1);
 });
+
+Route::group(['prefix' => 'encuesta','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('encuesta', 1);
+});
