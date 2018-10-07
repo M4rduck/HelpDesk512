@@ -8,5 +8,7 @@ use App\Models\KnowledgeBase;
 
 class KnowledgebaseController extends Controller
 {
-    
+    public function index(Request $request){
+        
+    }
 }
