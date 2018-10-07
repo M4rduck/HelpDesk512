@@ -1,7 +1,8 @@
+var host = '/HelpDesk512/public';
 $('#method-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '/general/method/getData',
+    ajax: host+'/general/method/getData',
     columns: [
         {data: 'Controlador', name: 'name'},
         {data: 'name_function', name: 'name_function'},
