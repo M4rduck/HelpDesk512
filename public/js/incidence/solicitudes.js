@@ -9,7 +9,7 @@ $(function() {
             this.$area.val(null);
             this.title.value = null;
             this.description.value = null;
-            document.getElementById('solicitude_evidence').value = "";
+            //document.getElementById('solicitude_evidence').value = "";
 
         },
 
@@ -39,7 +39,7 @@ $(function() {
             this.$area = $(this.element.elements['solicitude_area']);
             this.title = this.element.elements['solicitude_title'];
             this.description = this.element.elements['solicitude_description'];
-            this.evidence = new File([''], '');
+            //this.evidence = new File([''], '');
             console.log('evidencia_inicial', this.evidence)
             //inicializar
             this.render();
@@ -66,11 +66,13 @@ $(function() {
 
             });
 
+            /*
             this.element.elements['solicitude_evidence'].addEventListener('change', function(){
                 console.log(this);
                 self.evidence = this.files[0];
                 console.log('nueva_evidencia', self.evidence);
             });
+            */
             
             this.element.addEventListener('submit', function(e){
                 e.preventDefault();
@@ -81,7 +83,7 @@ $(function() {
                     form_data.append('area', self.$area.val());
                     form_data.append('title', self.title.value);
                     form_data.append('description', self.description.value);
-                    form_data.append('evidence', self.evidence);
+                    //form_data.append('evidence', self.evidence);
 
                     for (var value of form_data.values()) {
                         console.log(value); 

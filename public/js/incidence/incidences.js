@@ -41,7 +41,7 @@ $(function(){
             this.parent_element = document.getElementById('table_container');
             this.element = document.getElementById('incidences_table');
             this.incidences_route = document.getElementById('incidences_route').value;
-            this.show_incidence_route = document.getElementById('show_incidence_route').value;
+            this.show_incidence_route = document.getElementById('show_incidence_route') ? document.getElementById('show_incidence_route') : "";
             this.datatable = null;
             this.render();
 
@@ -127,7 +127,7 @@ $(function(){
 
             }
 
-            console.log(self.datatable);
+            //console.log(self.datatable);
 
         }
    
@@ -139,6 +139,7 @@ $(function(){
 
             this.btn_delete = document.getElementById('btn_delete');
             this.btn_edit = document.getElementById('btn_edit');
+            this.select_area = document.getElementById('area');
 
             this.render();
 
@@ -146,13 +147,36 @@ $(function(){
 
         render: function(){
 
-            _this = this;
+            console.log(this.select_area, this.btn_delete);
 
-            console.log(this.btn_edit, this.btn_delete);
+            this.select_area.addEventListener('change', function(){
+
+                _this = this;
+
+                $.post({
+                    url: document.getElementById('update_solicitude_route').value,
+                    data: {
+                        value: _this.value,
+                        column: 'area'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log(response);
+                    }
+                });
+
+            });
             
             this.btn_delete.addEventListener('click', function(e){
 
                 e.preventDefault();
+
+                _this = this;
                 
                 swal({
                     title: '¿Esta seguro de eliminar esta solicitud?',
@@ -164,6 +188,10 @@ $(function(){
                 }).then(function(isConfirm){
                     
                     if(isConfirm.value){
+
+                        console.log(_this);
+
+                        return;
 
                         $.ajax({
 

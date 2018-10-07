@@ -61,12 +61,12 @@ class SolicitudeController extends Controller
             'area' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip',
+            //'evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip',
         ];
 
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio',
-            'mimetypes' => 'Solo se permiten archivos con extension jpeg, jpg, png, zip, rar'
+            //'mimetypes' => 'Solo se permiten archivos con extension jpeg, jpg, png, zip, rar'
         ];
 
         $req->validate($reglas, $mensajes);
@@ -132,12 +132,12 @@ class SolicitudeController extends Controller
 
         //$solicitude = Solicitude::findOrFail($id);
         $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
-        $area = DB::table('area')->where('id', $solicitude->area_id)->value('name');
+        $areas = DB::table('area')->get();
         $contactos = User::all();
 
         return view('incidence.solicitude', [
             'solicitude' => $solicitude,
-            'area' => $area,
+            'areas' => $areas,
             'contactos' => $contactos   
         ]);
 
@@ -145,8 +145,30 @@ class SolicitudeController extends Controller
 
     public function destroy($id){
 
+        $solicitude = Solicitude::findOrFail($id);
+        
+        foreach ($solicitude->incidence as $incidence) {
+            $incidence->delete();
+        }
+        
         return response()->json(Solicitude::destroy($id), 200);
         
+
+    }
+
+    public function update(Request $req, $id){
+
+        $solicitude = Solicitude::findOrFail($id);
+
+        switch ($req->column) {
+
+            case 'area':
+                $solicitude->area_id = $req->value;
+                $solicitude->save();
+                break;
+            
+        }
+        return response()->json($solicitude);
 
     }
 
