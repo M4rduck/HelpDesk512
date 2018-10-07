@@ -112,6 +112,12 @@
             $('#slug').val(data.roles.slug);
             $('#description').val(data.roles.description);
             $('#special').val(data.roles.special);
+            $('#special').select2({width:'100%'});
+
+            $.each(data.roles.permissions, function(i,item){
+                permissions.push(data.roles.permissions[i].id);                    
+
+            });
 
 
             $('#permissions').val(permissions).change();
