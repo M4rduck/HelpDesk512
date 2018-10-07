@@ -15,5 +15,9 @@ return [
 
     'title_header' => 'Create',
     'title_header_box' => 'Diagnostics',
-    'title_btn_create' => 'Create Input'
+    'title_btn_create' => 'Create Input',
+    'label_name_create_field' => 'Name',
+    'label_description_create_field' => 'Description',
+    'label_input_type_create_field' => 'Input type',
+    'fields_not_found_or_create' => 'No fields created or found'
 ];

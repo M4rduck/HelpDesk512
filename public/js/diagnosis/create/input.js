@@ -1,12 +1,9 @@
 camposPersonalizados = $('#camposPersonalizados');
+input_type_id = $('#input_type_id').select2({width:'100%', placeholder: 'Selecciona'});
 rutaInput = $('#route-input-index').val();
 
 loadInputs();
-swal({
-    title: "titulo",
-    text: "mensaje",
-    icon: "success",
-});
+
 function loadInputs(){  
     camposPersonalizados.LoadingOverlay("show");  
     $.getJSON(rutaInput)

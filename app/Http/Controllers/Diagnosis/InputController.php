@@ -12,11 +12,17 @@ class InputController extends Controller
 {
     public function index(){
         try{
-            $inputs = TypeInput::all();
+            $inputs = TypeInput::whereHas('fields', function($query){
+                        $query->where('is_deleted', 0);
+                      })->get();
             $html = View('diagnosis.parameterization.partials.input')->with('inputs', $inputs)->render();
         }catch(QueryException $queryException){
             return response()->json(['success' => true, 'error' => true, 'title' => '', 'msg' => ''.$queryException->getCode()]);
         }        
         return response()->json(['success' => true, 'error' => false, 'html' => $html]);
+    }
+
+    public function store(Request $request){
+        dd($request->all());
     }
 }

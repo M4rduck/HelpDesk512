@@ -15,5 +15,9 @@ return [
 
     'title_header' => 'Crear',
     'title_header_box' => 'Diagnostico',
-    'title_btn_create' => 'Crear Campo de Entrada'
+    'title_btn_create' => 'Crear Campo de Entrada',
+    'label_name_create_field' => 'Nombre',
+    'label_description_create_field' => 'Descripción',
+    'label_input_type_create_field' => 'Tipo de Dato',
+    'fields_not_found_or_create' => 'No hay campos creados o encontrados'
 ];
