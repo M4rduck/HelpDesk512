@@ -75,10 +75,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        
-        $roles = Role::findOrFail($id);
-        $permissions = Permission::pluck('name','id');
-        return array ('roles'=> $roles,"permissions"=>$permissions);
+        $roles = Role::with('permissions')->find($id);
+        ($roles['special'] == null) ? $roles['special'] = 'null' : $roles;
+        return  array ("roles"=>$roles);
     }
 
     /**
@@ -100,7 +99,7 @@ class RoleController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Contact Updated'
+            'message' => 'Role Updated'
         ]);
     }
 
@@ -122,7 +121,8 @@ class RoleController extends Controller
 
     public function apiRoles()
     {
-        $roles=Role::all();
+        $roles=Role::with('permissions')->get();
+        $permissions = Role::with('permissions')->find($roles);
         
         return Datatables::of($roles)
             ->addColumn('action', function($roles){
