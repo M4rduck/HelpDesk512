@@ -30,6 +30,6 @@ class TypeInput extends Model
      */
     public function fields()
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(Field::class, 'input_type_id');
     }
 }

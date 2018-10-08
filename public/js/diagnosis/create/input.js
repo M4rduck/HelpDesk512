@@ -15,7 +15,7 @@ function loadInputs(){
             swal({
                 title: data.title,
                 text: data.msg,
-                icon: "error",
+                icon: 'error',
             });
         }
     })
