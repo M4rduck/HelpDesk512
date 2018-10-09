@@ -73,7 +73,7 @@
                         {data: 'name', name: 'name'},
                         {data: 'slug', name: 'slug'},
                         {data: 'description', name: 'description'},
-                        {data: 'special', name: 'special'},
+                        {data: 'edit', name: 'edit'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
@@ -122,6 +122,7 @@
 
             $('#permissions').val(permissions).change();
             $('#permissions').select2({width:'100%'});
+            
           },
           error : function() {
               swal({
