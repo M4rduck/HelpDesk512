@@ -16,10 +16,11 @@ class CreateKnowledgebaseTable extends Migration
         Schema::create('knowledgebase', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->unsigned()->index();
-            $table->foreign('category_id')->references('id')->on('category')->onDelete('restrict');            
-            $table->integer('score');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('restrict')->nullable(true);            
+            $table->integer('score')->nullable()->default(0);
+            $table->string('description',500);
             $table->string('name');
-            $table->string('solution');
+            $table->string('solution');            
             $table->integer('sw_faq')->default(0)->comment('1 to yes, 0 to no');
             $table->timestamps();
         });

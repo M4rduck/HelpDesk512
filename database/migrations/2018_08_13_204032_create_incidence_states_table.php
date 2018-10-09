@@ -1,10 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
-class CreateModuleTable extends Migration
+class CreateIncidenceStatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +11,13 @@ class CreateModuleTable extends Migration
      */
     public function up()
     {
-        Schema::create('module', function (Blueprint $table) {
+        Schema::create('incidence_state', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('software_id')->unsigned()->index();
-            $table->foreign('software_id')->references('id')->on('software')->onDelete('restrict');
-            $table->string('name');            
-            $table->string('descritpion')->nullable(true);
+            $table->string('name')->unique();
+            $table->text('description');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -30,6 +25,6 @@ class CreateModuleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('module');
+        Schema::dropIfExists('incidence_state');
     }
 }

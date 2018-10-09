@@ -16,7 +16,7 @@ class CreateModuleMenuTable extends Migration
         Schema::create('module_menu', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('method_id')->unsigned()->index();
-            $table->foreign('method_id')->references('id')->on('method')->onDelete('restrict');
+            $table->foreign('method_id')->references('id')->on('method')->onDelete('restrict')->nullable(true);
             $table->integer('module_id')->nullable(true)->unsigned()->index();
             $table->foreign('module_id')->references('id')->on('module_menu')->onDelete('restrict');
             $table->integer('order')->comment('Order that show the modules');
@@ -26,6 +26,7 @@ class CreateModuleMenuTable extends Migration
             $table->string('label')->nullable(true)->comment('Text that show next to module\'s name');
             $table->string('label_color')->nullable(true)->comment('Name of the color for the label, can be the color\'s name in ui Elements, System in adminLTE');
             $table->boolean('main')->default(1)->comment('indicates whether the module is main or a submenu, 1 for itself, 0 for not');
+            $table->integer('resource');
             $table->timestamps();
 
         });
