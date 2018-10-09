@@ -5,6 +5,9 @@ namespace App\Http\Controllers\BaseConocimiento;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\KnowledgeBase;
+use Yajra\DataTables\DataTables;
+
 class BaseConocimientoController extends Controller
 {
     /**
@@ -14,7 +17,8 @@ class BaseConocimientoController extends Controller
      */
     public function index()
     {
-        return view('BaseConocimiento.index');
+        $request = KnowledgeBase::with('users')->orderBy('id','desc')->get();
+        return view('BaseConocimiento.index')->with(['bases'=>$request]);
     }
     
 
@@ -84,4 +88,10 @@ class BaseConocimientoController extends Controller
     {
         //
     }
+
+    /**
+     * Api the charge datatable from view
+     * @param int $request 
+     */
+    
 }

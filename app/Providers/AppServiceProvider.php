@@ -7,6 +7,7 @@ use App\Models\General\Controller as ModelController;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
+        Schema::defaultStringLength(191);
+        
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
             $resource = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
             $modulos = Module::with(['method', 'modules' => function($join){

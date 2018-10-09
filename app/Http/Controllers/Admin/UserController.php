@@ -118,7 +118,7 @@ class UserController extends Controller
     public function apiUsers()
     {
         $users=User::with('speciality')->get();
-        $speciality = User::with('speciality')->find($users);
+        
         
         
         return Datatables::of($users)

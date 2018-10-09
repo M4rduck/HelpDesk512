@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use \Conner\Tagging\Taggable;
 
 /**
  * @property int $id
@@ -19,6 +20,9 @@ use App\User;
  */
 class KnowledgeBase extends Model
 {
+    
+    use Taggable;
+    
     /**
      * The table associated with the model.
      * 
@@ -29,21 +33,13 @@ class KnowledgeBase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'score', 'name', 'solution', 'sw_faq', 'created_at', 'updated_at'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
+    protected $fillable = ['score', 'name', 'solution', 'sw_faq', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_has_knowledgebase');
+        return $this->belongsToMany('App\User', 'user_has_knowledgebase','knowledgebase_id','user_id');
     }
 }

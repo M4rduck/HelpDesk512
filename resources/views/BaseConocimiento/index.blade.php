@@ -1,39 +1,90 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<link rel="stylesheet" type="text/css" href="estilos.css">
-	<meta charset="utf-8">
-	<title></title>
-</head>
-<body>
-<form action="" class="formulario">
-	<h1 class="formulario__titulo">Nueva Incidencia</h1><br>
-	<input type="text" class="formulario__input">
-	<label for="" class="formulario__label">Nombre</label>
-	<input type="text" class="formulario__input">
-	<label for="" class="formulario__label">Descripcion</label>
-	<input type="text" class="formulario__input">
-	<label for="" class="formulario__label">Solucion</label>
-	<input type="text" class="formulario__input">
-	<label for="" class="formulario__label">Sw Faq</label>
-	<input type="text" class="formulario__input">
-	<label for="" class="formulario__label">Puntuacion</label>	
-	<input type="submit" class="formulario__submit">
-</form>
-<script>
-	var inputs = document.getElementsByClassName('formulario__input');
-	for(var i =0; i < inputs.length; i++){
-inputs[i].addEventListener('keyup', function(){
-	if(this.value.length>=1){
-		this.nextElementSibling.classList.add('fijar');
-	}else{
-		this.nextElementSibling.classList.remove('fijar');
-	}
-});
-	}
+@extends('adminlte::page')
 
+@section('title','Base de Conocimiento')
 
+@push('js')
+    {!! Html::script('./js/system/method/table.js') !!}
+@endpush
+
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
+
+@section('content')
+	<div class="row">
+		<div class="col-lg-12">
+		<div class="box">
+
+        <!--Box title -->
+            <div class="box-header with-border">
+                <h1>
+                Base de Conocimiento
+                {!! Form::button('<i class="fas fa-search"></i> Search', 
+                ['class'=>'btn btn-secundary pull-right',
+                'data-toggle' =>'modal',
+                'onclick'=>'']) !!}
+                {!! Form::button('New', 
+                ['class'=>'btn btn-primary pull-right',
+                'data-toggle' =>'modal',
+                'onclick'=>'']) !!}
+            </div>
+            
+
+        <!--Box body -->
+        <!--Alertas -->
+        <div class="box-body">
+        @if(session('info'))
+                    <div class="alert alert-success">
+                        {{ session('info') }}
+                    </div>
+        @endif
+                    
+        @if(count($errors))
+        <div class="alert alert-success">
+            <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+        @endif
+        <!-- /Alertas -->
+        <!-- panel -->                
+            @foreach($bases as $base)
+                    <div class="panel panel-info">
+                        <div class="panel-heading">{{ $base->name }}
+                        {!! Form::button('<i class="fas fa-eye"></i>',['class'=>'btn btn-primary','onclick'=>'']) !!}</div>
+                        <div class="panel-body">{{ $base->solution }}</div>
+                        <div class="panel-footer">
+                            @forelse($base->tags as $tag)
+                            <span class="label label-info">{{ $tag->name }}</span>
+                            @empty
+                            <em>Sin etiquetas</em>
+                            @endforelse
+                        </div>
+                    </div>
+            @endforeach
+        <!-- panel -->            
+        </div>
+        <!--Box body -->
+        <div class="box-footer">
+        </div>
+	</div>
+</div>
+</div>
+
+</div>
+
+@endsection
+
+@section('js')
+
+<script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 </script>
-
-</body>
-</html>
+@endsection
