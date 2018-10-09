@@ -75,7 +75,7 @@ class IncidenceController extends Controller
 
     public function show($id){
 
-        $incidence= Incidence::with(['agent:id,name', 'contact:id,name', 'incidenceState:id,name'])->findOrFail($id);
+        $incidence= Incidence::with(['agent:id,name', 'contact:id,name', 'incidenceState:id,name', 'solicitude:id,title'])->findOrFail($id);
 
         return view('incidence.incidence',[
             'incidence'=>$incidence
