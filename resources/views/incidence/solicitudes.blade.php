@@ -90,6 +90,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
@@ -98,6 +99,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                         </div>
                         <div class="modal-footer">
                             <button class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>

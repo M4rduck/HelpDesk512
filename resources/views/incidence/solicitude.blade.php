@@ -95,6 +95,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
@@ -103,6 +104,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
@@ -154,7 +156,6 @@
                     <script>
                         var initial_incidences = @json($solicitude->incidence); 
                         var solicitude = @json($solicitude);
-                        console.log(initial_incidences, solicitude);
                     </script>
                     <div class="box">
                         <div class="box-header with-border">
@@ -184,7 +185,7 @@
                     </div>
                 @else
                     <h3>No hay incidencias para esta solicitud</h3>
-                    
+                    <img class="center-block" src="http://1.bp.blogspot.com/-QnzyKyBZz20/Ui4kRwOCM_I/AAAAAAAAAzs/YJmkTNPIrRo/s1600/lola_affair_02.png" alt="no incidences" class="img-responsive">    
                 @endif
             </div>
             <div class="col-md-3 col-lg-3 col-sm-12">
@@ -194,26 +195,31 @@
                     </div>
                     <div class="box-body">
                         <div class="form-group">
+                            <input type="hidden" id="update_solicitude_route" value="{{ route('solicitudes.update',['id' => $solicitude->id]) }}">
                             <label for="area">Area</label>
-                            <p id="area">{{ $area }}</p>
+                            <select class="form-control" name="area" id="area">
+                                @foreach ($areas as $area)
+
+                                    @if ($area->id == $solicitude->area_id)
+                                        <option value="{{ $area->id }}" selected>{{ $area->name }}</option>    
+                                    @else
+                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                    @endif
+
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="description">Descripci&oacute;n</label>
                             <p id="description">{{ $solicitude->description }}</p>
                         </div>
-                        @if ($solicitude->evidence_route)
-                            <div class="form-group">
-                                <label for="evidence">Evidencia</label>
-                                <p><a id="evidence" href="{{ asset(Storage::url($solicitude->id)) }}" download>{{ asset(Storage::url($solicitude->id)) }}</a></p>
-                            </div>
-                        @endif
                     </div>
                     <div class="box-footer">
                         <button id="btn_incidencia" data-target="#incidence_create_modal" data-toggle="modal" class="btn btn-default pull-right">Nueva Incidencia</button>
                     </div>
                 </div>
                 <div class="pull-right">
-                    <a id="btn_edit" href="" class="btn btn-info">Editar</a>
+                    <!--<a id="btn_edit" href="" class="btn btn-info">Editar</a>-->
                     <a id="btn_delete" href="{{ route('solicitudes.destroy',['id' => $solicitude->id]) }}" class="btn btn-danger">Eliminar</a>
                 </div>
             </div>
