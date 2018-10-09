@@ -7,7 +7,7 @@ $(function(){
         init: function(){
 
             this.method = this.element.method;
-            //this.action = this.element.action;
+            this.action = this.element.action;
             this.enctype = this.element.enctype;
             this.$agent = $(this.element.elements['agent']);
             this.$contact = $(this.element.elements['contact']);
@@ -18,16 +18,109 @@ $(function(){
             this.state = this.element.elements['state'];
             this.priority = this.element.elements['priority'];
 
+            this.btn_submit = document.getElementById('btn_submit');
+            this.id_solicitude = document.getElementById('solicitude_id');
+
             this.render();
 
         },
 
         render: function(){
 
+            _this = this;
+
             this.$agent.select2();
             this.$contact.select2();
             this.$label.select2({
                 tags: true
+            });
+
+            this.$parsley_form = $(this.element).parsley({
+                
+                errorClass: 'has-error',
+                successClass: '',
+                classHandler: function (ParsleyField) {
+                    return ParsleyField.$element.parents('.form-group');
+                },
+                errorsContainer: function (ParsleyField) {
+                    return ParsleyField.$element.parents('.form-group');
+                },
+                errorsWrapper: '<span class="help-block">',
+                errorTemplate: '<div></div>'
+
+            });
+
+            this.element.elements['evidence'].addEventListener('change', function(){
+                console.log(this);
+                _this.evidence = this.files[0];
+                console.log('nueva_evidencia', _this.evidence);
+            });
+
+            this.element.addEventListener('submit', function(e){
+                
+                e.preventDefault();
+
+                if(_this.$parsley_form.validate()){
+
+                    var form_data = new FormData();
+                    form_data.append('contact', _this.$contact.val());
+                    form_data.append('id_solicitude', _this.id_solicitude.value);
+                    form_data.append('theme', _this.theme.value);
+                    form_data.append('description', _this.description.value);
+                    form_data.append('incidence_evidence', _this.evidence);
+                    form_data.append('labels', _this.$label.val());
+                    form_data.append('agent', _this.$agent.val());
+                    form_data.append('incidence_state', _this.state.value);
+                    form_data.append('priority', _this.priority.value);
+
+                    for (var value of form_data.values()) {
+                        console.log(value); 
+                    }
+
+                    _this.btn_submit.innerHTML = "Cargando&nbsp;&nbsp;<i class='fa fa-spinner fa-spin'></i>";
+
+                    $.ajax({
+
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        url: _this.action,
+                        data: form_data,
+                        method: _this.method,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response){
+                            console.log('success', response);
+                            if(response.estado){
+
+                                _this.set_form_values();
+        
+                                swal(
+                                    'Exito',
+                                    response.mensaje,
+                                    'success'
+                                );
+                                
+                                /*
+                                table_solicitudes.datatable.destroy();
+                                table_solicitudes.render();
+                                */
+                                table_incidences.update();
+        
+                            }
+                        },
+                        complete: function(response){
+                            console.log('complete', response);
+                            _this.btn_submit.innerHTML = "Guardar";
+                        },
+                        error: function(response){
+                            console.log('error', response.responseText);
+                        }
+
+                    });
+                }
+
             });
 
         }
@@ -41,7 +134,7 @@ $(function(){
             this.parent_element = document.getElementById('table_container');
             this.element = document.getElementById('incidences_table');
             this.incidences_route = document.getElementById('incidences_route').value;
-            this.show_incidence_route = document.getElementById('show_incidence_route') ? document.getElementById('show_incidence_route') : "";
+            this.show_incidence_route = document.getElementById('show_incidence_route') ? document.getElementById('show_incidence_route').value : "";
             this.datatable = null;
             this.render();
 
@@ -94,43 +187,9 @@ $(function(){
                     data: initial_incidences
                 });
 
-            }else{
-
-                //TODO modificar para acoplar con incidencias
-
-                /*
-
-                this.parent_element.style.display = 'none';
-
-                $.getJSON({
-                    url: this.incidences_route,
-                    success: function(response){
-                        console.log(response);
-                        data = response;
-                    },
-                    complete: function(){
-                        self.datatable = $(self.element).DataTable({
-                            columns: [
-                                {data: 'id'},
-                                {data: 'area'},
-                                {data: 'title'},
-                                {data: 'description'},
-                                {data: 'details'}
-                            ],
-                            data: data
-                        });
-                        self.parent_element.style.display = 'block';
-                    }
-                });
-
-                */
-
             }
-
             //console.log(self.datatable);
-
         }
-   
     };
 
     var options_group = {

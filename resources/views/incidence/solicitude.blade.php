@@ -51,7 +51,7 @@
     <div id="incidence_create_modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form_incidence" method="post" enctype="multipart/form-data">
+                <form id="form_incidence" method="post" enctype="multipart/form-data" action="{{ route('incidence.store') }}">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Nueva Incidencia</h4>
@@ -67,6 +67,7 @@
                             </ul>
                         </div>
                         -->
+                        <input type="hidden" id="solicitude_id" value="{{ $solicitude->id }}">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
@@ -117,7 +118,11 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
                                     <label for="agent">Asignar a:</label>
-                                    <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="agent" name="agent" required></select>
+                                    <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="agent" name="agent" required>
+                                        @foreach ($contactos as $contacto)
+                                            <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +130,11 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
                                     <label for="state">Estado</label>
-                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required></select>
+                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required>
+                                        @foreach ($estados_incidencia as $estado)
+                                            <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +142,11 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
                                     <label for="priority">Prioridad:</label>
-                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="priority" name="priority" required></select>
+                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="priority" name="priority" required>
+                                        @foreach ($prioridades as $prioridad)
+                                            <option value="{{ $prioridad['id'] }}">{{ $prioridad['name'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -157,36 +170,38 @@
                         var initial_incidences = @json($solicitude->incidence); 
                         var solicitude = @json($solicitude);
                     </script>
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Incidencias</h3>
-                        </div>
-                        <div class="box-body">
-                            <br><br>
-                            <div style="padding-left: 20px; padding-right: 20px;" id="table_container">
-                                <div>
-                                    <input id="show_incidence_route" type="hidden" value="{{ route('incidence.show', ['incidence' => ""]) }}">
-                                    <table id="incidences_table" style="width: 100%">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Tema</th>
-                                                <th>Descripcion</th>
-                                                <th>Estado</th>
-                                                <th>Agente</th>
-                                                <th>Detalles</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
-                            <br><br>
-                        </div>
-                    </div>
                 @else
-                    <h3>No hay incidencias para esta solicitud</h3>
-                    <img class="center-block" src="http://1.bp.blogspot.com/-QnzyKyBZz20/Ui4kRwOCM_I/AAAAAAAAAzs/YJmkTNPIrRo/s1600/lola_affair_02.png" alt="no incidences" class="img-responsive">    
+                    <script>
+                        var initial_incidences = [];
+                        var solicitude = {};
+                    </script>
                 @endif
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Incidencias</h3>
+                    </div>
+                    <div class="box-body">
+                        <br><br>
+                        <div style="padding-left: 20px; padding-right: 20px;" id="table_container">
+                            <div>
+                                <input id="show_incidence_route" type="hidden" value="{{ route('incidence.show', ['incidence' => ""]) }}">
+                                <table id="incidences_table" style="width: 100%">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tema</th>
+                                            <th>Descripcion</th>
+                                            <th>Estado</th>
+                                            <th>Agente</th>
+                                            <th>Detalles</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>
+                </div>
             </div>
             <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="box">

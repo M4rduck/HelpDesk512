@@ -19,7 +19,7 @@
 @section('content')
 
     <div id="incidence">
-        {{ $incidence }}
+        {{ $incidence->id }}
     </div>
     
     

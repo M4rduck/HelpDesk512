@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Incidence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
+use App\Models\Incidence\IncidenceState;
 use App\User;
 use DB;
 
@@ -95,7 +96,7 @@ class SolicitudeController extends Controller
 
             $msg = [
                 'estado' => false,
-                'mensaje' => 'No se ha podido registrar la incidencia'
+                'mensaje' => 'No se ha podido registrar la solicitud'
             ];
 
         }
@@ -134,11 +135,32 @@ class SolicitudeController extends Controller
         $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
         $areas = DB::table('area')->get();
         $contactos = User::all();
+        $estados_incidencia = IncidenceState::all();
+        $prioridades = [
+            [
+                'id' => 'low',
+                'name' => 'Baja'
+            ],
+            [
+                'id' => 'medium',
+                'name' => 'Media'
+            ],
+            [
+                'id' => 'high',
+                'name' => 'Alta'
+            ],
+            [
+                'id' => 'urgent',
+                'name' => 'Urgente'
+            ]
+        ];
 
         return view('incidence.solicitude', [
             'solicitude' => $solicitude,
             'areas' => $areas,
-            'contactos' => $contactos   
+            'contactos' => $contactos,
+            'estados_incidencia' => $estados_incidencia,
+            'prioridades' => $prioridades
         ]);
 
     }

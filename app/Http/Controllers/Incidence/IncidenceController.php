@@ -12,13 +12,13 @@ class IncidenceController extends Controller
     public function store(Request $request){
         
         $reglas = [
-            'contacto' => 'required',
-            'tema' => 'required',
-            'estado' => 'required',
-            'prioridad' => 'required',
-            'agente' => 'required',
-            'descripcion' => 'required',
-            'evidencia' => 'file|mimetypes:image/jpeg'
+            'contact' => 'required',
+            'theme' => 'required',
+            'incidence_state' => 'required',
+            'priority' => 'required',
+            'agent' => 'required',
+            'description' => 'required',
+            'incidence_evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip'
         ];
 
         $mensajes = [
@@ -28,51 +28,49 @@ class IncidenceController extends Controller
 
         $request->validate($reglas, $mensajes);
 
-        dd($request->file('evidencia'));
+        //dd($request->file('evidencia'));
 
         $incidencia = new Incidence;
-        $incidencia->contacto = sanitize($request->contacto);
-        $incidencia->tema = sanitize($request->tema);
-        $incidencia->estado = sanitize($request->estado);
-        $incidencia->prioridad = sanitize($request->prioridad);
-        $incidencia->agente = sanitize($request->agente);
-        $incidencia->descripcion = sanitize($request->descripcion);
-        $incidencia->ruta_evidencia = '';
-        $incidencia->etiquetas = '';
 
-        if($request->etiquetas){
-            $incidencia->etiquetas = implode(',', $request->etiquetas);
+        $incidencia->id_contact = $request->contact;
+        $incidencia->theme = $request->theme;
+        $incidencia->id_incidence_state = $request->incidence_state;
+        $incidencia->priority = $request->priority;
+        $incidencia->id_agent = $request->agent;
+        $incidencia->description = $request->description;
+        $incidencia->evidence_route = '';
+        $incidencia->label = $request->labels;
+        $incidencia->id_solicitude = $request->id_solicitude;
+
+        /*
+        if($request->labels){
+            $incidencia->labels = implode(',', $request->etiquetas);
         }
+        */
 
         if($incidencia->save()){
             
-            if($request->hasFile('evidencia')){
+            if($request->hasFile('incidence_evidence')){
                 //TODO guardar con id de incidencia
-                $incidencia->ruta_evidencia = $request->file('evidencia')->store('/', 'incidences');
+                $incidencia->evidence_route = $request->file('incidence_evidence')->storeAs('public', $incidencia->id);
                 $incidencia->save();
             }
 
             $msg = [
-                'estado' => 's',
+                'estado' => true,
                 'mensaje' => 'La incidencia ha sido registrada'
             ];
 
         }else{
 
             $msg = [
-                'estado' => 'w',
+                'estado' => false,
                 'mensaje' => 'No se ha podido registrar la incidencia'
             ];
 
         }
 
-        return redirect()->route('incidences-create')->with('msg', $msg);
-    }
-
-    private function sanitize($field){
-
-        return filter_var($field, FILTER_SANITIZE_STRING);
-    
+        return response()->json($msg, 200);
     }
 
     public function show($id){
