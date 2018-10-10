@@ -18,86 +18,58 @@
             {!! Form::button('<i class="fas fa-search"></i> Search', 
                 ['class'=>'btn btn-secundary pull-right',
                 'data-toggle' =>'modal',
-                'onclick'=>'']) !!}
-                {!! Form::button('New', 
-                ['class'=>'btn btn-primary pull-right',
-                'data-toggle' =>'modal',
-                'onclick'=>'viewFrom()']) !!}</h1>
+                'onclick'=>'',
+                'style'=>'margin-top: -8px;']) !!}
+                <a href="{{ route('baseConocimiento.create') }}" class="btn btn-primary pull-right modal-show" style="margin-top: -8px;" title="Create User"><i class="icon-plus"></i> Create</a></h1>
         </section>
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                @if(session('info'))
-                        <div class="alert alert-success">
-                            {{ session('info') }}
-                        </div>
-                @endif
-                    
-                @if(count($errors))
-                    <div class="alert alert-success">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-                    @foreach($bases->chunk(2) as $chunk)
-                        <div class="row">
-                            @foreach($chunk as $base)
-                            <div class="col-md-6">
-                            <div class="box box-info">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">{{ $base->name }}</h3>
-                                    <div class="box-tools pull-right">
-                                        <button type="button" class="btn btn-box-tool" data-toggle='modal' onclick='addFrom()'><i class="fas fa-eye"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                    <div class="box-body">
-                                        {{ $base->description }}
-                                    </div>
-                                    <div class="box-footer">
-                                        @forelse($base->tags as $tag)
-                                        <span class="label label-info">{{ $tag->name }}</span>
-                                        @empty
-                                        <em>Sin etiquetas</em>
-                                        @endforelse
-                                    </div>   
-                            </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+        <section class="content" id="content-body">
+            
         </section>
     </div>
-@include('BaseConocimiento.create')
+@include('BaseConocimiento.modal')
 @endsection
 
 @section('js')
 
 <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        function addFrom(){
-            $('#modal-form').modal('show');
-            $('#header').removeClass();
-            $('#header').addClass('modal-header bg-info');
+        function loadBody(){
+            $.getJSON('{!! route('BaseConocimiento.loadBody') !!}')
+            .done(function(data){
+                console.table(data);
+                if(!data.error){
+                    $('#content-body').html(data.body);
+                }else{
+                    swal({
+                        title: data.title,
+                        text: data.text,
+                        icon: "error"
+                    });
+                }                
+            })
         }
 
-        function viewFrom(){
-            $('#modal-form').modal('show');
-            $('#header').removeClass();
-            $('#header').addClass('modal-header bg-primary');
-        }
+        loadBody();
 
+       /*$(document).on('mousedown', '.modal-show', function (event){
+            event.preventDefault();
+            //$('#input').tagsinput();
+            var me = $(this),
+                url = me.attr('href'),
+                title = me.attr('title');
+
+            $('#modal-title').text('Create Solution');
+            $('#modal-btn-save').text('Create');
+
+            $.ajax({
+                url: url,
+                dataType: 'html',
+                success: function (response){
+                    $('#modal-body').html(response);
+                } 
+            });
+            
+            $('#modal').modal('show');
+
+        });*/
 </script>
 @endsection

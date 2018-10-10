@@ -37,10 +37,6 @@ Route::group(['prefix' => 'incidence','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('incidence', 1);
 });
 
-Route::group(['prefix' => 'baseConocimiento','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('baseConocimiento', 1);
-});
-
 Route::group(['prefix' => 'area-empresa','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('area-empresa', 1);
 });
@@ -67,4 +63,8 @@ Route::group(['prefix' => 'speciality','middleware' => ['auth']], function (){
 
 Route::group(['prefix' => 'encuesta','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('encuesta', 1);
+});
+
+Route::group(['prefix' => 'baseConocimiento','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('baseConocimiento', 1);
 });

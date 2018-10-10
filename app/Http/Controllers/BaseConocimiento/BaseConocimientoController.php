@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\BaseConocimiento;
 
+use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use App\Models\KnowledgeBase;
@@ -17,8 +20,8 @@ class BaseConocimientoController extends Controller
      */
     public function index()
     {
-        $request = KnowledgeBase::with('users')->orderBy('id','desc')->get();
-        return view('BaseConocimiento.index')->with(['bases'=>$request]);
+        
+        return view('BaseConocimiento.index');
     }
     
 
@@ -30,7 +33,8 @@ class BaseConocimientoController extends Controller
      */
     public function create()
     {
-        //
+            $request = new KnowledgeBase;
+            return view ('BaseConocimiento.form',compact('request'));
     }
 
     /**
@@ -42,6 +46,18 @@ class BaseConocimientoController extends Controller
     public function store(Request $request)
     {
         dd($request->nombre);
+    }
+
+    public function loadBody(){
+        try{
+            $request = KnowledgeBase::with('users')->orderBy('id','desc')->get();
+            $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+        return response()->json(['error' => false, 'body' => $body]);        
     }
 
     /**
