@@ -60,6 +60,6 @@
                     </div>
                 </div>
 
-    {{ $incidence }}
+    {{ $incidence->incidence_state }}
     
 @stop

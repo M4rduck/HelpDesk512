@@ -128,6 +128,16 @@ class SolicitudeController extends Controller
 
         return response()->json($data, 200);
     }
+    
+    public function incidences($id){
+
+        //$incidences = Incidence::where('id_solicitude', );
+        $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
+
+        $incidences = $solicitude->incidence;
+
+        return response()->json($incidences, 200);
+    }
 
     public function show($id) {
 

@@ -73,6 +73,7 @@
                                 <div class="form-group">
                                     <label for="contact">Contacto:</label>
                                     <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="contact" name="contact" required>
+                                        <option value=""></option>
                                         @foreach ($contactos as $contacto)
                                             <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
                                         @endforeach
@@ -119,6 +120,7 @@
                                 <div class="form-group">
                                     <label for="agent">Asignar a:</label>
                                     <select style="width: 100%;" tabindex="-1" data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="agent" name="agent" required>
+                                        <option value=""></option>
                                         @foreach ($contactos as $contacto)
                                             <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
                                         @endforeach
@@ -132,7 +134,11 @@
                                     <label for="state">Estado</label>
                                     <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required>
                                         @foreach ($estados_incidencia as $estado)
-                                            <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                            @if ($estado->id == 4)
+                                                <option value="{{ $estado->id }}" selected>{{ $estado->name }}</option>
+                                            @else
+                                                <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -164,7 +170,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 col-lg-9 col-sm-12">
-                <input type="hidden" name="incidences_route" id="incidences_route" value="{{ "route('incidences.list')" }}">
+                <input type="hidden" name="incidences_route" id="incidences_route" value="{{ route('solicitudes.incidences', ['solicitude' => $solicitude->id]) }}">
                 @if ($solicitude->incidence->count())
                     <script>
                         var initial_incidences = @json($solicitude->incidence); 

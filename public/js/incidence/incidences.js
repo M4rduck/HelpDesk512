@@ -3,6 +3,20 @@ $(function(){
     var form_incidence = {
 
         element: document.getElementById('form_incidence'),
+
+        set_form_values: function(){
+
+            this.$agent.val("");
+            this.$contact.val("");
+            this.theme.value = "";
+            this.description.value = "";
+            document.getElementById('evidence').value = "";
+            console.log("set_form_values", this.$label.val());
+            this.$label.val([]).trigger('change');
+            this.state.value = "";
+            this.priority.value = "";
+
+        },
         
         init: function(){
 
@@ -29,8 +43,14 @@ $(function(){
 
             _this = this;
 
-            this.$agent.select2();
-            this.$contact.select2();
+            this.$agent.select2({
+                placeholder: 'Seleccione un agente',
+                allowClear: true
+            });
+            this.$contact.select2({
+                placeholder: 'Seleccione un contacto',
+                allowClear: true
+            });
             this.$label.select2({
                 tags: true
             });
@@ -120,6 +140,13 @@ $(function(){
 
                     });
                 }
+
+            });
+
+            $('#incidence_create_modal').on('hidden.bs.modal', function(){
+                
+                _this.$parsley_form.reset();
+                _this.set_form_values();
 
             });
 

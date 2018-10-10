@@ -81,4 +81,5 @@ class IncidenceController extends Controller
             'incidence'=>$incidence
         ]);
     }
+
 }
