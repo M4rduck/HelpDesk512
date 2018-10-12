@@ -10,5 +10,15 @@ use DB;
 
 class TracingController extends Controller{
 
+    public function store (Request $request){
+        dd($request->all());
+
+        $tracing= new Tracing;
+       
+        /*$tracing->id_incidence= $request->,
+        'id_agent',
+        'id_user',
+        'comment'*/
+    }
 
 }

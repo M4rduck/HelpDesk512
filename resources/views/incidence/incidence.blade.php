@@ -15,7 +15,12 @@
 @push('js')
     {!! Html::script('js/incidence/sweetalert2.min.js') !!}
     {!! Html::script('js/incidence/parsley.min.js') !!}
-
+    {!! Html::script('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') !!}
+    <script>
+      $('#chat-box').slimScroll({
+            height: '400px'
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -23,44 +28,90 @@
  <div class="container-fluid">
     <div class="row">
         <div class="col-md-9 col-lg-9 col-sm-12">
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title center-block">Tracing</h3>
-                </div>
-                <div class="box-body">
-                    <div class="form-group">
-                        <label for="label">Comentarios</label>
-                    </div>
-                </div>
+        <div class="box box-success">
+            <div class="box-header ui-sortable-handle" style="cursor: move;">
+              <i class="fa fa-comments-o"></i>
 
-                <div class="box-footer clearfix">
-                        <button data-toggle="modal" data-target="#myModal" class="btn btn-default btn-flat pull-right">
-                            Nuevo Comentario
-                        </button>
-                    </div>
+              <h3 class="box-title">Comentarios</h3>
             </div>
+            
+
+            <div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; height: 250px;">
+              <!-- chat item -->
+              <br>
+              <div class="item">
+                <i class="fa fa-user fa-2x" style="color: green; margin-left: 15px"></i>
+
+                <p class="message">
+                  <a href="#" class="name">
+                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 2:15</small>
+                    Mike Doe
+                  </a>
+                  I would like to meet you to discuss the latest news about
+                  the arrival of the new theme. They say it is going to be one the
+                  best themes on the market
+                </p>
+                <div class="attachment">
+                  <h4>Attachments:</h4>
+
+                  <p class="filename">
+                    Theme-thumbnail-image.jpg
+                  </p>
+
+                  <div class="pull-right">
+                    {!! Form::button('Open', ['class'=>"btn btn-primary btn-sm btn-flat"]) !!}
+                  </div>
+                </div>
+                <!-- /.attachment -->
+              </div>
+              <!-- /.item -->
+              <!-- chat item -->
+              <div class="item">
+                <i class="fa fa-user fa-2x" style="color: green; margin-left: 15px"></i>
+
+                <p class="message">
+                  <a href="#" class="name">
+                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
+                    Alexander Pierce
+                  </a>
+                  I would like to meet you to discuss the latest news about
+                  the arrival of the new theme. They say it is going to be one the
+                  best themes on the market
+                </p>
+              </div>
+              <!-- /.item -->
+              <!-- chat item -->
+              <div class="item">
+                <i class="fa fa-user fa-2x" style="color: green; margin-left: 15px"></i>
+
+                <p class="message">
+                  <a href="#" class="name">
+                    <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:30</small>
+                    Susan Doe
+                  </a>
+                  I would like to meet you to discuss the latest news about
+                  the arrival of the new theme. They say it is going to be one the
+                  best themes on the market
+                </p>
+              </div>
+              <!-- /.item -->
+                
+            </div>
+            <!-- /.chat -->
+            <div class="box-footer">
+              {!! Form::open(['route' => 'tracing.store']) !!}  
+              <div class="input-group">
+                {!! Form::hidden('traicing[id_incidence]', $incidence->id, ['id' => 'id_incidence']) !!}
+                {!! Form::text('traicing[comment]', null, ['placeholder'=>"Type message...", 'class'=>"form-control", 'id' => 'comment']) !!}
+
+                <div class="input-group-btn">
+                  {!! Form::button('<i class="fa fa-plus"></i>', ['class'=>"btn btn-success", 'type' => 'submit']) !!}
+                </div>
+              </div>
+              {!! Form::close() !!}
+            </div>
+          </div>
         </div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Comentarios</h4>
-      </div>
-            <div class="modal-body">
-                    <div class="form-group">
-                        <textarea class="form-control" name="tracing" cols="50" rows="8"></textarea>
-                    </div>
-            </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
         <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="box">
