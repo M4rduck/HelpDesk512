@@ -23,8 +23,7 @@
                                 <div class="box-header with-border">
                                     <h3 class="box-title">{{ $base->name }}</h3>
                                     <div class="box-tools pull-right">
-                                        <button type="button" class="btn btn-box-tool" data-toggle='modal' onclick='addFrom()'><i class="fas fa-eye"></i>
-                                        </button>
+                                        <a href="{{ route('baseConocimiento.show', $base->id )}}" class="btn btn-box-tool"><i class="fas fa-eye"></i></a>
                                         {!! Form::button('<i class="fa fa-minus"></i>', ['class'=>"btn btn-box-tool", 'data-widget'=>"collapse"]) !!}                                        
                                     </div>
                                 </div>
@@ -43,5 +42,6 @@
                             @endforeach
                         </div>
                     @endforeach
+                    {{ $bases->links() }}
                 </div>
 </div>

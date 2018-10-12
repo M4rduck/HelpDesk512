@@ -26,7 +26,7 @@
             <div class="box-header with-border">
                 <h1>
                 Permissions Manager
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Permissions', 
+                {!! Form::button('<i class="fas fa-user-shield"></i> Create Permissions', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -89,7 +89,7 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Permissions');
+        $('.modal-title').html('<i class="fas fa-user-shield"></i> Add Permissions');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         $('#form-users').validator();
         $('#description').ckeditor();

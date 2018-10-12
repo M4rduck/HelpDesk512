@@ -3,6 +3,7 @@
 @section('title','Base de Conocimiento')
 
 @push('js')
+    {!! Html::script('./js/tools/loadingOverlay/loadingoverlay.min.js') !!}
     {!! Html::script('./js/system/method/table.js') !!}
 @endpush
 
@@ -13,6 +14,21 @@
 
 @section('content')
 	<div class="row">
+        @if(session('info'))
+                    <div class="alert alert-success">
+                        {{ session('info') }}
+                    </div>
+                    @endif
+                    
+                    @if(count($errors))
+                    <div class="alert alert-success">
+                        <ul>
+                        @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+        @endif
         <section class="content-header">
             <h1><i class="fas fa-database"></i> Base de Conocimiento
             {!! Form::button('<i class="fas fa-search"></i> Search', 
@@ -20,7 +36,11 @@
                 'data-toggle' =>'modal',
                 'onclick'=>'',
                 'style'=>'margin-top: -8px;']) !!}
-                <a href="{{ route('baseConocimiento.create') }}" class="btn btn-primary pull-right modal-show" style="margin-top: -8px;" title="Create User"><i class="icon-plus"></i> Create</a></h1>
+            {!! Form::button('<i class="fas fa-plus"></i> Create', 
+            ['class'=>'btn btn-info pull-right',
+            'data-toggle' =>'modal',
+            'onclick'=>'addFrom()',
+            'style'=>'margin-top: -8px;']) !!}
         </section>
         <section class="content" id="content-body">
             
@@ -32,44 +52,118 @@
 @section('js')
 
 <script type="text/javascript">
-        function loadBody(){
-            $.getJSON('{!! route('BaseConocimiento.loadBody') !!}')
-            .done(function(data){
-                console.table(data);
-                if(!data.error){
-                    $('#content-body').html(data.body);
-                }else{
+    var contentBody = $('#content-body');
+        function addFrom(){
+            $('#modal').modal('show');
+            $('#modal-title').text('Create Solution');
+            $('#modal-body form')[0].reset();
+            $('#tags').tagsinput('removeAll');
+            $('#tags').tagsinput({
+                maxTags: 5,
+            });
+        }
+        
+        $('#modal-btn-save').click(function(event){
+            event.preventDefault();
+            var me = $('#modal-body form'),
+                url = me.attr('action'),
+                method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+
+                me.find('.help-block').remove();
+                me.find('.form-group').removeClass('has-error');
+                
+            $.ajax({
+                url : url,
+                method : method,
+                data : me.serialize(),
+                success: function (response){
+                    me.trigger('reset');
+                    loadBody();
+                    $('#modal').modal('hide');
                     swal({
-                        title: data.title,
-                        text: data.text,
-                        icon: "error"
+                        type : 'success',
+                        title : 'Success!',
+                        text : 'Data has been saved!'
                     });
-                }                
-            })
+                },
+                error: function (xhr){
+                    var  res = xhr.responseJSON;
+                    if ($.isEmptyObject(res) == false) {
+                        $.each(res.errors, function (key, value) {
+                            $('#' + key)
+                                .closest('.form-group')
+                                .addClass('has-error')
+                                .append('<span class="help-block"><strong>' + value + '</strong></span>');
+                        });
+                    }
+                }
+
+            })    
+
+
+        });
+        
+        function loadBody(){
+            contentBody.LoadingOverlay('show');
+            @if(session()->has('category'))
+                contentBody.LoadingOverlay('hide', true);
+                cuerpo = {!! session()->get('category') !!};
+                contentBody.html(cuerpo);
+            @elseif(session()->has('tag'))
+                contentBody.LoadingOverlay('hide', true);
+                cuerpo = {!! session()->get('tag') !!};
+                contentBody.html(cuerpo);
+            @else
+                $.getJSON('{!! route('BaseConocimiento.loadBody') !!}')
+                .done(function(data){
+                    contentBody.LoadingOverlay('hide', true);
+                    if(!data.error){
+                        contentBody.html(data.body);                        
+                    }else{                    
+                        swal({
+                            title: data.title,
+                            text: data.text,
+                            icon: "error"
+                        });
+                    }                
+                });
+            @endif
+            
         }
 
+        
+
         loadBody();
-
-       /*$(document).on('mousedown', '.modal-show', function (event){
+        $(document).on('click', '.pagination a', function(event){            
+            contentBody.LoadingOverlay('show');
             event.preventDefault();
-            //$('#input').tagsinput();
-            var me = $(this),
-                url = me.attr('href'),
-                title = me.attr('title');
+            paginador = $(this).attr('href').split('page')[1];
+            @if(session()->has('category'))
+            ruta = $(this).attr('href');
+            @elseif(session()->has('tag'))
+            ruta = $(this).attr('href');
+            @else
+            ruta = '{!! route('BaseConocimiento.loadBody') !!}'+'?page'+paginador;
+            @endif
 
-            $('#modal-title').text('Create Solution');
-            $('#modal-btn-save').text('Create');
 
-            $.ajax({
-                url: url,
-                dataType: 'html',
-                success: function (response){
-                    $('#modal-body').html(response);
-                } 
+            $.getJSON(ruta)
+            .done(function(data){
+                contentBody.LoadingOverlay('hide', true);
+                if(!data.error){
+                    contentBody.html(data.body);                    
+                }
+            })
+            .fail(function(jqXHR, textStatus){
+                contentBody.LoadingOverlay('hide', true);
+                console.log(jqXHR);
             });
-            
-            $('#modal').modal('show');
+        });
 
-        });*/
+        $(document).on('click', '.tree', function(){
+            alert('hola');
+            {!! (session()->forget('tag')) !!}
+            {!! session()->forget('category') !!}
+        });
 </script>
 @endsection

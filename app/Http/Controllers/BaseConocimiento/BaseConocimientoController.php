@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 use App\Models\KnowledgeBase;
+use App\Models\Category;
 use Yajra\DataTables\DataTables;
 
 class BaseConocimientoController extends Controller
@@ -33,8 +34,7 @@ class BaseConocimientoController extends Controller
      */
     public function create()
     {
-            $request = new KnowledgeBase;
-            return view ('BaseConocimiento.form',compact('request'));
+            
     }
 
     /**
@@ -45,20 +45,17 @@ class BaseConocimientoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->nombre);
+        $this->validate($request,[
+            'name' => 'required|string|max:100',
+            'description' => 'required|string|max:300'
+        ]);
+        $tags = explode(',', $request->tags);
+        $base = KnowledgeBase::create($request->all());
+        $base->tag($tags);
+        return $base;
     }
 
-    public function loadBody(){
-        try{
-            $request = KnowledgeBase::with('users')->orderBy('id','desc')->get();
-            $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
-        }catch(QueryExcetion $queryException){
-            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
-        }catch(RelationNotFoundException $relationNotFoundException){
-            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
-        }
-        return response()->json(['error' => false, 'body' => $body]);        
-    }
+    
 
     /**
      * Display the specified resource.
@@ -68,7 +65,8 @@ class BaseConocimientoController extends Controller
      */
     public function show($id)
     {
-        //
+        $base = KnowledgeBase::with('users','category')->find($id);
+        return view('baseConocimiento.show',['base'=>$base]);
     }
 
     /**
@@ -106,8 +104,55 @@ class BaseConocimientoController extends Controller
     }
 
     /**
-     * Api the charge datatable from view
+     * Api the charge body from view
      * @param int $request 
      */
+    public function loadBody(){
+        try{
+            $request = KnowledgeBase::with('users','category')->orderBy('id','desc')->paginate(4);
+            $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+        return response()->json(['error' => false, 'body' => $body]);        
+    }
     
+    /**
+     * search body for category
+     * @param int $request 
+     */
+    public function category($name){
+        try{
+        $category  = Category::where('name', $name)->pluck('id')->first();
+        $request = KnowledgeBase::with('users','category')->where('category_id', $category)->orderBy('id','desc')->paginate(4);
+        $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
+        session()->flash()->put(['category' => json_encode($body)]);
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+        return response()->json(['error' => false, 'body' => $body]);           
+    }
+
+    /**
+     * search body for tags
+     * @param int $request 
+     */
+    public function tag($slug){
+        try{
+            $request = KnowledgeBase::withAllTags($slug)->with('users','category')->paginate(4);
+            $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
+            session()->put(['tag' => json_encode($body)]);
+            //dd(json_encode($body));
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+        return response()->json(['error' => false, 'body' => $body]);              
+    }
+
 }

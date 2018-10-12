@@ -58,7 +58,7 @@
                         {!! Form::label('permissions', 'Permissions') !!}
                         <div class="input-group">
                             <span class="input-group-addon">
-                                <i class="fas fa-file-alt"></i>
+                              <i class="fas fa-user-shield"></i>
                             </span>
                             {!! Form::select('permissions[]', $permissions,null, 
                             ['id'=>'permissions', 'class'=>'form-control margin', 
