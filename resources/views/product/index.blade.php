@@ -75,6 +75,7 @@
 
 
 
+
  <div id="modalCreateModule" class="modal fade" role="dialog">
         <div class="modal-dialog">
             {!! Form::open(['route' => 'product.store']) !!}

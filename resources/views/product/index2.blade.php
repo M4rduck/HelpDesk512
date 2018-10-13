@@ -12,9 +12,16 @@
 @endpush
 
 @section('content')
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/jquery-3.3.1.js">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
 
-<link rel="stylesheet" type="tetx/css" href="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" >
-
+<script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+ </script>
+        
 <div class="btn-toolbar" role="toolbar">
 
     <div class="btn-group">
@@ -39,7 +46,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                   
-                        <table class="table table-striped" id="myTbale">
+                        <table class="table table-striped" id="myTable">
                             <thead>
                             <tr>
                                 <th>Id</th>
@@ -140,6 +147,11 @@
                                                                        'name' => 'serial'
                                 ]) !!}
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                            <div class="col-lg-6 col-sm-12">
                             {!! Form::label('method_id', 'Modulo') !!}
                             <div class="input-group">
                                 <span class="input-group-addon">
@@ -177,8 +189,7 @@
                                 </div>
                         </div>
                     </div>
-                </div>  
-            </div>
+                
              <div class="modal-footer">
 
                 {!! Form::button('Cerrar', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
@@ -190,15 +201,5 @@
        
     </div>
 </div>
-
-
-<script src="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-
-<script>
-$(document).ready( function () {<font></font>
-    $('#myTable').DataTable();<font></font>
-} );<font></font>
-</script>
-
 @endsection
 
