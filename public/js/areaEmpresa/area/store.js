@@ -1,4 +1,34 @@
 $('#form-store').submit(function(event){ 
     event.preventDefault();
-    console.log($(this).find(':input'));
+    formulario = $(this);
+    formulario.LoadingOverlay("show");
+    $.post($(this).attr('action'),{
+        datos: $(this).find(':input').serialize(),
+        id: $('#area-id').val()
+    }).done(function(data){
+        formulario.LoadingOverlay("hide", true);
+        if(data.success && !data.error){
+            areaTable.ajax.reload();
+            swal({
+                title: "Good job!",
+                text: data.msg,
+                icon: "success",
+            });
+        }else{
+            swal({
+                title: "Good job!",
+                text: data.msg,
+                icon: "error",
+            });
+        }
+    }).fail(function(jqXHR, textStatus){
+        formulario.LoadingOverlay("hide", true);
+        swal({
+            title: "At least your trying!",
+            text: "You clicked the button!",
+            icon: "error",
+        });        
+
+    });
+    console.log($(this).find(':input').serialize());
 });

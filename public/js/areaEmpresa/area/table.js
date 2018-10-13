@@ -1,15 +1,14 @@
-const host = '/HelpDesk512/public';
-let id = $('#area-id').val();
-$('#area-table').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: host+'/area-empresa/show/'+id,
-    columns: [
-        {data: 'Controlador', name: 'name'},
-        {data: 'name_function', name: 'name_function'},
-        {data: 'url', name: 'url'},
-        {data: 'verbName', name: 'verbName'},
-        {data: 'name', name: 'controller.name'},
-        {data: 'action', name: 'action', orderable: false, searchable: false}
-    ]
-});
+var hosting = '/HelpDesk512/public';
+var idEmpresa = $('#area-id').val();
+var areaTable = $('#area-table').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ajax: hosting+'/area-empresa/getAreas/'+idEmpresa,
+                        columns: [
+                            {data: 'name', name: 'name'},
+                            {data: 'extension', name: 'extension'},
+                            {data: 'email', name: 'email'},
+                            {data: 'description', name: 'description'},
+                            {data: 'action', name: 'action', orderable: false, searchable: false}
+                        ]
+                    });

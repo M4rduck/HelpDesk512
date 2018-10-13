@@ -33,7 +33,7 @@ class Enterprise extends Model
      */
     public function areas()
     {
-        return $this->belonsToMany(Area::class, 'enterprise_has_area');
+        return $this->belongsToMany(Area::class, 'enterprise_has_area');
     }
 
     /**

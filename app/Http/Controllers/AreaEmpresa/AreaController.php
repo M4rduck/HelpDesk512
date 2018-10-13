@@ -2,34 +2,50 @@
 
 namespace App\Http\Controllers\AreaEmpresa;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\Enterprise;
+use Yajra\DataTables\Facades\DataTables;
 
 class AreaController extends Controller
 {
-    function index(){
+    function index(){        
     	return view('areaEmpresa.area.index'); 
     }
 
     function store(Request $request){
-        dd($request->all());
+        parse_str($request->datos, $datos);
+        try{
+            $empresa = Enterprise::with('areas')->find($request->id);
+            foreach($empresa->areas as $area){
+                $sync[] = $area->id;
+            }
+            $area = Area::create($datos['area']);
+            $sync[] = $area->id;
+            $empresa->areas()->sync($sync);
+        }catch (QueryException $queryException){
+            return response()->json(['success' => true, 'error' => true, 'msg' => 'Ha sucedido un error al momento de guardar el area, código: '.$queryException->getCode()]);
+        }
+
+        return response()->json(['success' => true, 'error' => false, 'msg' => 'Se ha creado el area satisfcatoriamente']);
     }
 
-    function show($id){
+    function show($id){    
         return view('areaEmpresa.area.index')->with('id', $id); 
     }
 
     function getAreas($id){
         try{
-            $datatable = DataTables::eloquent(Method::with('controller')
-                                                ->whereHas('controller', function ($query){
-                                                    $query->where('status', 1);
+            $datatable = DataTables::eloquent(Area::whereHas('eterprises', 
+                                                function($join) use ($id){
+                                                    $join->where('id', $id);
                                                 })
-                        )->addColumn('Controlador', function(Method $method){
-                            return $method->controller->name;
-                        })
-                        ->editColumn('action', function(Method $method){
-                            return '<a class="btn btn-xs btn-primary" data-id="'.$method->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.' <a class="btn btn-xs btn-primary" data-id="'.$method->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+                        )
+                        ->addColumn('action', function(Area $area){
+                            return '<a class="btn btn-xs btn-primary edit-area" data-id="'.$area->id.'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.
+                                   ' <a class="btn btn-xs btn-danger delete-area" data-id="'.$area->id.'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
                         })->toJson();
         }catch (QueryException $queryException){
             dd($queryException->getMessage());

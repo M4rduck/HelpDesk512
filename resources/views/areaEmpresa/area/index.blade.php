@@ -1,9 +1,15 @@
 @extends('adminlte::page')
 
 @push('js')
-    {!! Html::script('./js/areaEmpresa/area/store.js')  !!}
+    {!! Html::script('./js/loadingoverlay.min.js')  !!}
 
     {!! Html::script('./js/areaEmpresa/area/table.js')  !!}
+
+    {!! Html::script('./js/areaEmpresa/area/store.js')  !!}    
+
+    {!! Html::script('./js/areaEmpresa/area/edit.js')  !!}   
+
+    {!! Html::script('./js/areaEmpresa/area/delete.js')  !!}   
 @endpush
 
 @push('css')
@@ -12,15 +18,7 @@
 @endpush
 
 @section('content_header')
-        <section class="content-header">
-      <h1>
-        Area
-      </h1>
-      <ol class="breadcrumb">
-        
-      </ol>
-   
-
+    <h1>Area </h1>
 @stop
 
  @section('content') 
@@ -39,6 +37,7 @@
                         <th>Extencion</th>
                         <th>Email</th>
                         <th>Descripcion</th>
+                        <th>Opciones</th>
                     </tr>
                     </thead>
                 </table>
@@ -77,7 +76,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-braille"></i>
                                     </span>
-                                    {!! Form::text('area[nameA]', null, ['class' => 'form-control',
+                                    {!! Form::text('area[name]', null, ['class' => 'form-control',
                                                                               'title' => 'Nombre del area',
                                                                               'placeholder' => 'Nombre del area',
                                                                               'id' => 'nameA',
@@ -95,11 +94,11 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-phone-square "></i>
                                     </span>
-                                    {!! Form::text('area[exten]', null, ['class' => 'form-control',
-                                                                                'title' => 'Estencion de area',
-                                                                                'placeholder' => 'Numero de la extencion',
-                                                                                'id' => 'exten',
-                                                                                'required'=>true
+                                    {!! Form::text('area[extension]', null, ['class' => 'form-control',
+                                                                             'title' => 'Estencion de area',
+                                                                             'placeholder' => 'Numero de la extencion',
+                                                                             'id' => 'exten',
+                                                                             'required'=>true
                                     ]) !!}
                                 </div>
                             </div><!-- /extencion -->

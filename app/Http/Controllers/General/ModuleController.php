@@ -26,7 +26,7 @@ class ModuleController extends Controller
                         ->map(function($module){
                             return ['id' => $module->id, 'text' => $module->text];
                         });
-            $modules->prepend(['id' => 0, 'text' => 'Elige un módulo']);            
+            $modules->prepend(['id' => 0, 'text' => 'Elige un módulo']);   
 
         }catch (QueryException $queryException){
             dd($queryException->getMessage());
