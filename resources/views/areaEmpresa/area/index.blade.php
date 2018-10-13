@@ -1,5 +1,16 @@
 @extends('adminlte::page')
 
+@push('js')
+    {!! Html::script('./js/areaEmpresa/area/store.js')  !!}
+
+    {!! Html::script('./js/areaEmpresa/area/table.js')  !!}
+@endpush
+
+@push('css')
+    <!-- Estilos para botón flotante -->
+    {!! Html::style('./css/button_float.css') !!}
+@endpush
+
 @section('content_header')
         <section class="content-header">
       <h1>
@@ -11,7 +22,9 @@
    
 
 @stop
+
  @section('content') 
+    {!! Form::hidden('area-id', $id, ['id'=>'area-id']) !!}
     <div class="box">
         <div class="box-header">
 
@@ -19,7 +32,7 @@
 
         <div class="box-body">
             <div class="table-responsive">
-                <table id="controller-table" class="table table-striped">
+                <table id="area-table" class="table table-striped">
                     <thead>
                     <tr>
                         <th>Nombre</th>
@@ -49,7 +62,7 @@
 
      <!-- Modal content-->
             <div class="modal-content">
-                {!! Form::open(['route' => 'area.store']) !!}
+                {!! Form::open(['route' => 'area.store', 'id' => 'form-store']) !!}
                 <div class="modal-header bg-warning">
                     <h4 class="modal-title">Crear Area</h4>
                 </div>
@@ -67,7 +80,8 @@
                                     {!! Form::text('area[nameA]', null, ['class' => 'form-control',
                                                                               'title' => 'Nombre del area',
                                                                               'placeholder' => 'Nombre del area',
-                                                                              'id' => 'nameA'
+                                                                              'id' => 'nameA',
+                                                                              'required'=>true
                                     ]) !!}
                                 </div>
                             </div>
@@ -84,7 +98,8 @@
                                     {!! Form::text('area[exten]', null, ['class' => 'form-control',
                                                                                 'title' => 'Estencion de area',
                                                                                 'placeholder' => 'Numero de la extencion',
-                                                                                'id' => 'exten'
+                                                                                'id' => 'exten',
+                                                                                'required'=>true
                                     ]) !!}
                                 </div>
                             </div><!-- /extencion -->
@@ -103,7 +118,8 @@
                                     {!! Form::text('area[email]', null, ['class' => 'form-control',
                                                                                        'title' => 'Correo del area',
                                                                                        'placeholder' => 'Descripcion del area',
-                                                                                       'id' => 'email'
+                                                                                       'id' => 'email',
+                                                                                       'required'=>true
                                     ]) !!}
                                 </div>
                             </div>
