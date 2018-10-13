@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Dispatcher $events)
     {
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+            $resource = ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'];
             $modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)

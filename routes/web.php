@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,13 +13,17 @@
 |
 */
 
+
+Auth::routes();
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 
+Route::get('/register',function(){
+    return redirect('login');
+ })->name('register')->middleware('guest');
 
-Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -45,16 +51,20 @@ Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('producto', 1);
 });
 
+Route::group(['prefix' => 'diagnosis','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('diagnosis', 1);
+});
+
+Route::group(['prefix' => 'input','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('input', 1);
+});
+
 Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('admin', 1);
 });
 
-Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('producto', 1);
-});
-
-Route::group(['prefix' => 'diagnosis','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('diagnosis', 1);
+Route::group(['prefix' => 'speciality','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('speciality', 1);
 });
 
 Route::group(['prefix' => 'encuesta','middleware' => ['auth']], function (){
