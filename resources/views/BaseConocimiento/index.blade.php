@@ -62,12 +62,48 @@
                 maxTags: 5,
             });
         }
+
+        function editFrom(id){
+          
+          $('#modal').modal('show');
+          $('#modal-title').text('Edit Solution');
+          $('input[name=_method]').val('PATCH');
+          $('#modal-body form')[0].reset();
+          contentBody.LoadingOverlay('show');
+          $('#tags').tagsinput('destroy');
+          $.ajax({
+          url: "{{ url('baseConocimiento/edit') }}" + '/' + id,
+          type: "GET",
+          dataType: "JSON",
+          success: function(data) {
+            contentBody.LoadingOverlay('hide', true);
+            tags = [];
+            $('#id').val(data.base.id);
+            $('#name').val(data.base.name);
+            $('#description').val(data.base.description);
+            $.each(data.base.tagged, function(i,item){
+                tags.push(data.base.tagged[i].tag_slug);                    
+
+            });
+            $('#tags').val(tags);
+            $('#tags').tagsinput('refresh');
+            $('#solution').val(data.base.solution);
+          },
+          error : function() {
+              swal({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'Nothing Data'
+              })
+          }
+        });
+        }
         
         $('#modal-btn-save').click(function(event){
             event.preventDefault();
             var me = $('#modal-body form'),
                 url = me.attr('action'),
-                method = $('input[name=_method]').val() == undefined ? 'POST' : 'PUT';
+                method = $('input[name=_method]').val() == undefined ? 'POST' : 'PATCH';
 
                 me.find('.help-block').remove();
                 me.find('.form-group').removeClass('has-error');
@@ -161,7 +197,6 @@
         });
 
         $(document).on('click', '.tree', function(){
-            alert('hola');
             {!! (session()->forget('tag')) !!}
             {!! session()->forget('category') !!}
         });

@@ -77,7 +77,8 @@ class BaseConocimientoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $base = KnowledgeBase::with('users','category','tagged')->find($id);
+        return ['base'=>$base];
     }
 
     /**
@@ -89,7 +90,14 @@ class BaseConocimientoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required|string|max:100',
+            'description' => 'required|string|max:300'
+        ]);
+        $tags = explode(',', $request->tags);
+        $base = KnowledgeBase::update($request->all());
+        $base->retag($tags);
+        return $base;
     }
 
     /**

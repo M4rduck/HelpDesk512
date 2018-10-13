@@ -7,9 +7,10 @@
             </div>
 
             <div class="modal-body" id="modal-body">
+                <input type="hidden" id="id" name="id"> 
                 {!! Form::model(null,[
                         'route' =>  'baseConocimiento.store',
-                        'method' => 'POST'
+                        'method' => 'POST'  
                 ]) !!}
 
                 <div class="form-group">
