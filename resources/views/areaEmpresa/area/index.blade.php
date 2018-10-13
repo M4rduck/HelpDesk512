@@ -19,8 +19,6 @@
       <ol class="breadcrumb">
         
       </ol>
-   
-
 @stop
 
  @section('content') 

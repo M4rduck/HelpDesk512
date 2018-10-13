@@ -2,119 +2,146 @@
 
 @section('title', 'AdminLTE')
 
+
+@push('js')
+    {!! Html::script('./js/areaEmpresa/enterprise/table.js')  !!}
+@endpush
+
 @section('content_header')
     <h1>Empresa</h1>
 @stop
 
 @section('content')
-	<h1>
-		Realice Creacion de la Empresa y el Area Donde se Presenta la Incidencia
-        <small>Bienvenido</small>
-    </h1>
+    <div class="box">
+        <div class="box-header">
 
-    <ol class="breadcrumb"></ol>
-
-
-    <!-- SELECT2 EXAMPLE -->
-    <div class="box box-default">
-		<div class="box-header with-border">
-          <h3 class="box-title">Registro En Nuestra Base de Datos</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-          </div>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese la empresa</label>
-                <input class="form-control " multiple="multiple" placeholder="ingrese nombre de la empresa" style="width: 94%;">
-                  
-              </div>
-
-              <!-- /.form-group -->
-
- <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese el nit de la empresa</label>
-                <input class="form-control" multiple="multiple" placeholder="ingrese nit de la empresa" style="width: 200%;"/>
-                  
-              </div>
-             
-              <!-- /.form-group -->
-            
-            <!-- /.col -->
-           
-              <!-- /.form-group -->
-             
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
         </div>
 
-      
-
-        
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="enterprise-table" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Representante Legal</th>
+                        <th>Telefonos</th>
+                        <th>Ciudad</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese la Direccion de la empresa</label>
-                <input class="form-control" multiple="multiple" placeholder="ingrese Direccion de la empresa" style="width: 200%;"/>
-                  
-              </div>
+    </div>
 
-
-    <!-- SELECT2 EXAMPLE -->
-    
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese la correo electronico de la empresa</label>
-                <input class="form-control" multiple="multiple" placeholder="ingrese correo electronico de la empresa" style="width: 470%;">
-                  
-              </div>
-
-              <!-- /.form-group -->
-
-
-             
-              <!-- /.form-group -->
-            
-            <!-- /.col -->
-           
-              <!-- /.form-group -->
-             
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-        </div>
-<br>
-       
-
-        
-        <!-- /.box-header -->
-        <br>
-        <div class="box-body">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-               <label>Ingrese la ciudad principal de la empresa </label>
-                <input class="form-control " multiple="multiple" placeholder="ingrese ciudad principal de la empresa" style="width: 500%;">
-                  
-              </div>
-
-<br>
-<br>
-
-              <input type="button" value="REGISTRAR">
+    <div class="absolute bottom-btn">
+        {!! Form::button('<span class="fa fa-plus"></span>', ['class' => 'btn btn-primary',
+                                                              'title' => 'Crear Area',
+                                                              'data-toggle' =>'modal',
+                                                              'data-target'=>'#enterprise'
+        ]) !!}
+    </div>
 @stop
+
+@section('modal')
+<!-- Modal -->
+ <div id="enterprise" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+     <!-- Modal content-->
+            <div class="modal-content">
+                {!! Form::open(['route' => 'area.store', 'id' => 'form-store']) !!}
+                <div class="modal-header bg-warning">
+                    <h4 class="modal-title">Registrar Empresa</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Nombre & Extencion -->
+                        <div class="col-lg-6 col-sm-12">
+                            <!-- Nombre -->
+                            <div class="form-group">
+                                {!! Form::label('business_name', 'Nombre') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-braille"></i>
+                                    </span>
+                                    {!! Form::text('area[business_name]', null, ['class' => 'form-control',
+                                                                                'title' => 'Nombre de la empresa',
+                                                                                'placeholder' => 'Nombre de la empresa',
+                                                                                'id' => 'business_name',
+                                                                                'required'=>true
+                                    ]) !!}
+                                </div>
+                            </div>
+
+                            <!-- /Nombre-->
+
+                            <!-- extencion -->
+                            <div class="form-group">
+                                {!! Form::label('address', 'Direcci&oacute;n') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone-square "></i>
+                                    </span>
+                                    {!! Form::text('area[address]', null, ['class' => 'form-control',
+                                                                                'title' => 'Direcci&iacute;n',
+                                                                                'placeholder' => 'Direcci&iacute;n',
+                                                                                'id' => 'address',
+                                                                                'required'=>true
+                                    ]) !!}
+                                </div>
+                            </div><!-- /extencion -->
+                        </div>
+                        <!-- /nombre & extencion -->
+
+                        <!-- email & descripcion -->
+                        <div class="col-lg-6 col-sm-12">
+                            <!-- email -->
+                            <div class="form-group">
+                                {!! Form::label('legal_representative', 'Representante Legal') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-envelope-square "></i>
+                                    </span>
+                                    {!! Form::text('area[legal_representative]', null, ['class' => 'form-control',
+                                                                                       'title' => 'Representante Legal',
+                                                                                       'placeholder' => 'Nombre del representante legal',
+                                                                                       'id' => 'legal_representative',
+                                                                                       'required'=> true
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <!-- email-->
+
+                            <!-- descripcion-->
+                            <div class="form-group">
+                                {!! Form::label('description', 'Descripcion') !!}
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o "></i>
+                                    </span>
+                                    {!! Form::text('area[description]', null, ['class' => 'form-control',
+                                                                                       'title' => 'Descripcion del area',
+                                                                                       'placeholder' => 'Desripcion del area',
+                                                                                       'id' => 'description'
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <!-- /descripcion -->
+                        </div>
+                        <!-- /nombre & extencion -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
+
+                </div>
+                {!! Form::close() !!}
+            </div>
+
+    </div>
+  </div>
+
+  @endsection
