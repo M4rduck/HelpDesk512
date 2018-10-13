@@ -8,7 +8,7 @@
 
 @push('css')
     <!-- Estilos para botón flotante -->
-    {!! Html::style('./css/button_float.css') !!}
+    <!-- {!! Html::style('./css/button_float.css') !!} -->
 @endpush
 
 @section('content')
@@ -17,29 +17,8 @@
 
 
 
-
-<div class="btn-toolbar" role="toolbar">
-
-    <div class="btn-group">
-        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span> Registrar Software ', 
-        ['class' => 'btn btn-primary',
-        'title' => 'Crear Producto',
-        'data-toggle' =>'modal',
-        'data-target'=>'#modalSoft'
-        ]) !!}
-    </div>
-</div>
-
-
-
-
-
     <div class="absolute bottom-btn">
-        {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
-                                                                                          'title' => 'Crear Controlador',
-                                                                                          'data-toggle' =>'modal',
-                                                                                          'data-target'=>'#modalCreateModule'
-        ]) !!}
+
     </div>
 
     <div class="row">
@@ -48,6 +27,15 @@
 
                 <div class="box-header with-border">
                     <h1 class="box-title">Listado</h1>
+
+                    <div class="box-tools pull-right">
+                    {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
+                                                                                          'title' => 'Crear Controlador',
+                                                                                          'data-toggle' =>'modal',
+                                                                                          'data-target'=>'#modalCreateModule'
+        ]) !!}
+
+                    </div>
                 </div>
 
                 <!-- Box Body -->
@@ -56,37 +44,21 @@
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Serial</th>
-                                <th>Modulo ( 1 -> Si, 0 -> No )</th>
-                                <th>Licencia ( 1 -> Si, 0 -> No )</th>
-                                <th>Activo ( 1 -> Si, 0 -> No )</th>
-                                <th>Borrado ( 1 -> Si, 0 -> No )</th>
-                                <th>Acciones</th>       
+                                <th>Tipo de hardware</th>
+                                <th>Localizacion</th>
+                                <th>Numero de contacto</th>
+                                <th>Fabricante</th>
+                                <th>Modelo</th>
+                                <th>Numero de serie</th>
+                                <th>Tecnico a cargo del hardware</th>
+                                <th>Estado</th>
+                                <th>Hardware activo</th>
+                                <th>Opciones</th>
                             </tr>
-                        </thead>
-
-                        <tbody>
-                           @foreach ($prodSoft as $infoProductoSoft)
-                            <tr>
-                            <td>{{ $infoProductoSoft->id }}</td>
-                            <td>{{ $infoProductoSoft->name }}</td>
-                            <td>{{ $infoProductoSoft->descritpion }}</td>
-                            <td>{{ $infoProductoSoft->serial }}</td>
-                            <td>{{ $infoProductoSoft->has_module}}</td>
-                            <td>{{ $infoProductoSoft->has_license }}</td>
-                            <td>{{ $infoProductoSoft->is_active }}</td>
-                            <td>{{ $infoProductoSoft->is_deleted }}</td>
-                            <td><a class="btn btn-primary" href="#">Ver mas</a>
-                                <a class="btn btn-primary" href="/HelpDesk512/public/producto/software/{{ $infoProductoSoft->id }}/edit">Editar</a>
-                                {!! Form::open([ 'route' => ['product.destroy', $infoProductoSoft->id], 'method' => 'DELETE']) !!}
-                                {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                              {!! Form::close() !!}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
+                            </thead>
+                           
                         </table>
                     </div>
                 </div>
@@ -100,154 +72,6 @@
     </div>
 @stop
 @section('modal')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="modalSoft" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        {!! Form::open(['route' => 'product.store']) !!}
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                {!! Form::button('&times;', ['class'=>'close', 'data-dismiss'=>'modal']) !!}
-                <h4 class="modal-title">Registrar Software</h4>
-            </div>
-
-            <div class="modal-body">
-                <div class="row">
-                    
-                    <div class="col-lg-6 col-sm-12">
-                        <div class="form-group">
-                            
-                            {!! Form::label('module_id', 'Nombre') !!}
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-link"></i>
-                                    </span>
-                                    
-                                    {!! Form::text('Nombre', null, ['class' => 'form-control',
-                                                                      'placeholder' => 'Nombre producto',
-                                                                       'name' => 'name'
-                                ]) !!}
-                            </div>
-
-                            {!! Form::label('module_id', 'Descripción') !!}
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-link"></i>
-                                    </span>
-                                    
-                                    {!! Form::text('Descripcion', null, ['class' => 'form-control',
-                                                                      'placeholder' => 'Descripción del producto',
-                                                                       'name' => 'descritpion'
-                                ]) !!}
-                            </div>
-
-                            {!! Form::label('module_id', 'Serial') !!}
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-link"></i>
-                                    </span>
-                                    
-                                    {!! Form::text('Serial', null, ['class' => 'form-control',
-                                                                       'placeholder' => 'Nombre producto',
-                                                                       'name' => 'serial'
-                                ]) !!}
-                            </div>
-                            {!! Form::label('method_id', 'Modulo') !!}
-                            <div class="input-group">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-cog"></i>
-                                </span>
-                             {!!   Form::select('Software', [ null => '- - -' , 1 => 'Si', 0 => 'No' ], null, ['class' => 'form-control',
-                                                                      'name' => 'has_module']) !!}                           
-                            </div>
-                            
-                            {!! Form::label('method_id', 'Licencia') !!}
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-cog"></i>
-                                    </span>
-                                 {!!   Form::select('Software' , [ null => '- - -' , 1 => 'Si', 0 => 'No' ], null, ['class' => 'form-control',
-                                                                          'name' => 'has_license']) !!}                               
-                            </div>
-                        
-                                {!! Form::label('method_id', 'Activo') !!}
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-cog"></i>
-                                    </span>
-                                 {!!   Form::select('Software', [ null => '- - -' , 1 => 'Si', 0 => 'No' ], null, ['class' => 'form-control',
-                                                                          'name' => 'is_active']) !!}                           
-                                </div>
-
-                                {!! Form::label('method_id', 'Borrado') !!}
-                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-cog"></i>
-                                        </span>
-                                     {!!   Form::select('Software' , [ null => '- - -' , 1 => 'Si', 0 => 'No' ], null, ['class' => 'form-control',
-                                                                              'name' => 'is_deleted']) !!}                               
-                                </div>
-
-                            </div>
-                            
-                    </div>
-                </div>  
-             <div class="modal-footer">
-
-                {!! Form::button('Cerrar', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
-                {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
-               </div>
-            </div>
-        {!! Form::close() !!}
-       </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -271,7 +95,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-cog"></i>
                                         </span>
-                                     {!!   Form::select('Hardware', ['Computador' => 'Computador', 'Impresora' => 'Impresora', 'telefono'=> 'Telefono', 'dispositivo'=>'Dispositivo'], null, ['class' => 'form-control',
+                                     {!!   Form::select('type_hardware', ['Computador' => 'Computador', 'Impresora' => 'Impresora', 'telefono'=> 'Telefono', 'dispositivo'=>'Dispositivo'], null, ['class' => 'form-control',
                                                                               'title' => 'Nombre de la clase del controlador',
                                                                               'placeholder' => 'Hardware',
                                                                               'id' => 'name']) !!}
@@ -289,7 +113,7 @@
                                             <i class="fa fa-link"></i>
                                         </span>
                                         
-                                        {!! Form::text('Nombre', null, ['class' => 'form-control',
+                                        {!! Form::text('name', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Nombre producto',
                                                                            'id' => 'label'
@@ -309,7 +133,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('localizacion', null, ['class' => 'form-control',
+                                        {!! Form::text('location', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Localizacion del producto',
                                                                            'id' => 'label'
@@ -325,7 +149,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('numeroC', null, ['class' => 'form-control',
+                                        {!! Form::text('num_contact', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Numero de contacto',
                                                                            'id' => 'label'
@@ -348,7 +172,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('fabricante', null, ['class' => 'form-control',
+                                        {!! Form::text('maker', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Fabricante Producto',
                                                                            'id' => 'label'
@@ -368,7 +192,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('modelo', null, ['class' => 'form-control',
+                                        {!! Form::text('model', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Modelo producto',
                                                                            'id' => 'label'
@@ -390,7 +214,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('numeroS', null, ['class' => 'form-control',
+                                        {!! Form::text('serial', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Numero de Serie',
                                                                            'id' => 'label'
@@ -410,7 +234,7 @@
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!! Form::text('tecnico', null, ['class' => 'form-control',
+                                        {!! Form::text('technical_in_charge', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Tecnico a cargo del hardware',
                                                                            'id' => 'label'
@@ -430,14 +254,31 @@
                                 <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                {!! Form::text('Estado Producto', null, ['class' => 'form-control',
+                                {!! Form::text('state', null, ['class' => 'form-control',
                                                                            'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
                                                                            'placeholder' => 'Indique el estado del producto',
                                                                            'id' => 'label'
                                     ]) !!}
+
+                                    
+
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-sm-12">
+                            <!-- Nombre del método-->
+                            <div class="form-group">
+                                {!! Form::label('label_color', 'Hardware activo') !!}
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-object-group"></i>
+                                        </span>
+                                        {!!   Form::select('is_active', ['1' => 'Si', '0' => 'No'], null, ['class' => 'form-control',
+                                                                              'title' => 'Nombre de la clase del controlador',
+                                                                              'placeholder' => 'Seleccione',
+                                                                              'id' => 'name']) !!}
+                                </div>
+                            </div>
                     </div>
                 </div>
 
@@ -450,4 +291,39 @@
         </div>
     </div>
 @endsection
+@section('js')
+<script type="text/javascript">
+$.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+     });
+var table = $('#module-table').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: "{{ route('api.product')}}",
+            columns: [
+                        {data: 'id', name: 'id'},
+                        {data: 'name', name: 'name'},
+                        {data: 'type_hardware', name: 'type_hardware'},
+                        {data: 'location', name: 'location'},
+                        {data: 'num_contact', name: 'num_contact'},
+                        {data: 'maker', name: 'maker'},
+                        {data: 'model', name: 'model'},
+                        {data: 'serial', name: 'serial'},
+                        {data: 'technical_in_charge', name: 'technical_in_charge'},
+                        {data: 'state', name: 'state'},
+                        {data: 'edit', name: 'edit'},
+                        {data: 'action', name: 'action', orderable: false, searchable: false},
+                    ]
+
+            });
+
+            
+</script>
+
+@endsection
+
+
+
 
