@@ -3,6 +3,7 @@
 namespace App\Models\Incidence;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Tracing extends Model
 {
@@ -27,12 +28,12 @@ class Tracing extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'id_user', 'id');
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 
     public function agent()
     {
-        return $this->belongsTo('App\User', 'id_agent', 'id');
+        return $this->belongsTo(User::class, 'id_agent', 'id');
     }
 
 }

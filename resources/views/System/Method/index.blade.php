@@ -62,7 +62,6 @@
         ]) !!}
     </div>
 @stop
-
 @section('modal')
 
     <!-- modal -->
