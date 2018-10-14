@@ -26,7 +26,7 @@ class Enterprise extends Model
     /**
      * @var array
      */
-    protected $fillable = ['business_name', 'sw_active'];
+    protected $fillable = ['business_name', 'address', 'legal_representative', 'sw_active'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

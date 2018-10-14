@@ -134,7 +134,7 @@
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.11/dist/sweetalert2.all.min.js"></script>
+    {!! Html::script('js/tools/sweetAlert/sweetalert.min.js') !!}
     @stack('js')
     @yield('js')
     

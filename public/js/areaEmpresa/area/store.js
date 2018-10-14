@@ -1,8 +1,15 @@
 $('#form-store').submit(function(event){ 
     event.preventDefault();
     formulario = $(this);
-    formulario.LoadingOverlay("show");
-    $.post($(this).attr('action'),{
+    //formulario.LoadingOverlay("show");
+    console.log(typeof formulario.attr('data-id'));
+    formulario.attr('data-id', 12);
+    formulario.attr('data-id', '');
+    console.log(typeof formulario.attr('data-id'));
+    if(formulario.attr('data-id')){
+        
+    }
+    /*$.post($(this).attr('action'),{
         datos: $(this).find(':input').serialize(),
         id: $('#area-id').val()
     }).done(function(data){
@@ -30,5 +37,5 @@ $('#form-store').submit(function(event){
         });        
 
     });
-    console.log($(this).find(':input').serialize());
+    console.log($(this).find(':input').serialize());*/
 });

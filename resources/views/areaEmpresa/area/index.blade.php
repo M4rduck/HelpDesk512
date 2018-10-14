@@ -145,7 +145,7 @@
                 </div>
                 <div class="modal-footer">
                     {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right','type' => 'submit']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right', 'data-id' => '  ','type' => 'submit']) !!}
 
                 </div>
                 {!! Form::close() !!}
