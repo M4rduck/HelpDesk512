@@ -37,7 +37,16 @@
                         </div>
 
                         <div class="col-lg-8 col-xs-12" id="">
-                            
+                            <!-- -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('name', Lang::get('diagnosis/create.form-name')) !!}
+                                        {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>  
+                            <!-- -->                          
                         </div>
                     </div>
                 </div>

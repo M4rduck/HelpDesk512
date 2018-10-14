@@ -15,7 +15,7 @@ class CreateIncidenceHasPollTable extends Migration
     {
         Schema::create('incidence_has_poll', function (Blueprint $table) {
             $table->integer('incidence_id')->unsigned()->index();
-            $table->foreign('incidence_id')->references('id')->on('incidences')->onDelete('restrict');
+            $table->foreign('incidence_id')->references('id')->on('incidence')->onDelete('restrict');
 
             $table->integer('poll_id')->unsigned()->index();
             $table->foreign('poll_id')->references('id')->on('poll')->onDelete('restrict');
