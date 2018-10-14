@@ -28,7 +28,15 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modulos as $modulo) {            
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
-                    foreach ($modulo->modules as $module) {                        
+                    foreach ($modulo->modules as $module) {    
+                        try{
+                            route($module->method->name);
+                        }catch(\InvalidArgumentException $exeption){
+                                $controladorFaltante = ModelController::query()->find($module->method->controller_id);
+                        dd('Te hace falta una ruta para poder continuar, agregala en el archivo de rutas con el prefijo = '.$controladorFaltante->prefix);
+                        }catch(\Exception $exception){
+                            dd($exception->getMessage());
+                        }                 
                         $submenu[] = [
                             'text' => $module->text,
                             'icon' => $module->icon,
