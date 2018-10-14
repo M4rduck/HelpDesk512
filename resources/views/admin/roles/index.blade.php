@@ -98,12 +98,8 @@
         
         switch($(this).val()){
             case "all-access": 
-            valores = [];
-            $('#permissions').attr('disabled', false);
-            $("#permissions>option").each(function(idx, obj){
-                valores.push($(obj).val());
-            });
-            $('#permissions').val(valores).trigger('change');
+            $('#permissions').attr('disabled', true);
+            $('#permissions').val(null).trigger('change');
             break;
 
             case "no-access":
