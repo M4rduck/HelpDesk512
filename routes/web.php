@@ -68,3 +68,7 @@ Route::group(['prefix' => 'speciality','middleware' => ['auth']], function (){
 Route::group(['prefix' => 'encuesta','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('encuesta', 1);
 });
+
+Route::group(['prefix' => 'producto','middleware' => ['auth']], function (){
+    \App\Clases\Configuration::routes('producto', 1);
+});
