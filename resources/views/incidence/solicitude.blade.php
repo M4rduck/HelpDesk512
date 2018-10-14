@@ -51,7 +51,7 @@
     <div id="incidence_create_modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form_incidence" method="post" enctype="multipart/form-data" action="{{ route('incidence.store') }}">
+                <form id="form_incidence" method="post" enctype="multipart/form-data" action="">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Nueva Incidencia</h4>

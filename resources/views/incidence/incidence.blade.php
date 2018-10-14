@@ -16,11 +16,7 @@
     {!! Html::script('js/incidence/sweetalert2.min.js') !!}
     {!! Html::script('js/incidence/parsley.min.js') !!}
     {!! Html::script('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') !!}
-    <script>
-      $('#chat-box').slimScroll({
-            height: '400px'
-        });
-    </script>
+    {!! Html::script('./js/incidence/tracing-index.js') !!}
 @endpush
 
 @section('content')
@@ -36,6 +32,7 @@
             </div>
             
 
+            {!! Form::hidden('show-chat', route('tracing.show', ['id' => $incidence->id]), ['id' => 'show-chat']) !!}
             <div class="box-body chat" id="chat-box" style="overflow: hidden; width: auto; height: 250px;">
               <!-- chat item -->
               <br>
@@ -99,7 +96,7 @@
             </div>
             <!-- /.chat -->
             <div class="box-footer">
-              {!! Form::open(['route' => 'tracing.store']) !!}  
+              {!! Form::open(['route' => 'tracing.store', 'id' => 'store-traicing']) !!}  
               <div class="input-group">
                 {!! Form::hidden('traicing[id_incidence]', $incidence->id, ['id' => 'id_incidence']) !!}
                 {!! Form::text('traicing[comment]', null, ['placeholder'=>"Type message...", 'class'=>"form-control", 'id' => 'comment']) !!}
