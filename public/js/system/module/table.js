@@ -1,6 +1,5 @@
-const host = '/HelpDesk512/public';
 const template = Handlebars.compile($("#details-template").html());
-
+var host = '/HelpDesk512/public';
 const table = $('#module-table').DataTable({
                 processing: true,
                 serverSide: true,

@@ -17,9 +17,10 @@ class CreateKnowledgebaseTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned()->index();
             $table->foreign('category_id')->references('id')->on('category')->onDelete('restrict');            
-            $table->integer('score');
             $table->string('name');
+            $table->string('description',300);
             $table->string('solution');
+            $table->integer('score')->nullable()->default(0);
             $table->integer('sw_faq')->default(0)->comment('1 to yes, 0 to no');
             $table->timestamps();
         });

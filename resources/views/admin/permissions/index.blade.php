@@ -26,7 +26,7 @@
             <div class="box-header with-border">
                 <h1>
                 Permissions Manager
-                {!! Form::button('<span  class="fas fa-user-shield"></span> Create Permissions', 
+                {!! Form::button('<i class="fas fa-user-shield"></i> Create Permissions', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}

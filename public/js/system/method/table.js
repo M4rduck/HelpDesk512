@@ -1,4 +1,4 @@
-const host = '/HelpDesk512/public';
+var host = '/HelpDesk512/public';
 $('#method-table').DataTable({
     processing: true,
     serverSide: true,

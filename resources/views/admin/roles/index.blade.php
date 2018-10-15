@@ -20,7 +20,7 @@
             <div class="box-header with-border">
                 <h1>
                 Roles
-                {!! Form::button('<span class="fas fa-user-circle"></span> Create Roles', 
+                {!! Form::button('<i class="fas fa-user-circle"></i> Create Roles', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
