@@ -26,7 +26,7 @@
             <div class="box-header with-border">
                 <h1>
                 Permissions Manager
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Permissions', 
+                {!! Form::button('<span  class="fas fa-user-shield"></span> Create Permissions', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -103,7 +103,7 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Permissions');
+        $('.modal-title').html('<i class="fas fa-user-shield"></i> Add Permissions');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         $('#form-permissions').validator();
        
@@ -128,7 +128,7 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Permissions');
+            $('.modal-title').html('<i class="fas fa-user-shield"></i> Edit Permissions');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);

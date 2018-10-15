@@ -20,7 +20,7 @@
             <div class="box-header with-border">
                 <h1>
                 Roles
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Roles', 
+                {!! Form::button('<span class="fas fa-user-circle"></span> Create Roles', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -145,7 +145,7 @@
           success: function(data) {
             permissions = [];
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
+            $('.modal-title').html('<i class="fas fa-id-badge"></i>  Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.roles.id);
             $('#name').val(data.roles.name);
