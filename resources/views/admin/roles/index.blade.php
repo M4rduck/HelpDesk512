@@ -78,6 +78,14 @@
                       ]
                     });
 
+    CKEDITOR.config.height= 200;
+    CKEDITOR.config.widht='auto';
+    CKEDITOR.replace('description',{toolbar: [ 
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',] }, 
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] }, 
+    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },    
+     ]});
+
     function addFrom()
     {
         save_method = "add";
@@ -86,12 +94,22 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#form-roles').validator();
         $('#special').select2({
             width:'100%'
         });
         $('#permissions').select2({
             width:'100%'
         });
+        $
+        CKEDITOR.instances['description'].setData('',function(){
+            instances.destroy();
+        });
+             
+            
+                                    
+
+
     }
 
     $(document).on('change', '#special', function() {
@@ -113,6 +131,7 @@
             break;
 
         }
+       
     });
 
      function editForm(id) {
@@ -131,18 +150,16 @@
             $('#id').val(data.roles.id);
             $('#name').val(data.roles.name);
             $('#slug').val(data.roles.slug);
-            $('#description').val(data.roles.description);
             $('#special').val(data.roles.special);
             $('#special').select2({width:'100%'});
-            
             $.each(data.roles.permissions, function(i,item){
                 permissions.push(data.roles.permissions[i].id);                    
 
             });
-
-
             $('#permissions').val(permissions).change();
             $('#permissions').select2({width:'100%'});
+            CKEDITOR.instances['description'].setData(data.roles.description);
+            
             
           },
           error : function() {
@@ -197,6 +214,13 @@
                     var id = $('#id').val();
                     if (save_method == 'add') url = "{{ url('admin/roles') }}";
                     else url = "{{ url('admin/roles') . '/' }}" + id;
+                    
+                    
+                    for (instance in CKEDITOR.instances){
+                        CKEDITOR.instances[instance].updateElement();
+                        /*CKEDITOR.instances[$('#description')].setData("");*/
+                    }
+                    
                     $.ajax({
                         url : url,
                         type : "POST",

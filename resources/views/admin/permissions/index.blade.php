@@ -83,6 +83,20 @@
                       ]
                     });
 
+    
+                    
+   
+                    CKEDITOR.config.height= 200;
+                    CKEDITOR.config.widht='auto';
+                    CKEDITOR.replace('description',{toolbar: [ 
+                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',] }, 
+                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] }, 
+                    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] }, 
+                    ]});
+                    
+                   
+
+
     function addFrom()
     {
         save_method = "add";
@@ -91,13 +105,14 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Permissions');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#form-users').validator();
-        $('#description').ckeditor();
-        $('#description').val("");
+        $('#form-permissions').validator();
+       
+        CKEDITOR.instances['description'].setData('',function(){
+            instances.destroy();
+        });
+      
              
-             CKEDITOR.config.height= 200;
-             CKEDITOR.config.widht='auto';
-             CKEDITOR.replace('description');
+           
                
 
            
@@ -118,11 +133,8 @@
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#slug').val(data.slug);
-            $('#description').ckeditor();
-            $('#description').val(data.description);
-            CKEDITOR.config.height= 100;
-             CKEDITOR.config.widht= 100;
-             CKEDITOR.replace('description');
+            CKEDITOR.instances['description'].setData(data.description);
+        
            
           },
           error : function() {

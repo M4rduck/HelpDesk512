@@ -138,11 +138,18 @@ class RoleController extends Controller
                           Delete</button>  
                           </td>';
             })
+            ->editColumn('description',function($roles){
+                $desc = '';
+                
+                $desc = ''.$roles->description.'';   
+                
+                return $desc;
+            })
             ->editColumn('edit', function($roles){
                 return '<span class="label label-primary">'
                 . $roles->special .'</span>';
             })
-            ->rawColumns(['edit' => 'edit', 'action' => 'action'])
+            ->rawColumns(['description'=>'description','edit' => 'edit', 'action' => 'action'])
             ->make(true); 
     }
 }
