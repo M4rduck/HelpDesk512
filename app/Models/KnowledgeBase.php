@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Models\Category;
 use \Conner\Tagging\Taggable;
+use Overtrue\LaravelFollow\Traits\CanBeLiked;
 
 /**
  * @property int $id
@@ -22,7 +23,7 @@ use \Conner\Tagging\Taggable;
 class KnowledgeBase extends Model
 {
     
-    use Taggable;
+    use Taggable,CanBeLiked;
     
     /**
      * The table associated with the model.

@@ -14,6 +14,8 @@
 @section('content')
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
+            @if($bases->count())
+             @foreach($bases as $base)
                <h1>{{ $base->name }}</h1>
             <div class="panel panel-default" data-id="{{ $base->id }}">
                 <div class="panel-heading">
@@ -50,13 +52,15 @@
                 @endforelse
                 
                 <div class="pull-right">
-                @foreach($base->users as $bases)
-                Created By <em>{{ $bases->name }}</em>
+                @foreach($base->users as $userbase)
+                Created By <em>{{ $userbase->name }}</em>
                 @endforeach
                  </div>
                  </div>
             </div>
-            
+            @endforeach
+            {{ $bases->links() }}
+            @endif
         </div>
     </div>
 

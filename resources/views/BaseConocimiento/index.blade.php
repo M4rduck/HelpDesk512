@@ -174,13 +174,8 @@
             contentBody.LoadingOverlay('show');
             event.preventDefault();
             paginador = $(this).attr('href').split('page')[1];
-            @if(session()->has('category'))
-            ruta = $(this).attr('href');
-            @elseif(session()->has('tag'))
-            ruta = $(this).attr('href');
-            @else
-            ruta = '{!! route('BaseConocimiento.loadBody') !!}'+'?page'+paginador;
-            @endif
+           ruta = '{!! route('BaseConocimiento.loadBody') !!}'+'?page'+paginador;
+            
 
 
             $.getJSON(ruta)
@@ -194,11 +189,6 @@
                 contentBody.LoadingOverlay('hide', true);
                 console.log(jqXHR);
             });
-        });
-
-        $(document).on('click', '.tree', function(){
-            {!! (session()->forget('tag')) !!}
-            {!! session()->forget('category') !!}
         });
 </script>
 @endsection
