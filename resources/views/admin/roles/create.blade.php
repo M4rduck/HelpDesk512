@@ -38,7 +38,7 @@
                 <span class="help-block with-errors"></span>
               </div>  
             </div>
-           <! -- men aca es donde debes obtener los special -->
+           <! -- aqui se obtienen los special -->
             <div class="form-group">
             <label for="special" class="col-md-3 control-label">Special</label>
             <div class="col-md-12">            
@@ -49,13 +49,13 @@
 
             <! -- Permissions -->
             <div class="form-group">
-            <label for="permisos" class="col-md-3 control-label"> permisos</label>
+            <label for="permisos" class="col-md-3 control-label"> Permissions</label>
             <div class="col-md-12">
             
             <ul class="list-unstyled">
 
             <div class="from-group">
-                        {!! Form::label('permissions', 'Permissions') !!}
+                        
                         <div class="input-group">
                             <span class="input-group-addon">
                               <i class="fas fa-user-shield"></i>

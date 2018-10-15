@@ -73,7 +73,7 @@
                         {data: 'name', name: 'name'},
                         {data: 'slug', name: 'slug'},
                         {data: 'description', name: 'description'},
-                        {data: 'special', name: 'special'},
+                        {data: 'edit', name: 'edit'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
@@ -94,6 +94,27 @@
         });
     }
 
+    $(document).on('change', '#special', function() {
+        
+        switch($(this).val()){
+            case "all-access": 
+            $('#permissions').attr('disabled', true);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+            case "no-access":
+            $('#permissions').attr('disabled', true);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+            case "null":
+            $('#permissions').attr('disabled', false);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+        }
+    });
+
      function editForm(id) {
         save_method = 'edit';
         $('input[name=_method]').val('PATCH');
@@ -113,7 +134,7 @@
             $('#description').val(data.roles.description);
             $('#special').val(data.roles.special);
             $('#special').select2({width:'100%'});
-
+            
             $.each(data.roles.permissions, function(i,item){
                 permissions.push(data.roles.permissions[i].id);                    
 
@@ -122,6 +143,7 @@
 
             $('#permissions').val(permissions).change();
             $('#permissions').select2({width:'100%'});
+            
           },
           error : function() {
               swal({
