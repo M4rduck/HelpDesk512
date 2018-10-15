@@ -113,7 +113,7 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Permissions');
+            $('.modal-title').html('<i class="fas fa-user-shield"></i> Edit Permissions');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);

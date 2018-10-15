@@ -8,6 +8,7 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,15 +32,17 @@ class AppServiceProvider extends ServiceProvider
             foreach ($modulos as $modulo) {            
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
-                    foreach ($modulo->modules as $module) {                        
-                        $submenu[] = [
-                            'text' => $module->text,
-                            'icon' => $module->icon,
-                            'icon_color' => $module->icon_color,
-                            'label' => $module->label,
-                            'label_color' => $module->label_color,
-                            'url' => route($module->method->name),
-                        ];
+                    foreach ($modulo->modules as $module) {     
+                        if(Auth::user()->can($module->method->name)){
+                            $submenu[] = [
+                                'text' => $module->text,
+                                'icon' => $module->icon,
+                                'icon_color' => $module->icon_color,
+                                'label' => $module->label,
+                                'label_color' => $module->label_color,
+                                'url' => route($module->method->name),
+                            ];
+                        }        
                     }
                 }
 
@@ -61,10 +64,13 @@ class AppServiceProvider extends ServiceProvider
                 
 
                 (isset($submenu) && !empty($submenu)) ?  $items['submenu'] = $submenu : [];
-
-                $submenu = [];
-
-                $event->menu->add($items);
+                
+                if(count($submenu)){
+                    $event->menu->add($items);
+                }else if(Auth::user()->can($modulo->method->name)){
+                    $event->menu->add($items);
+                }
+                $submenu = [];                    
             }         
         });
     }
