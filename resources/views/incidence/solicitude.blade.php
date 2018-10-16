@@ -35,8 +35,9 @@
         </div>
     </div>
     -->
-    <div class="page-header">
-        <h1>{{ title_case($solicitude->title) }} <small>Solicitud</small></h1>
+    <div style="margin-left: 1%;" class="page-header">
+        <h2>Solicitud #{{ $solicitude->id }}</h2>
+        <small>{{ title_case($solicitude->title) }}</small>
     </div>
 @stop
 
@@ -51,7 +52,7 @@
     <div id="incidence_create_modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form id="form_incidence" method="post" enctype="multipart/form-data" action="">
+                <form id="form_incidence" method="post" enctype="multipart/form-data" action="{{ route('incidence.store') }}">
                     <div class="modal-header">
                         <button class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Nueva Incidencia</h4>

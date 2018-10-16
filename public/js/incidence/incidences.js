@@ -6,8 +6,8 @@ $(function(){
 
         set_form_values: function(){
 
-            this.$agent.val("");
-            this.$contact.val("");
+            this.$agent.val("").trigger('change');
+            this.$contact.val("").trigger('change');
             this.theme.value = "";
             this.description.value = "";
             document.getElementById('evidence').value = "";
