@@ -31,10 +31,15 @@ class UserController extends Controller
      */
     public function index()
     {
+        
+        /*$users=User::with('speciality','roles')->get();
+        return (['users'=>$users]);*/   
+
         $roles = Role::pluck('name', 'id');
         $speciality = Speciality::pluck('name','id');
         return view('admin.users.index')
-                ->with(['roles'=>$roles,'speciality'=>$speciality]);     
+                ->with(['roles'=>$roles,'speciality'=>$speciality]);
+        
     }
 
     /**
@@ -104,36 +109,66 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deactivate(Request $request)
     {
-        $users = User::whereId($id)->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'User Delete'
-        ]); 
+        if (!$request->ajax()) return redirect('/');
+        $user = User::findOrFail($request->id); 
+        $user->is_deleted = '1';
+        $user->save();
         
+    }
+
+    public function activate(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $user = User::findOrFail($request->id); 
+        $user->is_deleted = '0';
+        $user->save();
     }
 
     public function apiUsers()
     {
-        $users=User::with('speciality')->get();
-        
-        
+        $users=User::with('speciality','roles')->get();
         
         return Datatables::of($users)
             ->addColumn('action', function($users){
+                 $deleted = '';
+               
+                 if($users->roles->isNotEmpty()){
+                    foreach($users->roles as $rol){
+                        if($rol == 'Admin' and $users->is_deleted == '0'){
+                            $deleted .='<td width="10px">
+                                    <button class="btn btn-info btn-sm" href="#"
+                                        onclick="">
+                                        <i class="fas fa-lock"></i>
+                                        </button>  
+                                    </td>';
+                        }
+                    }
+                    
+                }else if($users->is_deleted){
+                    $deleted.='<td width="10px">
+                                    <button class="btn btn-primary btn-sm" href="#"
+                                        onclick="activate('. $users->id .')">
+                                        <i class="fas fa-check-circle"></i> 
+                                        </button>  
+                                </td>';
+                }else{
+                    $deleted.='<td width="10px">
+                                    <button class="btn btn-danger btn-sm" href="#"
+                                        onclick="deactivate('. $users->id .')">
+                                        <i class="fa fa-trash"></i> 
+                                        </button>  
+                                </td>';
+                 }
+                
+                
+                
                 return '<td width="10px">
                             <button  class="btn btn-success btn-sm" 
                                 onclick="editForm('. $users->id .')">
-                                <i class="fa fa-pencil-square-o"></i> Edit</button>
-                          </td>' .
-                          '<td width="10px">
-                           <button class="btn btn-danger btn-sm" href="#"
-                           onclick="deleteData('. $users->id .')">
-                            <i class="fa fa-trash"></i> 
-                          Delete</button>  
-                          </td>';
+                                <i class="fa fa-pencil-square-o"></i></button>
+                          </td>'. $deleted;
             })
             ->editColumn('edit', function($users){
                 $specialitys = '';

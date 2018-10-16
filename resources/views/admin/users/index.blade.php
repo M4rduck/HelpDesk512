@@ -182,35 +182,68 @@
           }
         });
       }
-      function deleteData(id){
-          var csrf_token = $('meta[name="csrf-token"]').attr('content');
-          swal({
-              title: 'Are you sure?',
-              text: "You won't be able to revert this!",
-              type: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+      function deactivate(id){
+        swal({
+            title: 'Esta seguro de desactivar este Usuario ?',
+            type:  'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar!',
+            cancelButtonText: 'Cancelar',
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('admin/users') }}" + '/' + id,
-                  type : "POST",
-                  data : {'_method' : 'DELETE', '_token' : csrf_token},
-                  success : function(data) {
+                  url : "{{ url('admin/users') }}" + '/' + 'desactivar' + '/' + id,
+                  type : "PUT",
+                  data:  {'id': id}, 
+                success : function(data) {
                       table.ajax.reload();
-                       swal({
-                          title: 'Success!',
-                          text: data.message,
-                          type: 'success',
-                          timer: '1500'
-                      })
+                      swal(
+                                'Desactivado!',
+                                'El usuario ha sido desactivado con éxito.',
+                                'success'
+                            )
                   },
                   error : function () {
                     swal({
                           title: 'Oops...',
-                          text:  data.message,
+                          text:  'El usuario no puede ser desactivado.',
+                          type:  'error',
+                          timer: '1500'
+                      })
+                  }
+              });
+              }
+            });
+        }
+        function activate(id){
+        swal({
+            title: 'Esta seguro de activar este Usuario ?',
+            type:  'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar!',
+            cancelButtonText: 'Cancelar',
+            }).then((result) => {
+              if (result.value) {
+            $.ajax({
+                  url : "{{ url('admin/users') }}" + '/' + 'activar'+ '/' + id,
+                  type : "PUT",
+                  data:   {'id': id}, 
+                success : function(data) {
+                      table.ajax.reload();
+                      swal(
+                                'Activado!',
+                                'El usuario ha sido activado con éxito.',
+                                'success'
+                            )
+                  },
+                  error : function () {
+                    swal({
+                          title: 'Oops...',
+                          text:  'El usuario no puede ser activado.',
                           type:  'error',
                           timer: '1500'
                       })
