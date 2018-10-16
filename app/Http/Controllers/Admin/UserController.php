@@ -134,19 +134,7 @@ class UserController extends Controller
             ->addColumn('action', function($users){
                  $deleted = '';
                
-                 if($users->roles->isNotEmpty()){
-                    foreach($users->roles as $rol){
-                        if($rol == 'Admin' and $users->is_deleted == '0'){
-                            $deleted .='<td width="10px">
-                                    <button class="btn btn-info btn-sm" href="#"
-                                        onclick="">
-                                        <i class="fas fa-lock"></i>
-                                        </button>  
-                                    </td>';
-                        }
-                    }
-                    
-                }else if($users->is_deleted){
+                if($users->is_deleted){
                     $deleted.='<td width="10px">
                                     <button class="btn btn-primary btn-sm" href="#"
                                         onclick="activate('. $users->id .')">
