@@ -6,11 +6,13 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\TypeInput;
+use App\Models\Solicitude;
 
 class DiagnosisController extends Controller
 {
     public function index(){
-        return view('diagnosis.parameterization.index');
+        $solicitudes = Solicitude::where('is_deleted', 0)->get()->pluck('title', 'id');
+        return view('diagnosis.parameterization.index')->with('solicitudes', $solicitudes);
     }
 
     public function create(){

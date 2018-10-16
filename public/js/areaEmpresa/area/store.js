@@ -1,41 +1,41 @@
 $('#form-store').submit(function(event){ 
     event.preventDefault();
     formulario = $(this);
-    //formulario.LoadingOverlay("show");
-    console.log(typeof formulario.attr('data-id'));
-    formulario.attr('data-id', 12);
-    formulario.attr('data-id', '');
-    console.log(typeof formulario.attr('data-id'));
-    if(formulario.attr('data-id')){
-        
+    formulario.LoadingOverlay("show");
+    sendData = $(this).find(':input').serialize();
+    
+    if($('#btn-submit').attr('data-id').trim().length === 0){
+        sendRequest = $.post($(this).attr('action'),{
+                            datos: sendData,
+                            id: $('#area-id').val()
+                        });        
+    }else{
+        sendRequest = $.ajax({
+                            url: '/area-empresa/area/update/'+$('#btn-submit').attr('data-id'),
+                            type: 'PUT',
+                            data: sendData
+                        });
     }
-    /*$.post($(this).attr('action'),{
-        datos: $(this).find(':input').serialize(),
-        id: $('#area-id').val()
-    }).done(function(data){
+
+    sendRequest.done(function(data){
         formulario.LoadingOverlay("hide", true);
         if(data.success && !data.error){
             areaTable.ajax.reload();
             swal({
-                title: "Good job!",
+                title: "Felicitaciones!",
                 text: data.msg,
                 icon: "success",
             });
         }else{
             swal({
-                title: "Good job!",
+                title: "Error!",
                 text: data.msg,
                 icon: "error",
             });
         }
     }).fail(function(jqXHR, textStatus){
         formulario.LoadingOverlay("hide", true);
-        swal({
-            title: "At least your trying!",
-            text: "You clicked the button!",
-            icon: "error",
-        });        
+        typeError(jqXHR, textStatus);      
 
     });
-    console.log($(this).find(':input').serialize());*/
 });

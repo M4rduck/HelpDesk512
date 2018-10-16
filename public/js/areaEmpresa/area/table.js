@@ -1,9 +1,8 @@
-var hosting = '/HelpDesk512/public';
 var idEmpresa = $('#area-id').val();
 var areaTable = $('#area-table').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: hosting+'/area-empresa/getAreas/'+idEmpresa,
+                        ajax: '/area-empresa/getAreas/'+idEmpresa,
                         columns: [
                             {data: 'name', name: 'name'},
                             {data: 'extension', name: 'extension'},

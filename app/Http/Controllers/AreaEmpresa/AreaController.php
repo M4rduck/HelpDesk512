@@ -12,6 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 class AreaController extends Controller
 {
     function index(){        
+        
     	return view('areaEmpresa.area.index'); 
     }
 
@@ -46,10 +47,14 @@ class AreaController extends Controller
         return response()->json(['success' => true, 'error' => false, 'area' => $area]);
     }
 
-    public function put(Request $request, $id){
-        parse_str($request->datos, $datos);
+    public function update($id, Request $request){
         try{
-            $area = Area::where($id)->update($datos['area']);
+            $area = Area::find($id);
+            $area->name = $request->area['name'];
+            $area->extension = $request->area['extension'];
+            $area->email = $request->area['email'];
+            $area->description = $request->area['description'];
+            $area->save();
         }catch (QueryException $queryException){
             return response()->json(['success' => true, 'error' => true, 'msg' => 'Ha sucedido un error al momento de actualizar el area, código: '.$queryException->getCode()]);
         }
@@ -65,8 +70,8 @@ class AreaController extends Controller
                                                 })
                         )
                         ->addColumn('action', function(Area $area){
-                            return '<a class="btn btn-xs btn-primary edit-area" data-id="'.route('area.create', ['id' => $area->id]).'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.
-                                   ' <a class="btn btn-xs btn-danger delete-area" data-id="'.route('area.put', ['id' => $area->id]).'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
+                            return '<a class="btn btn-xs btn-success edit-area" data-id="'.$area->id.'" href="'.route('area.create', ['id' => $area->id]).'"><i class="glyphicon glyphicon-edit"></i> Edit</a>'.
+                                   ' <a class="btn btn-xs btn-danger delete-area" data-id="'.route('area.update', ['id' => $area->id]).'"><i class="glyphicon glyphicon-edit"></i> Delete</a>';
                         })->toJson();
         }catch (QueryException $queryException){
             dd($queryException->getMessage());

@@ -11,7 +11,7 @@ $.ajaxSetup({
         
 $.extend( true, $.fn.dataTable.defaults, {
     "language": {
-            "url": host+'HelpDesk512/public/'+'js/lang/datatable/spanish.json'
+            "url": host+'js/lang/datatable/spanish.json'
     }
 } );
 

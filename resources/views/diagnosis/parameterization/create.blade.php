@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="col-lg-8 col-xs-12" id="">
-                            <!-- -->
+                            <!-- Diagnosis name -->
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -46,7 +46,36 @@
                                     </div>
                                 </div>
                             </div>  
-                            <!-- -->                          
+                            <!-- Diagnosis name -->
+                            
+                            <div class="row">
+                                <div class="col-lg-12">
+                                     {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Sección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete']) !!}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Subsección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete pull-right']) !!}
+                                    <!-- form-group -->
+                                        <div class="form-group">
+                                            <label for="1_1">Primera Revision</label>                        
+                                            <input id="1_1" class="form-control" name="1_1" type="text">
+                                        </div>      
+                                    <!-- /form-group -->                                                                                
+                                </div>
+
+                                <div class="col-lg-6">
+                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Subsección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete pull-right']) !!}                                    
+                                            <!-- form-group -->
+                                            <div class="form-group">
+                                                    <label for="2_7">Primera Seleccion</label>                        
+                                                                                                        <input id="2_7" name="2_7" value="1" type="radio">
+                                                                                                </div>      
+                                                <!-- /form-group -->
+                                                                                
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

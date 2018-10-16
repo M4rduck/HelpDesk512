@@ -1,21 +1,27 @@
-$(document).on('click', '.edit-area', function(){
+$(document).on('click', '.edit-area', function(event){
+    event.preventDefault();
     editArea = $(this);
-    ruta = editArea.attr('data-id');
-    area = $('#Area');
+    areaModal = $('#Area');
     editArea.LoadingOverlay('show');
-    $.getJSON(ruta)
+
+    $.getJSON(editArea.attr('href'))
     .done(function(data){
         editArea.LoadingOverlay('hide', true);
         if(data.success && !data.error){
-            area.find('.modal-title').text('Editar Area');
+            areaModal.find('.modal-title').text('Editar Area');
             $('#nameA').val(data.area.name);
             $('#exten').val(data.area.extension);
             $('#email').val(data.area.email);
             $('#description').val(data.area.description);
-            area.modal('show');
+            $('#btn-submit').attr('data-id', data.area.id);
+            areaModal.modal('show');
 
         }else{
-
+            swal({
+                title: data.title,
+                text: data.msg,
+                icon: 'error',
+            });
         }
     }).fail(function(jqXHR, textStatus){
         TypeError(jqXHR, textStatus);

@@ -3,6 +3,8 @@
 @push('js')
     {!! Html::script('./js/loadingoverlay.min.js')  !!}
 
+    {!! Html::script('./js/areaEmpresa/area/index.js')  !!}
+
     {!! Html::script('./js/areaEmpresa/area/table.js')  !!}
 
     {!! Html::script('./js/areaEmpresa/area/store.js')  !!}    
@@ -144,8 +146,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    {!! Form::button('Close', ['class'=>'btn btn-default pull-left', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right', 'data-id' => '  ','type' => 'submit']) !!}
+                    {!! Form::button('Close', ['class'=>'btn btn-default pull-left close-modal', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right', 'id' => 'btn-submit', 'data-id' => '','type' => 'submit']) !!}
 
                 </div>
                 {!! Form::close() !!}
