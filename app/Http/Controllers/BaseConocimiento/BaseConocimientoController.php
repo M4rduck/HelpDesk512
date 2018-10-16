@@ -131,7 +131,7 @@ class BaseConocimientoController extends Controller
     /**
      * search body for category
      * @param int $request 
-     */
+    */
     public function category($name){
         
             $category  = Category::where('name', $name)->pluck('id')->first();
