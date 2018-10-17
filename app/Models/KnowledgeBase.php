@@ -52,4 +52,15 @@ class KnowledgeBase extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    // Scope
+
+    public function scopeName($query, $name)
+    {
+        if($name)
+        return $query->where('name', 'LIKE', "%$name%");
+    }
+
+    
+
 }
