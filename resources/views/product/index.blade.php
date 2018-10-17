@@ -262,26 +262,30 @@
                                     ]) !!}
 
                                     
-
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        
+                    
+                        
+                        
                         <div class="col-lg-6 col-sm-12">
                             <!-- Nombre del método-->
                             <div class="form-group">
-                                {!! Form::label('label_color', 'Hardware activo') !!}
+                                {!! Form::label('label_color', 'Descripcion') !!}
                                 <div class="input-group">
                                         <span class="input-group-addon">
                                             <i class="fa fa-object-group"></i>
                                         </span>
-                                        {!!   Form::select('is_active', ['1' => 'Si', '0' => 'No'], null, ['class' => 'form-control',
-                                                                              'title' => 'Nombre de la clase del controlador',
-                                                                              'placeholder' => 'Seleccione',
-                                                                              'id' => 'name']) !!}
+                                        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '3',
+                                                                           'title' => 'Texto que se mostrara al lado del nombre del modulo, preferiblemente poner números',
+                                                                           'placeholder' => 'Modelo producto',
+                                                                           'id' => 'desc'
+                                    ]) !!}
                                 </div>
                             </div>
-                    </div>
-                </div>
+                            </div>
+
 
                 <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-danger pull-left', 'data-dismiss'=>'modal']) !!}
