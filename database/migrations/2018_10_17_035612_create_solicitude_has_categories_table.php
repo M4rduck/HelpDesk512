@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolicitudeHasPollTable extends Migration
+class CreateSolicitudeHasCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateSolicitudeHasPollTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitude_has_poll', function (Blueprint $table) {
+        Schema::create('solicitude_has_categories', function (Blueprint $table) {
             $table->integer('solicitude_id')->unsigned()->index();
             $table->foreign('solicitude_id')->references('id')->on('solicitude')->onDelete('restrict');
 
-            $table->integer('poll_id')->unsigned()->index();
-            $table->foreign('poll_id')->references('id')->on('poll')->onDelete('restrict');
-            
-            $table->integer('is_active')->default(1)->comment('1 to yes, 0 to no');
-            $table->integer('is_delete')->default(0)->comment('1 to yes, 0 to no');
+            $table->integer('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
         });
     }
 
@@ -32,6 +29,6 @@ class CreateSolicitudeHasPollTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitude_has_poll');
+        Schema::dropIfExists('solicitude_has_categories');
     }
 }

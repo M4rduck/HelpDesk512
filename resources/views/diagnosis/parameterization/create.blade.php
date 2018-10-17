@@ -7,6 +7,15 @@
 @stop
 
 @push('js')
+    <!-- Draggabilly -->
+    {!! Html::script('./js/tools/draggabilly/draggabilly.pkgd.min.js') !!}
+
+    <!-- Packery -->
+    {!! Html::script('./js/tools/packery/packery.pkgd.min.js') !!}
+
+    <!-- Index -->
+    {!! Html::script('./js/diagnosis/create/index.js') !!}
+
     <!-- Input -->
     {!! Html::script('./js/diagnosis/create/input.js') !!}
 
@@ -17,6 +26,53 @@
 @push('css')
     <!-- Estilos para botón flotante -->
     {!! Html::style('./css/button_float.css') !!}
+
+    <style>
+        /* ---- grid ---- */
+
+        .grid {
+        background: #DDD;
+        max-width: 1900px;
+        }
+
+        /* clear fix */
+        .grid:after {
+        content: '';
+        display: block;
+        clear: both;
+        }
+
+        /* ---- .grid-item ---- */
+
+        .grid-item {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: #C09;
+            border: 2px solid hsla(0, 0%, 0%, 0.5);
+        }
+
+        .grid-item--width2 { width: 400px; }
+        .grid-item--height2 { height: 200px; }
+
+        .grid-item:hover {
+        border-color: hsla(0, 0%, 100%, 0.5);
+        cursor: move;
+        }
+
+        .grid-item.is-dragging,
+        .grid-item.is-positioning-post-drag {
+        background: #C90;
+        z-index: 2;
+        }
+
+        .packery-drop-placeholder {
+        outline: 3px dashed hsla(0, 0%, 0%, 0.5);
+        outline-offset: -6px;
+        -webkit-transition: -webkit-transform 0.2s;
+                transition: transform 0.2s;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -47,35 +103,18 @@
                                 </div>
                             </div>  
                             <!-- Diagnosis name -->
+
+                            <p><button class="append-button">Append items</button></p>
+
+                            <div class="grid">
+                                <div class="grid-item grid-item--width2">
+                                    {!! Form::label('name', Lang::get('diagnosis/create.form-name')) !!}
+                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control']) !!}
+                                </div>
+                                <div class="grid-item grid-item--width2"></div>
+                                <div class="grid-item grid-item--width2"></div>
+                            </div>
                             
-                            <div class="row">
-                                <div class="col-lg-12">
-                                     {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Sección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete']) !!}
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-6">
-                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Subsección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete pull-right']) !!}
-                                    <!-- form-group -->
-                                        <div class="form-group">
-                                            <label for="1_1">Primera Revision</label>                        
-                                            <input id="1_1" class="form-control" name="1_1" type="text">
-                                        </div>      
-                                    <!-- /form-group -->                                                                                
-                                </div>
-
-                                <div class="col-lg-6">
-                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Agregar Subsección', ['class' => 'btn btn-xs btn-primary form-diagnosis-delete pull-right']) !!}                                    
-                                            <!-- form-group -->
-                                            <div class="form-group">
-                                                    <label for="2_7">Primera Seleccion</label>                        
-                                                                                                        <input id="2_7" name="2_7" value="1" type="radio">
-                                                                                                </div>      
-                                                <!-- /form-group -->
-                                                                                
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

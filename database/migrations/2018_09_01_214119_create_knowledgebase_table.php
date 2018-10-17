@@ -15,7 +15,9 @@ class CreateKnowledgebaseTable extends Migration
     {
         Schema::create('knowledgebase', function (Blueprint $table) {
             $table->increments('id');               
-            $table->integer('score')->nullable()->default(0);
+            $table->integer('category_id')->unsigned()->index();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
+            $table->integer('view')->nullable()->default(0);
             $table->string('description',500);
             $table->string('name');
             $table->string('solution');            

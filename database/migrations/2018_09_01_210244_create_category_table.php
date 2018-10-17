@@ -13,12 +13,11 @@ class CreateCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('categorys', function (Blueprint $table) {
-            $table->integer('knowledgebase_id')->unsigned()->index();
-            $table->foreign('knowledgebase_id')->references('id')->on('knowledgebase')->onDelete('restrict')->nullable(true);         
-
-            $table->integer('problem_id')->unsigned()->index();
-            $table->foreign('problem_id')->references('id')->on('problems')->onDelete('restrict')->nullable(true);         
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('level')->nullable(true);
+            $table->timestamps();      
         });
     }
 
@@ -29,6 +28,6 @@ class CreateCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('categories');
     }
 }
