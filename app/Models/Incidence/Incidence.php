@@ -42,7 +42,7 @@ class Incidence extends Model
 
     public function solicitude()
     {
-        return $this->belongsTo('App\Models\Incidence\Solicitude', 'id_solicitude', 'id');
+        return $this->belongsTo(Solicitude::class, 'id_solicitude', 'id');
     }
 
     public function tracings()

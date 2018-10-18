@@ -28,7 +28,8 @@ class DiagnosisController extends Controller
     }    
 
     public function show($id){
-        $incidencia = Incidence::find($id);
+        $incidencia = Incidence::with('solicitude')->find($id);
+        dd($incidencia);
         return view('diagnosis.consulta.index');
     }
 }
