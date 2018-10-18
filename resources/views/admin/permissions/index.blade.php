@@ -26,7 +26,7 @@
             <div class="box-header with-border">
                 <h1>
                 Permissions Manager
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Permissions', 
+                {!! Form::button('<i class="fas fa-user-shield"></i> Create Permissions', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -83,21 +83,36 @@
                       ]
                     });
 
+    
+                    
+   
+                    CKEDITOR.config.height= 200;
+                    CKEDITOR.config.widht='auto';
+                    CKEDITOR.replace('description',{toolbar: [ 
+                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',] }, 
+                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] }, 
+                    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] }, 
+                    ]});
+                    
+                   
+
+
     function addFrom()
     {
         save_method = "add";
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Permissions');
+        $('.modal-title').html('<i class="fas fa-user-shield"></i> Add Permissions');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
-        $('#form-users').validator();
-        $('#description').ckeditor();
-        $('#description').val("");
+        $('#form-permissions').validator();
+       
+        CKEDITOR.instances['description'].setData('',function(){
+            instances.destroy();
+        });
+      
              
-             CKEDITOR.config.height= 200;
-             CKEDITOR.config.widht='auto';
-             CKEDITOR.replace('description');
+           
                
 
            
@@ -113,16 +128,13 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Permissions');
+            $('.modal-title').html('<i class="fas fa-user-shield"></i> Edit Permissions');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.id);
             $('#name').val(data.name);
             $('#slug').val(data.slug);
-            $('#description').ckeditor();
-            $('#description').val(data.description);
-            CKEDITOR.config.height= 100;
-             CKEDITOR.config.widht= 100;
-             CKEDITOR.replace('description');
+            CKEDITOR.instances['description'].setData(data.description);
+        
            
           },
           error : function() {

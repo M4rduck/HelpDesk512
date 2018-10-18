@@ -7,101 +7,99 @@
 @stop
 
 @push('js')
-    <!-- Draggabilly -->
-    {!! Html::script('./js/tools/draggabilly/draggabilly.pkgd.min.js') !!}
-
-    <!-- Packery -->
-    {!! Html::script('./js/tools/packery/packery.pkgd.min.js') !!}
-
     <!-- Index -->
-    {!! Html::script('./js/diagnosis/create/index.js') !!}
+    {{--{!! Html::script('./js/diagnosis/create/index.js') !!}--}}
 
     <!-- Input -->
     {!! Html::script('./js/diagnosis/create/input.js') !!}
 
     <!-- Store -->
     {!! Html::script('./js/diagnosis/create/store.js') !!}
-@endpush
 
-@push('css')
-    <!-- Estilos para botón flotante -->
-    {!! Html::style('./css/button_float.css') !!}
+    <script>
+        $(document).on('click', '.append-button', function(){
+            layoutBody = $('#layout-body');
+            lastRow = layoutBody.find('.row-main').last();
 
-    <style>
-        /* -------------------------------------------- grid subcategory ---------------------------------------------------------------- */
+            if(lastRow.find('.col-main').length === 1){
+                lastRow.append('<div class="col-lg-6 col-xs-12 col-main">'+
+                                    '<div class="box box-warning">'+
+                                        '<div class="box-header">'+
+                                            '<input id="name" style="width: 20%" placeholder="Titulo Categoria" name="name" type="text">'+
+                                            '<label class="checkbox-inline"><input value="" type="checkbox">Visible</label>'+
+                                            '<button class="btn btn-success append-sub-button pull-right" type="button">Agregar SubCategoria</button>'+
+                                        '</div>'+
+                                        '<div class="box-body add-sub-category">'+
 
-        .grid-sub-category {
-            background: #efefef;
-            max-width: 1900px;
-        }
+                                            '<div class="row">'+
 
-        /* clear fix */
-        .grid-sub-category:after {
-            content: '';
-            display: block;
-            clear: both;
-        }
+                                                '<div class="col-lg-6 col-xs-12">'+
 
-        .grid-item-sub-category {
-            float: left;
-            width: 100px;
-            height: 100px;
-            background: #ffff81;
-            border: 2px solid hsla(0, 0%, 0%, 0.5);
-        }
+                                                    '<div class="box box-warning">'+
 
-        .grid-item-sub-category.is-dragging,
-        .grid-item-sub-category.is-positioning-post-drag {
-            background: #ffff81;
-            z-index: 2;
-        }
-        /* --------------------------------------------------------------------------------------------------------------------------------- */
+                                                        '<div class="box-header">'+
+                                                            '<input id="name" style="width: 30%" placeholder="Titulo SubCategoria" name="name" type="text">'+
+                                                        '</div>'+
 
-        /* ---- grid ---- */
+                                                        '<div class="box-body">'+
 
-        .grid {
-        background: #DDD;
-        max-width: 1900px;
-        }
+                                                        '</div>'+
 
-        /* clear fix */
-        .grid:after {
-        content: '';
-        display: block;
-        clear: both;
-        }
+                                                    '</div>'+
 
-        /* ---- .grid-item ---- */
+                                                '</div>'+
 
-        .grid-item {
-            float: left;
-            width: 100px;
-            height: 100px;
-            background: #ffd54f;
-            border: 2px solid hsla(0, 0%, 0%, 0.5);
-        }
+                                            '</div>'+
 
-        .grid-item--width2 { width: 600px; height: 300px; }
-        .grid-item--height2 { height: 200px; }
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>');
+            }else{
+                layoutBody.append('<div class="row row-main">'+
+                                        '<div class="col-lg-6 col-xs-12 col-main">'+
+                                            '<div class="box box-warning">'+
+            
+                                                '<div class="box-header">'+
+                                                    '<input id="name" style="width: 20%" placeholder="Titulo Categoria" name="name" type="text">'+
+                                                    '<label class="checkbox-inline"><input value="" type="checkbox">Visible</label>'+
+                                                    '<button class="btn btn-success append-sub-button pull-right" type="button">Agregar SubCategoria</button>'+
+                                                '</div>'+
+            
+                                                '<div class="box-body add-sub-category">'+
 
-        .grid-item:hover {
-        border-color: hsla(0, 0%, 100%, 0.5);
-        cursor: move;
-        }
+                                                    '<div class="row">'+
 
-        .grid-item.is-dragging,
-        .grid-item.is-positioning-post-drag {
-        background: #ffd54f;
-        z-index: 2;
-        }
+                                                        '<div class="col-lg-6 col-xs-12">'+
 
-        .packery-drop-placeholder {
-        outline: 3px dashed hsla(0, 0%, 0%, 0.5);
-        outline-offset: -6px;
-        -webkit-transition: -webkit-transform 0.2s;
-                transition: transform 0.2s;
-        }
-    </style>
+                                                            '<div class="box box-warning">'+
+
+                                                                '<div class="box-header">'+
+                                                                    '<input id="name" style="width: 30%" placeholder="Titulo SubCategoria" name="name" type="text">'+
+                                                                '</div>'+
+
+                                                                '<div class="box-body">'+
+
+                                                                '</div>'+
+
+                                                            '</div>'+
+
+                                                        '</div>'+
+
+                                                    '</div>'+
+
+                                                                
+                                                '</div>'+
+                                                            
+                                            '</div>'+
+                                        '</div>'+
+                                     '</div>');
+            }
+        });
+
+        $(document).on('click', '.append-sub-button', function(){
+
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -135,17 +133,47 @@
 
                             <p>{!! Form::button('Agregar Categoria', ['class' => 'btn btn-success append-button']) !!}</p>
 
-                            <div class="grid">
-                                <div class="grid-item grid-item--width2">
-                                    {!! Form::label('name', Lang::get('diagnosis/create.form-name')) !!}
-                                    {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control']) !!}
-                                    <p>{!! Form::button('Agregar SubCategoria', ['class' => 'btn btn-success append-subcategory-button']) !!}</p>
-                                    <div class="grid-sub-category">                                        
-                                        <div class="grid-item-sub-category"></div>
-                                    </div>
-                                </div>
-                                <div class="grid-item grid-item--width2"></div>
-                                <div class="grid-item grid-item--width2"></div>
+                            <div id="layout-body">
+                                    <div class="row row-main">
+                                        <div class="col-lg-6 col-xs-12 col-main">
+                                            <div class="box box-warning">
+            
+                                                <div class="box-header">
+                                                    {!! Form::text('name', null, ['id' => 'name', 'style' => 'width: 20%', 'placeholder' => 'Titulo Categoria']) !!}
+                                                    <label class="checkbox-inline"><input type="checkbox" value="">Visible</label>
+                                                    {!! Form::button('Agregar SubCategoria', ['class' => 'btn btn-success append-button pull-right']) !!}
+                                                </div>
+
+                                                <!-- Box Body Sub Category -->            
+                                                <div class="box-body add-sub-category">
+
+                                                    <div class="row">
+
+                                                        <div class="col-lg-6 col-xs-12">
+
+                                                            <div class="box box-warning">
+
+                                                                <div class="box-header">
+                                                                    {!! Form::text('name', null, ['id' => 'name', 'style' => 'width: 30%', 'placeholder' => 'Titulo SubCategoria']) !!}
+                                                                </div>
+
+                                                                <div class="box-body">
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                                
+                                                </div>
+                                                <!-- /Box Body Sub Category -->            
+            
+                                            </div>
+                                        </div>
+                                     </div>
                             </div>
                             
                         </div>
@@ -166,7 +194,7 @@
                                                                                           'data-target'=>'#modal-create-field'                                                                                          
         ]) !!}
     </div>
-@stop
+@endsection
 
 @section('modal')
      <!-- Modal -->

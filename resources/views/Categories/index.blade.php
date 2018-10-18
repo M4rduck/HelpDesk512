@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Specialties')
+@section('title','Categories')
 
 @section('content_header')
-    <h1>Specialties</h1>
+    <h1>Categories</h1>
 @stop
 
 @push('js')
@@ -23,8 +23,8 @@
         <!--Box title -->
             <div class="box-header with-border">
                 <h1>
-                Speciality Manager
-                {!! Form::button('<i class="fas fa-file-alt"></i> Create Speciality', 
+               Category Manager
+                {!! Form::button('<i class="fas fa-file-alt"></i> Create Category', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -34,12 +34,12 @@
         <!--Box body -->
         <div class="box-body">
             <div class="table-responsive">
-            <table class="table table-striped" id="specialties-table">
+            <table class="table table-striped" id="categories-table">
                 <thead>
                 <tr>
                     <th width="30px">ID</th>
                     <th>Name</th>
-                    <th>Description</th>
+                    <th>Level</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -52,7 +52,7 @@
 	</div>
 </div>
 </div>
-@include('admin.speciality.create')
+@include('categories.create')
 </div>
 
 @endsection
@@ -65,14 +65,21 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
      });
-    var table = $('#specialties-table').DataTable({
+    function format(data){
+        return 'Full name: '+d.first_name+' '+d.last_name+'<br>'+
+        'Salary: '+d.salary+'<br>'+
+        'The child row can contain any data you wish, including links, images, inner tables etc.';
+    }
+
+    
+    var table = $('#categories-table').DataTable({
                       processing: true,
                       serverSide: true,
-                      ajax: "{{ route('api.specialties') }}",
+                      ajax: "{{ route('api.category') }}",
                       columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'description', name: 'description'},
+                        {data: 'level', name: 'level'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
@@ -85,7 +92,7 @@
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="far fa-file-alt"></i> Add Speciality');
+        $('.modal-title').html('<i class="far fa-file-alt"></i> Add Category');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
         
     }
@@ -95,16 +102,16 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('admin/specialties') }}" + '/' + id + "/edit",
+          url: "{{ url('admin/categories') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-file-alt"></i> Edit Speciality');
+            $('.modal-title').html('<i class="fas fa-file-alt"></i> Edit Category');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.specility.id);
-            $('#name').val(data.specility.name);
-            $('#description').val(data.specility.description);
+            $('#id').val(data.category.id);
+            $('#name').val(data.category.name);
+            $('#description').val(data.category.description);
             },
           error : function() {
               swal({
@@ -128,7 +135,7 @@
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('admin/specialties') }}" + '/' + id,
+                  url : "{{ url('admin/categories') }}" + '/' + id,
                   type : "POST",
                   data : {'_method' : 'DELETE', '_token' : csrf_token},
                   success : function(data) {
@@ -157,9 +164,9 @@
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
                     if (save_method == 'add') 
-                        url = "{{ url('admin/specialties') }}";
+                        url = "{{ url('admin/categories') }}";
                     else 
-                        url = "{{ url('admin/specialties') . '/' }}" + id;
+                        url = "{{ url('admin/categories') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",

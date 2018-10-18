@@ -183,8 +183,14 @@ return [
          * Unisharp/Ckeditor
          */
         Unisharp\Ckeditor\ServiceProvider::class,
-
-
+        /*
+         *	\Conner\Tagging
+         */
+        \Conner\Tagging\Providers\TaggingServiceProvider::class,
+        /*
+         *	\LaravelFollow
+         */
+        Overtrue\LaravelFollow\FollowServiceProvider::class,
     ],
 
     /*

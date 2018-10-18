@@ -21,7 +21,7 @@ var $grid = $('.grid').packery({
       .packery('shiftLayout');
   });
 
-  $('.append-button').on( 'click', function() {
+  $('.append-button').on('click', function() {
     // create new item elements
     var $items = $('<div class="grid-item grid-item--width2"></div>');
     // append items to grid
@@ -31,7 +31,7 @@ var $grid = $('.grid').packery({
   });
 //------------------------------------------------------------------------------------------Sub Categoria--------------------------------------------------------------------------------------
 
-var $gridSub = $('.grid-sub-category').packery({
+/*var $gridSub = $('.grid-sub-category').packery({
   itemSelector: '.grid-item-sub-category',
 
   gutter: 10,
@@ -46,11 +46,11 @@ $gridSub.find('.grid-item-sub-category').each( function( i, gridItem ) {
   $gridSub.packery( 'bindDraggabillyEvents', draggie );
 });
 
-  $('.append-category-button').on( 'click', function() {
+  $('.append-subcategory-button').on( 'click', function() {
     // create new item elements
     var $items = $('<div class="grid-item-sub-category"></div>');
     // append items to grid
     $gridSub.append( $items )
       // add and lay out newly appended items
       .packery( 'appended', $items );
-  });
+  });*/

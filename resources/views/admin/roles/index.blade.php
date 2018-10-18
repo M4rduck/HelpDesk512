@@ -20,7 +20,7 @@
             <div class="box-header with-border">
                 <h1>
                 Roles
-                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Create Roles', 
+                {!! Form::button('<i class="fas fa-user-circle"></i> Create Roles', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -73,10 +73,18 @@
                         {data: 'name', name: 'name'},
                         {data: 'slug', name: 'slug'},
                         {data: 'description', name: 'description'},
-                        {data: 'special', name: 'special'},
+                        {data: 'edit', name: 'edit'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
+
+    CKEDITOR.config.height= 200;
+    CKEDITOR.config.widht='auto';
+    CKEDITOR.replace('description',{toolbar: [ 
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',] }, 
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] }, 
+    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },    
+     ]});
 
     function addFrom()
     {
@@ -86,13 +94,45 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="fas fa-id-badge"></i> Add Roles');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#form-roles').validator();
         $('#special').select2({
             width:'100%'
         });
         $('#permissions').select2({
             width:'100%'
         });
+        $
+        CKEDITOR.instances['description'].setData('',function(){
+            instances.destroy();
+        });
+             
+            
+                                    
+
+
     }
+
+    $(document).on('change', '#special', function() {
+        
+        switch($(this).val()){
+            case "all-access": 
+            $('#permissions').attr('disabled', true);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+            case "no-access":
+            $('#permissions').attr('disabled', true);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+            case "null":
+            $('#permissions').attr('disabled', false);
+            $('#permissions').val(null).trigger('change');
+            break;
+
+        }
+       
+    });
 
      function editForm(id) {
         save_method = 'edit';
@@ -105,23 +145,22 @@
           success: function(data) {
             permissions = [];
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-id-badge"></i> Edit Roles');
+            $('.modal-title').html('<i class="fas fa-id-badge"></i>  Edit Roles');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.roles.id);
             $('#name').val(data.roles.name);
             $('#slug').val(data.roles.slug);
-            $('#description').val(data.roles.description);
             $('#special').val(data.roles.special);
             $('#special').select2({width:'100%'});
-
             $.each(data.roles.permissions, function(i,item){
                 permissions.push(data.roles.permissions[i].id);                    
 
             });
-
-
             $('#permissions').val(permissions).change();
             $('#permissions').select2({width:'100%'});
+            CKEDITOR.instances['description'].setData(data.roles.description);
+            
+            
           },
           error : function() {
               swal({
@@ -175,6 +214,13 @@
                     var id = $('#id').val();
                     if (save_method == 'add') url = "{{ url('admin/roles') }}";
                     else url = "{{ url('admin/roles') . '/' }}" + id;
+                    
+                    
+                    for (instance in CKEDITOR.instances){
+                        CKEDITOR.instances[instance].updateElement();
+                        /*CKEDITOR.instances[$('#description')].setData("");*/
+                    }
+                    
                     $.ajax({
                         url : url,
                         type : "POST",
