@@ -38,7 +38,9 @@
                  <em>No hay Solucción</em>
                 @endif
                 <hr>
-                <div class="pull-right">
+                <div class="">
+                    <em>Ultima actualización: {{ $base->updated_at}} </em>
+                    <em>Número de visualizaciones:{{ $base->score }}</em>
                     <em>FAQ({{ $base->sw_faq }})</em>
                 </div>
                 </div>
