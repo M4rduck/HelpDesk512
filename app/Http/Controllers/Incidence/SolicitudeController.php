@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
 use App\Models\Poll;
 use App\Models\Incidence\IncidenceState;
+use App\Models\Category;
 use App\User;
 use DB;
 
@@ -17,6 +18,8 @@ class SolicitudeController extends Controller
         $solicitudes = Solicitude::all();
 
         $polls = Poll::all();
+
+        $categories = Category::all();
 
         //solicitudes unidas con el area
         $data = [];
@@ -38,7 +41,8 @@ class SolicitudeController extends Controller
         return view('incidence.solicitudes', 
             [
                 'solicitudes' => $data,
-                'polls' => $polls
+                'polls' => $polls,
+                'categories' => $categories
             ]);
     }
 
@@ -83,6 +87,8 @@ class SolicitudeController extends Controller
         $solicitude->description = filter_var($req->description, FILTER_SANITIZE_STRING);
         
         if($solicitude->save()){
+
+            $solicitude->categories()->attach(explode(',', $req->categories));
 
             $polls_array = explode(',', $req->polls);
 
@@ -152,6 +158,8 @@ class SolicitudeController extends Controller
 
         $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
         $polls = $solicitude->polls()->orderBy('pivot_is_active', 'desc')->get();
+        $registered_categories = $solicitude->categories()->pluck('id');
+        $available_categories = Category::all();
         $areas = DB::table('area')->get();
         $contactos = User::all();
         $estados_incidencia = IncidenceState::all();
@@ -179,6 +187,8 @@ class SolicitudeController extends Controller
             'areas' => $areas,
             'contactos' => $contactos,
             'polls' => $polls,
+            'registered_categories' => $registered_categories,
+            'available_categories' => $available_categories,
             'estados_incidencia' => $estados_incidencia,
             'prioridades' => $prioridades
         ]);
@@ -222,6 +232,11 @@ class SolicitudeController extends Controller
                 $new_poll->pivot->is_active = 1;
                 $new_poll->pivot->save();
                 $solicitude->save();
+                break;
+
+            case 'categories':
+                $solicitude->categories()->sync($req->value);
+                //$solicitude->save();
                 break;
             
         }

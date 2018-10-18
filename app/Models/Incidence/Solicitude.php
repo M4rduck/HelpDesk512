@@ -35,4 +35,10 @@ class Solicitude extends Model
         return $this->belongsToMany('App\Models\Poll', 'solicitude_has_poll')
             ->withPivot('is_active');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'solicitude_has_categories');
+    }
+
 }

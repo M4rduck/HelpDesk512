@@ -197,7 +197,10 @@ $(function(){
                 self.datatable = $(self.element).DataTable({
                     columns: [
                         {data: 'id'},
-                        {data: 'theme'},
+                        {
+                            data: 'theme',
+                            visible: false
+                        },
                         {data: 'description'},
                         {data: 'incidence_state.name'},
                         {data: 'agent.name'},
@@ -227,6 +230,7 @@ $(function(){
             this.btn_edit = document.getElementById('btn_edit');
             this.select_area = document.getElementById('area');
             this.select_encuesta = document.getElementById('encuesta');
+            this.$select_categorias = $('#categories');
 
             this.render();
 
@@ -235,6 +239,8 @@ $(function(){
         render: function(){
 
             console.log(this.select_area, this.btn_delete);
+
+            this.$select_categorias.select2();
 
             this.select_area.onchange = function(){
 
@@ -281,6 +287,29 @@ $(function(){
                 });
 
             };
+
+            this.$select_categorias.on('change', function(){
+
+                _this = $(this);
+
+                $.post({
+                    url: document.getElementById('update_solicitude_route').value,
+                    data: {
+                        value: _this.val(),
+                        column: 'categories'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log('error', response);
+                    }
+                });
+
+            });
             
             this.btn_delete.onclick = function(e){
 

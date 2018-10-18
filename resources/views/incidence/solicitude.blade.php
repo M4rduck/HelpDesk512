@@ -240,6 +240,18 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="categories">Categorias</label>
+                            <select class="form-control" name="categories" id="categories" multiple>
+                                @foreach ($available_categories as $available_category)
+                                    @if(in_array($available_category->id, $registered_categories->toArray()))
+                                    <option value="{{ $available_category->id }}" selected>{{ $available_category->name }}</option>
+                                    @else
+                                    <option value="{{ $available_category->id }}">{{ $available_category->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="description">Descripci&oacute;n</label>
                             <p id="description">{{ $solicitude->description }}</p>
                         </div>
