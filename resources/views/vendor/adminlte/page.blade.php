@@ -3,6 +3,9 @@
 @section('adminlte_css')
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
+          <!-- Bootstrap-tagsInput -->
+          {!! Html::style('./css/tools/bootstrap-tagsinput/bootstrap-tagsinput.css')  !!}
+          
     @stack('css')
     @yield('css')
 @stop
@@ -134,7 +137,14 @@
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
-    <script src="{!! asset('./js/tools/sweetAlert/sweetalert.min.js') !!}"></script>
+    <!-- Sweet Alert -->
+    {!! Html::script('./js/tools/sweetAlert/sweetalert.min.js') !!}
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+    <!-- Bootstrap-tagsInput -->
+    {!! Html::script('./js/tools/bootstrap-tagsinput/bootstrap-tagsinput.js')  !!}
+    
     @stack('js')
     @yield('js')
     

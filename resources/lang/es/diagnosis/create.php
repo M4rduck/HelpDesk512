@@ -20,5 +20,6 @@ return [
     'label_description_create_field' => 'Descripción',
     'label_input_type_create_field' => 'Tipo de Dato',
     'fields_not_found_or_create' => 'No hay campos creados o encontrados',
-    'error_create_field' => 'Ha sucedido un error a la hora de crear el campo, código del error :code'
+    'error_create_field' => 'Ha sucedido un error a la hora de crear el campo, código del error :code',
+    'form-name' => 'Nombre del Diagnostico'
 ];

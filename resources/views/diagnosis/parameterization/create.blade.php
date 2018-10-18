@@ -7,16 +7,99 @@
 @stop
 
 @push('js')
+    <!-- Index -->
+    {{--{!! Html::script('./js/diagnosis/create/index.js') !!}--}}
+
     <!-- Input -->
     {!! Html::script('./js/diagnosis/create/input.js') !!}
 
     <!-- Store -->
     {!! Html::script('./js/diagnosis/create/store.js') !!}
-@endpush
 
-@push('css')
-    <!-- Estilos para botón flotante -->
-    {!! Html::style('./css/button_float.css') !!}
+    <script>
+        $(document).on('click', '.append-button', function(){
+            layoutBody = $('#layout-body');
+            lastRow = layoutBody.find('.row-main').last();
+
+            if(lastRow.find('.col-main').length === 1){
+                lastRow.append('<div class="col-lg-6 col-xs-12 col-main">'+
+                                    '<div class="box box-warning">'+
+                                        '<div class="box-header">'+
+                                            '<input id="name" style="width: 20%" placeholder="Titulo Categoria" name="name" type="text">'+
+                                            '<label class="checkbox-inline"><input value="" type="checkbox">Visible</label>'+
+                                            '<button class="btn btn-success append-sub-button pull-right" type="button">Agregar SubCategoria</button>'+
+                                        '</div>'+
+                                        '<div class="box-body add-sub-category">'+
+
+                                            '<div class="row">'+
+
+                                                '<div class="col-lg-6 col-xs-12">'+
+
+                                                    '<div class="box box-warning">'+
+
+                                                        '<div class="box-header">'+
+                                                            '<input id="name" style="width: 30%" placeholder="Titulo SubCategoria" name="name" type="text">'+
+                                                        '</div>'+
+
+                                                        '<div class="box-body">'+
+
+                                                        '</div>'+
+
+                                                    '</div>'+
+
+                                                '</div>'+
+
+                                            '</div>'+
+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>');
+            }else{
+                layoutBody.append('<div class="row row-main">'+
+                                        '<div class="col-lg-6 col-xs-12 col-main">'+
+                                            '<div class="box box-warning">'+
+            
+                                                '<div class="box-header">'+
+                                                    '<input id="name" style="width: 20%" placeholder="Titulo Categoria" name="name" type="text">'+
+                                                    '<label class="checkbox-inline"><input value="" type="checkbox">Visible</label>'+
+                                                    '<button class="btn btn-success append-sub-button pull-right" type="button">Agregar SubCategoria</button>'+
+                                                '</div>'+
+            
+                                                '<div class="box-body add-sub-category">'+
+
+                                                    '<div class="row">'+
+
+                                                        '<div class="col-lg-6 col-xs-12">'+
+
+                                                            '<div class="box box-warning">'+
+
+                                                                '<div class="box-header">'+
+                                                                    '<input id="name" style="width: 30%" placeholder="Titulo SubCategoria" name="name" type="text">'+
+                                                                '</div>'+
+
+                                                                '<div class="box-body">'+
+
+                                                                '</div>'+
+
+                                                            '</div>'+
+
+                                                        '</div>'+
+
+                                                    '</div>'+
+
+                                                                
+                                                '</div>'+
+                                                            
+                                            '</div>'+
+                                        '</div>'+
+                                     '</div>');
+            }
+        });
+
+        $(document).on('click', '.append-sub-button', function(){
+
+        });
+    </script>
 @endpush
 
 @section('content')
@@ -37,6 +120,61 @@
                         </div>
 
                         <div class="col-lg-8 col-xs-12" id="">
+                            <!-- Diagnosis name -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        {!! Form::label('name', Lang::get('diagnosis/create.form-name')) !!}
+                                        {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>  
+                            <!-- Diagnosis name -->
+
+                            <p>{!! Form::button('Agregar Categoria', ['class' => 'btn btn-success append-button']) !!}</p>
+
+                            <div id="layout-body">
+                                    <div class="row row-main">
+                                        <div class="col-lg-6 col-xs-12 col-main">
+                                            <div class="box box-warning">
+            
+                                                <div class="box-header">
+                                                    {!! Form::text('name', null, ['id' => 'name', 'style' => 'width: 20%', 'placeholder' => 'Titulo Categoria']) !!}
+                                                    <label class="checkbox-inline"><input type="checkbox" value="">Visible</label>
+                                                    {!! Form::button('Agregar SubCategoria', ['class' => 'btn btn-success append-button pull-right']) !!}
+                                                </div>
+
+                                                <!-- Box Body Sub Category -->            
+                                                <div class="box-body add-sub-category">
+
+                                                    <div class="row">
+
+                                                        <div class="col-lg-6 col-xs-12">
+
+                                                            <div class="box box-warning">
+
+                                                                <div class="box-header">
+                                                                    {!! Form::text('name', null, ['id' => 'name', 'style' => 'width: 30%', 'placeholder' => 'Titulo SubCategoria']) !!}
+                                                                </div>
+
+                                                                <div class="box-body">
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                                
+                                                </div>
+                                                <!-- /Box Body Sub Category -->            
+            
+                                            </div>
+                                        </div>
+                                     </div>
+                            </div>
                             
                         </div>
                     </div>
@@ -56,7 +194,7 @@
                                                                                           'data-target'=>'#modal-create-field'                                                                                          
         ]) !!}
     </div>
-@stop
+@endsection
 
 @section('modal')
      <!-- Modal -->

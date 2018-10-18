@@ -6,10 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Speciality;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
+use Overtrue\LaravelFollow\Traits\CanLike;
 
 class User extends Authenticatable
 {
-    use Notifiable,ShinobiTrait;
+    use Notifiable,ShinobiTrait,CanLike;
 
     /**
      * The attributes that are mass assignable.

@@ -15,8 +15,7 @@
     {!! Html::style('./css/button_float.css') !!}
 @endpush
 
-@section('content')
-
+@section('content')    
     <div class="box">
         <div class="box-header">
 
