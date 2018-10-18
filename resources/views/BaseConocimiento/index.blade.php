@@ -35,8 +35,7 @@
         <section class="content-header">
             
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-<<<<<<< HEAD
-            {!! Form::button('<i class="fas fa-plus"></i> Create', 
+		{!! Form::button('<i class="fas fa-plus"></i> Create', 
                             ['class'=>'btn btn-info pull-right',
                             'data-toggle' =>'modal',
                             'onclick'=>'addFrom()',
