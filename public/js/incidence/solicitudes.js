@@ -9,6 +9,8 @@ $(function() {
             this.$area.val(null);
             this.title.value = null;
             this.description.value = null;
+            this.$polls.val([]).trigger('change');
+            this.default_poll = "";
             //document.getElementById('solicitude_evidence').value = "";
 
         },
@@ -37,10 +39,12 @@ $(function() {
             this.btn_submit = document.getElementById('btn_submit');
             //campos del formulario
             this.$area = $(this.element.elements['solicitude_area']);
+            this.$polls = $('#solicitude_poll');
+            this.default_poll = "";
             this.title = this.element.elements['solicitude_title'];
             this.description = this.element.elements['solicitude_description'];
             //this.evidence = new File([''], '');
-            console.log('evidencia_inicial', this.evidence)
+
             //inicializar
             this.render();
         },
@@ -49,11 +53,37 @@ $(function() {
 
             var self = this;
 
+            this.$polls.select2();
+
+            this.$polls.on('select2:select', function(){
+
+                swal({
+                    title: '¿Desea elegir esta encuesta como predeterminada?',
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'SI',
+                    cancelButtonText: 'NO',
+                    
+                }).then(function(isConfirm){
+                    
+                    if(isConfirm.value){
+
+                        temp = self.$polls.val()
+
+                        self.default_poll = temp[temp.length - 1];
+                        
+                    }
+
+                });
+                console.log($(this).val());
+
+            })
+
             this.get_areas_list();
 
             this.parsley_form = $(this.element).parsley({
                 
-                errorClass: 'has-error',
+                //errorClass: 'has-error',
                 successClass: '',
                 classHandler: function (ParsleyField) {
                     return ParsleyField.$element.parents('.form-group');
@@ -65,14 +95,6 @@ $(function() {
                 errorTemplate: '<div></div>'
 
             });
-
-            /*
-            this.element.elements['solicitude_evidence'].addEventListener('change', function(){
-                console.log(this);
-                self.evidence = this.files[0];
-                console.log('nueva_evidencia', self.evidence);
-            });
-            */
             
             this.element.addEventListener('submit', function(e){
                 e.preventDefault();
@@ -83,7 +105,8 @@ $(function() {
                     form_data.append('area', self.$area.val());
                     form_data.append('title', self.title.value);
                     form_data.append('description', self.description.value);
-                    //form_data.append('evidence', self.evidence);
+                    form_data.append('polls', self.$polls.val());
+                    form_data.append('default_poll', self.default_poll);
 
                     for (var value of form_data.values()) {
                         console.log(value); 
@@ -114,10 +137,6 @@ $(function() {
                                     'success'
                                 );
                                 
-                                /*
-                                table_solicitudes.datatable.destroy();
-                                table_solicitudes.render();
-                                */
                                 table_solicitudes.update();
         
                             }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Incidence;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
+use App\Models\Poll;
 use App\Models\Incidence\IncidenceState;
 use App\User;
 use DB;
@@ -14,6 +15,8 @@ class SolicitudeController extends Controller
     public function index(){
 
         $solicitudes = Solicitude::all();
+
+        $polls = Poll::all();
 
         //solicitudes unidas con el area
         $data = [];
@@ -35,6 +38,7 @@ class SolicitudeController extends Controller
         return view('incidence.solicitudes', 
             [
                 'solicitudes' => $data,
+                'polls' => $polls
             ]);
     }
 
@@ -62,12 +66,12 @@ class SolicitudeController extends Controller
             'area' => 'required',
             'title' => 'required',
             'description' => 'required',
-            //'evidence' => 'file|mimetypes:image/jpeg,image/png,application/zip',
+            'polls' => 'required',
+            'default_poll' => 'required',
         ];
 
         $mensajes = [
             'required' => 'El campo :attribute es obligatorio',
-            //'mimetypes' => 'Solo se permiten archivos con extension jpeg, jpg, png, zip, rar'
         ];
 
         $req->validate($reglas, $mensajes);
@@ -79,12 +83,17 @@ class SolicitudeController extends Controller
         $solicitude->description = filter_var($req->description, FILTER_SANITIZE_STRING);
         
         if($solicitude->save()){
-            
-            if($req->hasFile('evidence')){
-                //TODO guardar con id de incidencia
-                $solicitude->evidence_route = $req->file('evidence')->storeAs('public', $solicitude->id);
-                //$solicitude->evidence_route .= '.'.$req->file('evidence')->extension();
-                $solicitude->save();
+
+            $polls_array = explode(',', $req->polls);
+
+            foreach ($polls_array as $poll) {
+                
+                if($poll == $req->default_poll){
+                    $solicitude->polls()->attach($poll, ['is_active' => 1]);
+                }else{
+                    $solicitude->polls()->attach($poll, ['is_active' => 0]);
+                }
+  
             }
 
             $msg = [
@@ -141,8 +150,8 @@ class SolicitudeController extends Controller
 
     public function show($id) {
 
-        //$solicitude = Solicitude::findOrFail($id);
         $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
+        $polls = $solicitude->polls()->orderBy('pivot_is_active', 'desc')->get();
         $areas = DB::table('area')->get();
         $contactos = User::all();
         $estados_incidencia = IncidenceState::all();
@@ -169,6 +178,7 @@ class SolicitudeController extends Controller
             'solicitude' => $solicitude,
             'areas' => $areas,
             'contactos' => $contactos,
+            'polls' => $polls,
             'estados_incidencia' => $estados_incidencia,
             'prioridades' => $prioridades
         ]);
@@ -180,8 +190,13 @@ class SolicitudeController extends Controller
         $solicitude = Solicitude::findOrFail($id);
         
         foreach ($solicitude->incidence as $incidence) {
+            
+            $incidence->tracings()->delete();
+
             $incidence->delete();
         }
+
+        $solicitude->polls()->detach();
         
         return response()->json(Solicitude::destroy($id), 200);
         
@@ -196,6 +211,16 @@ class SolicitudeController extends Controller
 
             case 'area':
                 $solicitude->area_id = $req->value;
+                $solicitude->save();
+                break;
+
+            case 'default_poll':
+                $old_poll = $solicitude->polls()->wherePivot('is_active', '=', '1')->first();
+                $old_poll->pivot->is_active = 0;
+                $old_poll->pivot->save();
+                $new_poll = $solicitude->polls()->where('solicitude_id', '=', $id)->where('poll_id', '=', $req->value)->first();
+                $new_poll->pivot->is_active = 1;
+                $new_poll->pivot->save();
                 $solicitude->save();
                 break;
             

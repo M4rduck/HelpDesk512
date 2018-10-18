@@ -29,4 +29,10 @@ class Solicitude extends Model
     {
         return $this->hasMany('App\Models\Incidence\Incidence', 'id_solicitude', 'id');
     }
+
+    public function polls()
+    {
+        return $this->belongsToMany('App\Models\Poll', 'solicitude_has_poll')
+            ->withPivot('is_active');
+    }
 }

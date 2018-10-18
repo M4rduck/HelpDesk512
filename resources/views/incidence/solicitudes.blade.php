@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="solicitude_title">Titulo</label>
+                                        <label for="solicitude_title">Titulo:</label>
                                         <input data-parsley-required-message="Este campo no puede estar vacio" class="form-control" type="text" name="solicitude_title" id="solicitude_title" required>
                                     </div>
                                 </div>
@@ -85,21 +85,27 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="solicitude_description">Descripcion</label>
+                                        <label for="solicitude_description">Descripcion:</label>
                                         <textarea data-parsley-required-message="Este campo no puede estar vacio" style="width: 100%;" tabindex="-1" class="form-control" name="solicitude_description" id="solicitude_description" required></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <!--
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="solicitude_evidence">Evidencia</label>
-                                        <input type="file" style="width: 100%;" ref="evidence" tabindex="-1" class="form-control" name="solicitude_evidence" id="solicitude_evidence">
+                                        <label for="solicitude_evidence">Encuesta</label>
+                                        <select data-parsley-required-message="Debe elegir una opcion" style="width: 100%;" tabindex="-1" class="form-control" name="solicitude_poll" id="solicitude_poll" required multiple>
+                                            @if ($polls->count())
+                                                @foreach ($polls as $poll)
+                                                    <option value="{{ $poll->id }}">{{ $poll->title }}</option>
+                                                @endforeach
+                                            @else
+                                                <option value="">no hay encuestas registradas</option>
+                                            @endif
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            -->
                         </div>
                         <div class="modal-footer">
                             <button class = "btn btn-danger pull-left" data-dismiss = "modal">Cerrar</button>

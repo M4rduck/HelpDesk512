@@ -36,8 +36,8 @@
     </div>
     -->
     <div style="margin-left: 1%;" class="page-header">
-        <h2>Solicitud #{{ $solicitude->id }}</h2>
-        <small>{{ title_case($solicitude->title) }}</small>
+        <h2>{{ title_case($solicitude->title) }}</h2>
+        <small>Solicitud #{{ $solicitude->id }}</small>
     </div>
 @stop
 
@@ -228,6 +228,14 @@
                                         <option value="{{ $area->id }}">{{ $area->name }}</option>
                                     @endif
 
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Encuesta</label>
+                            <select class="form-control" name="encuesta" id="encuesta">
+                                @foreach ($polls as $poll)
+                                    <option value="{{ $poll->id }}">{{ $poll->title }}</option>
                                 @endforeach
                             </select>
                         </div>

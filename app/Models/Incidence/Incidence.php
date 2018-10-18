@@ -45,4 +45,9 @@ class Incidence extends Model
         return $this->belongsTo('App\Models\Incidence\Solicitude', 'id_solicitude', 'id');
     }
 
+    public function tracings()
+    {
+        return $this->hasMany('App\Models\Incidence\Tracing', 'id_incidence', 'id');
+    }
+
 }

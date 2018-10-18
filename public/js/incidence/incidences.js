@@ -226,6 +226,7 @@ $(function(){
             this.btn_delete = document.getElementById('btn_delete');
             this.btn_edit = document.getElementById('btn_edit');
             this.select_area = document.getElementById('area');
+            this.select_encuesta = document.getElementById('encuesta');
 
             this.render();
 
@@ -235,7 +236,7 @@ $(function(){
 
             console.log(this.select_area, this.btn_delete);
 
-            this.select_area.addEventListener('change', function(){
+            this.select_area.onchange = function(){
 
                 _this = this;
 
@@ -256,9 +257,32 @@ $(function(){
                     }
                 });
 
-            });
+            };
+
+            this.select_encuesta.onchange = function(){
+
+                _this = this;
+
+                $.post({
+                    url: document.getElementById('update_solicitude_route').value,
+                    data: {
+                        value: _this.value,
+                        column: 'default_poll'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log('error', response);
+                    }
+                });
+
+            };
             
-            this.btn_delete.addEventListener('click', function(e){
+            this.btn_delete.onclick = function(e){
 
                 e.preventDefault();
 
@@ -275,9 +299,7 @@ $(function(){
                     
                     if(isConfirm.value){
 
-                        console.log(_this);
-
-                        return;
+                        //return;
 
                         $.ajax({
 
@@ -300,7 +322,7 @@ $(function(){
 
                 });
 
-            });
+            };
 
         }
 
