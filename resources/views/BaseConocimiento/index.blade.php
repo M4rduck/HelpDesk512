@@ -31,16 +31,26 @@
         @endif
         <section class="content-header">
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-            {!! Form::button('<i class="fas fa-search"></i> Search', 
-                ['class'=>'btn btn-secundary pull-right',
-                'data-toggle' =>'modal',
-                'onclick'=>'',
-                'style'=>'margin-top: -8px;']) !!}
             {!! Form::button('<i class="fas fa-plus"></i> Create', 
-            ['class'=>'btn btn-info pull-right',
-            'data-toggle' =>'modal',
-            'onclick'=>'addFrom()',
-            'style'=>'margin-top: -8px;']) !!}
+                            ['class'=>'btn btn-info pull-right',
+                            'data-toggle' =>'modal',
+                            'onclick'=>'addFrom()',
+                            'style'=>'']) !!}
+            <div class="col-md-3 pull-right">
+            
+            <div class="input-group">
+                {!! Form::text('criterio',null,['class'=>'form-control', 'id'=>'criterio','placeholder'=>'Search...']) !!}
+                        <span class="input-group-btn">
+                {!! Form::button('Search', 
+                                ['class'=>'btn btn-primary btn-flat',
+                                'onclick'=>'search()']) !!}
+
+                      </span>
+                </div>
+            </div>
+            
+            </h1>
+            
         </section>
         <section class="content" id="content-body">
             
@@ -53,6 +63,7 @@
 
 <script type="text/javascript">
     var contentBody = $('#content-body');
+    var criterio = $('#criterio').val('');
         function addFrom(){
             $('#modal').modal('show');
             $('#modal-title').text('Create Solution');
@@ -104,7 +115,6 @@
             var me = $('#modal-body form'),
                 url = me.attr('action'),
                 method = $('input[name=_method]').val() == undefined ? 'POST' : 'PATCH';
-
                 me.find('.help-block').remove();
                 me.find('.form-group').removeClass('has-error');
                 
@@ -139,18 +149,38 @@
 
         });
         
+
+        function search(){
+            contentBody.LoadingOverlay('show');
+            var criterio = $('#criterio').val();
+            ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio;
+            if(criterio != "null"){
+            $.getJSON(ruta)
+            .done(function(data){
+                contentBody.LoadingOverlay('hide', true);
+                if(!data.error){
+                    contentBody.html(data.body);                        
+                }else{                    
+                    swal({
+                        title: data.title,
+                        text: data.text,
+                        icon: "error"
+                    });
+                }                
+            })
+            .fail(function() {
+                    loadBody();
+            });
+            }else{
+                loadBody();
+            }
+            
+        }
+
+
         function loadBody(){
             contentBody.LoadingOverlay('show');
-            @if(session()->has('category'))
-                contentBody.LoadingOverlay('hide', true);
-                cuerpo = {!! session()->get('category') !!};
-                contentBody.html(cuerpo);
-            @elseif(session()->has('tag'))
-                contentBody.LoadingOverlay('hide', true);
-                cuerpo = {!! session()->get('tag') !!};
-                contentBody.html(cuerpo);
-            @else
-                $.getJSON('{!! route('BaseConocimiento.loadBody') !!}')
+                $.getJSON('{!! route('baseConocimiento.loadBody') !!}')
                 .done(function(data){
                     contentBody.LoadingOverlay('hide', true);
                     if(!data.error){
@@ -163,7 +193,7 @@
                         });
                     }                
                 });
-            @endif
+            
             
         }
 
@@ -174,10 +204,12 @@
             contentBody.LoadingOverlay('show');
             event.preventDefault();
             paginador = $(this).attr('href').split('page')[1];
-           ruta = '{!! route('BaseConocimiento.loadBody') !!}'+'?page'+paginador;
-            
-
-
+            var criterio = $('#criterio').val();
+           if(criterio != "null"){
+            ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio +'?page'+paginador;
+           }else{
+            ruta = '{!! route('baseConocimiento.loadBody') !!}'+'?page'+paginador;
+           }
             $.getJSON(ruta)
             .done(function(data){
                 contentBody.LoadingOverlay('hide', true);

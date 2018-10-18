@@ -161,4 +161,16 @@ class BaseConocimientoController extends Controller
         $response = auth()->user()->toggleLike($base);
         return response()->json(['success'=>$response]);
     }
+
+    public function criterio(Request $request){
+        try{
+            $base = KnowledgeBase::orderBy('id','DESC')->name($request->criterio)->paginate(4);
+            $body = View('BaseConocimiento.body')->with(['bases'=>$base])->render();
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+        return response()->json(['error' => false, 'body' => $body]);
+    }
 }
