@@ -37,17 +37,6 @@ Route::group(['prefix' => 'incidence','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('incidence', 1);
 });
 
-<<<<<<< HEAD
-=======
-Route::group(['prefix' => 'admin','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('admin', 1);
-});
-
-Route::group(['prefix' => 'baseConocimiento','middleware' => ['auth']], function (){
-    \App\Clases\Configuration::routes('baseConocimiento', 1);
-});
-
->>>>>>> 7bfd355e52b362ae45b08e2e0ec11a9d34d009f2
 Route::group(['prefix' => 'area-empresa','middleware' => ['auth']], function (){
     \App\Clases\Configuration::routes('area-empresa', 1);
 });
