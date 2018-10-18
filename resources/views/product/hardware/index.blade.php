@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'HelpDesk512 - Software')
+@section('title', 'HelpDesk512 - Hardware')
 
 @section('content_header')
-    <h1>Software</h1>
+    <h1>Hardware</h1>
 @stop
 
 @push('js')
@@ -19,117 +19,126 @@
 @endpush
 
 @section('content')
-        
-<div class="btn-toolbar" role="toolbar">
 
-    <div class="btn-group">
-    {!! Form::button('<span class="glyphicon glyphicon-user"></span> Registrar Software', 
+	<div class="row">
+		<div class="col-lg-12">
+		<div class="box">
+
+        <!--Box title -->
+            <div class="box-header with-border">
+                <h1>
+                Listado
+                {!! Form::button('<span class="glyphicon glyphicon-user"></span> Crear Hardware', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
-    </div>
-</div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box">
+            </div>
+            
 
-                <div class="box-header with-border">
-                    <h1 class="box-title">Listado</h1>
-                </div>
-
-                <!-- Box Body -->
-                <div class="box-body">
-                    <div class="table-responsive">
-                  
-                        <table class="table table-striped" id="myTable">
+        <!--Box body -->
+        <div class="box-body">
+            <div class="table-responsive">
+                        <table class="table table-striped" id='module-table'>
                             <thead>
                             <tr>
-                                <th>Id</th>
+                                <th>ID</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Serial</th>
-                                <th>Licencia</th>
-                                <th>Editor</th>
-                                <th>Versiones</th>
+                                <th>Tipo de hardware</th>
+                                <th>Localizacion</th>
+                                <th>Numero de contacto</th>
+                                <th>Fabricante</th>
+                                <th>Modelo</th>
+                                <th>Numero de serie</th>
+                                <th>Tecnico a cargo del hardware</th>
                                 <th>Estado</th>
-                                <th>Acciones</th>       
+                                <th>Descripcion</th>
+                                <th>Hardware activo</th>
+                                <th>Opciones</th>
                             </tr>
-                        </thead>
+                            </thead>
+                           
                         </table>
-                       
                     </div>
-                </div>
-                <!-- /Box Body -->
-
-                   <div class="box-footer">
-                   </div>
-
-            </div>
         </div>
-        @include('product.editarSoftware')
-    </div>
+        <!--Box body -->
+        <div class="box-footer">
+        
+	</div>
+</div>
+</div>
+@include('product.hardware.editHard')
+</div>
 
 @stop
-    @section('js')
-    <script type="text/javascript">
-        $.ajaxSetup({
+
+@section('js')
+<script type="text/javascript">
+$.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-         });
-        var table = $('#myTable').DataTable({
+     });
+var table = $('#module-table').DataTable({
             serverSide: true,
             processing: true,
-            ajax: "{{ route('api.software')}}",
+            ajax: "{{ route('api.hardware')}}",
             columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'descritpion', name: 'descritpion'},
+                        {data: 'type_hardware', name: 'type_hardware'},
+                        {data: 'location', name: 'location'},
+                        {data: 'num_contact', name: 'num_contact'},
+                        {data: 'maker', name: 'maker'},
+                        {data: 'model', name: 'model'},
                         {data: 'serial', name: 'serial'},
-                        {data: 'license', name: 'license'},
-                        {data: 'editor', name: 'editor'},
-                        {data: 'versions', name: 'versions'},
+                        {data: 'technical_in_charge', name: 'technical_in_charge'},
+                        {data: 'state', name: 'state'},
+                        {data: 'description', name: 'description'},
                         {data: 'edit', name: 'edit'},
                         {data: 'action', name: 'action', orderable: false, searchable: false},
                     ]
 
             });
 
-            function addFrom()
+            
+     function addFrom()
     {
         save_method = "add";
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Añadir Software');
-        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Crear');
-        $('#category').select2({
+        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
+        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#type_hardware').select2({
             width:'100%'
         });
         $('#form-users').validator();
     
     }
 
-    function editForm(id) {
+      function editForm(id) {
         save_method = 'edit';
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('producto/software') }}" + '/' + id + "/edit",
+          url: "{{ url('producto/hardware') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-user-edit"></i> Editar Hardware');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.soft.id);
-            $('#name').val(data.soft.name);
-            $('#descritpion').val(data.soft.descritpion);
-            $('#serial').val(data.soft.serial);
-            $('#license').val(data.soft.license);
-            $('#editor').val(data.soft.editor);
-            $('#versions').val(data.soft.versions);
-            $('#category_id').val(data.soft.category_id);
+            $('#id').val(data.hard.id);
+            $('#type_hardware').val(data.hard.type_hardware);
+            $('#name').val(data.hard.name);
+            $('#location').val(data.hard.location);
+            $('#num_contact').val(data.hard.num_contact);
+            $('#maker').val(data.hard.maker);
+            $('#model').val(data.hard.model);
+            $('#serial').val(data.hard.serial);
+            $('#technical_in_charge').val(data.hard.technical_in_charge);
+            $('#state').val(data.hard.state);
+            $('#description').val(data.hard.description);
             
 
         },
@@ -142,7 +151,6 @@
           }
         });
       }
-
       function deleteData(id){
           var csrf_token = $('meta[name="csrf-token"]').attr('content');
           swal({
@@ -154,7 +162,7 @@
             }).then((value) => {
                 if (value) {
                $.ajax({
-                  url : "{{ url('producto/sotfware') }}" + '/' + id,
+                  url : "{{ url('producto/hardware') }}" + '/' + id,
                   type : "DELETE",
                   dataType : "json",
                   success : function(data) {
@@ -178,15 +186,14 @@
               }
             });
         }
-
-       $(function(){
+      $(function(){
             $('#modal-form form').validator().on('submit', function (e) {
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
                     if (save_method == 'add') 
-                        url = "{{ url('producto/software') }}";
+                        url = "{{ url('producto/hardware') }}";
                     else 
-                        url = "{{ url('producto/software') . '/' }}" + id;
+                        url = "{{ url('producto/hardware') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",
@@ -216,8 +223,11 @@
                 }
             });
         });
+            
 </script>
 
-
 @endsection
+
+
+
 

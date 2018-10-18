@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $descritpion
  * @property string $serial
- * @property int $has_license
- * @property int $has_module
+ * @property string $license
+ * @property string $editor
+ * @property string $versions
  * @property int $is_active
  * @property int $is_deleted
  * @property string $created_at
- * @property string $updated_at
- * @property Module[] $modules
- * @property Problem[] $problems
+ * @property string $update_at
+ * @property int $category_id
+ * @property Category[] $category
  */
 class Software extends Model
 {
@@ -24,21 +25,22 @@ class Software extends Model
      * @var array
      */
     protected $table = 'software';
-    protected $fillable = ['name', 'descritpion', 'serial', 'has_license', 'has_module', 'is_active', 'is_deleted', 'created_at','updated_at'];
+    protected $fillable = ['name', 'descritpion', 'serial', 'license', 'editor', 'versions', 'is_active', 'is_deleted','created_at'. 'update_at','category_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function modules()
-    {
-        return $this->hasMany(Module::class);
-    }
+    
+
+   
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function problems()
+  
+
+    public function category()
     {
-        return $this->belongsToMany(Problems::class, 'software_has_problems', 'software_id', 'problems_id');
+        return $this->belongsTo('App\Models\Category', 'id');
     }
 }

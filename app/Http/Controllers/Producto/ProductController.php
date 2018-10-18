@@ -10,30 +10,23 @@ use App\Models\General\Controller as ModelController;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Software;
 use App\Http\Requests\StoreProductosRequest;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
-    public function index(Request $request){
-
-        $hard = Hardware::orderBy('id','DESC')->get();
-        return view('product.index')->with('hard',$hard);
-        
-        
-    }
+   
 
     public function indexSoft(Request $request)
     {
-       $prodSoft = Software::all();
+        $soft = Software::orderBy('id','DESC')->get();
+        $cate = Category::pluck('name', 'id');
+        return view('product.index2')->with(['soft'=>$soft,'cate'=>$cate]);
 
-       
-        return view('product.index2', compact('prodSoft'));
-    }
-
-    public function create()
-    {
-        return view('product.index2');
         
+
+
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,24 +36,19 @@ class ProductController extends Controller
      */
     public function storeSoft(Request $request)
     {
-
-        $infoProductosSoft = new Software();
-       
-        $infoProductosSoft->name    = $request->input('name');
-        $infoProductosSoft->descritpion  = $request->input('descritpion');
-        $infoProductosSoft->serial  = $request->input('serial');
-        $infoProductosSoft->has_module  = $request->input('has_module');
-        $infoProductosSoft->has_license  = $request->input('has_license');
-        $infoProductosSoft->is_active  = $request->input('is_active');
-        $infoProductosSoft->is_deleted  = $request->input('is_deleted');
-           
-        $infoProductosSoft->save();
-         
-        return redirect()->route('product.indexSoft');
+     
+        $input = $request->all();
+        $soft = Software::create($input);
+        
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Hardware Created'
+        ]); 
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource.vv
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -76,9 +64,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Software $infoProductoSoft)
+    public function edit($id)
     {
-        return view('product.editarProducto', compact('infoProductoSoft'));
+        $softs= Software::find($id);
+        return  array ("soft"=>$softs);
     }
 
     /**
@@ -88,20 +77,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function act(Request $request, Software $infoProductoSoft)
+    public function act(Request $request,  $id)
     {
         
-        $infoProductoSoft->name = $request->get('name');
-        $infoProductoSoft->descritpion  = $request->get('descritpion');
-        $infoProductoSoft->serial  = $request->get('serial');
-        $infoProductoSoft->has_license  = $request->get('has_license');
-        $infoProductoSoft->has_module  = $request->get('has_module');
-        $infoProductoSoft->is_active  = $request->get('is_active');
-        $infoProductoSoft->is_deleted  = $request->get('is_deleted');
+     $input = $request->all();
+     $soft= Software::findOrFail($id);
 
-        $infoProductoSoft->save();
-
-        return redirect()->route('product.indexSoft');
+     $soft->update($input);
+    return response()->json([
+        'success' => true,
+        'message' => 'User Updated'
+    ]);
     }
 
     /**
@@ -112,12 +98,26 @@ class ProductController extends Controller
      */
    
 
-    public function delete(Request $request, Software $infoProductoSoft)
+    public function destroy($id)
     {
-        $infoProductoSoft->delete();
+
+        $soft = Software::FindOrFail($id);
+        dd($soft);
         
-        return redirect()->route('product.indexSoft');
-       
+        exit;
+        $active = '';
+        $deleted= '';
+        if($soft->is_active == 1 && $soft->is_deleted == 0){
+            $active = '0';
+            $deleted= '1';
+        }else{
+         $active = '1';
+         $deleted= '0';
+        }
+
+        return $active; $deleted;
+        
+      
     }
 
     public function store(Request $request){
@@ -134,27 +134,28 @@ class ProductController extends Controller
 
    
 
-    public function apiProduct(){
-        $hard = Hardware::orderBy('id','DESC')->get();
+    public function apiSoft(){
+        $soft = Software::orderBy('id','DESC')->get();
         
-        return Datatables::of($hard)
-            ->addColumn('action',function($hard){
+        return Datatables::of($soft)
+            ->addColumn('action',function($soft){
                 return '<td width="10px">
-                        <button  class="btn btn-success btn-sm" 
-                            onclick="editForm('. $hard->id .')">
-                            <i class="fa fa-pencil-square-o"></i> Edit</button>
-                        </td>' .
+                <button  class="btn btn-success btn-sm" 
+                    onclick="editForm('. $soft->id .')">
+                    <i class="fa fa-pencil-square-o"></i> Edit</button>
+              </td>' .
               '<td width="10px">
                <button class="btn btn-danger btn-sm" href="#"
-               onclick="deleteData('. $hard->id .')">
+               onclick="deleteData('. $soft->id .')">
                 <i class="fa fa-trash"></i> 
               Delete</button>  
-              </td>'; 
+              </td>';
+
 
             })
-            ->editColumn('edit',function($hard){
+            ->editColumn('edit',function($soft){
                $active = '';
-               if($hard->is_active == 1){
+               if($soft->is_active == 1){
                    $active = '<span class="label label-primary">Activo</span>';
                }else{
                 $active = '<span class="label label-danger">Inactivo</span>';
@@ -164,9 +165,6 @@ class ProductController extends Controller
             })
             ->rawColumns(['edit'=>'edit','action'=>'action'])
             ->make(true); 
-
-        
-    }
-
+        }
 
 }

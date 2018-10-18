@@ -19,12 +19,12 @@ class Category extends Model
      * 
      * @var string
      */
-    protected $table = 'category';
+    protected $table = 'categories';
 
     /**
      * @var array
      */
-    protected $fillable = ['name', 'level', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'category_id', 'created_at', 'updated_at','description','sw_main'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
