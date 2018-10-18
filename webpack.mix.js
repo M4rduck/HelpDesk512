@@ -1,6 +1,6 @@
 let mix = require('laravel-mix');
 /*mix.options({
-    chainWebpack: config => {    
+    chainWebpack: config => {
         // add the new one
         config.module.rule('svg')
           .test(/\.js$/)
@@ -9,7 +9,7 @@ let mix = require('laravel-mix');
             .include({
               name: "vue2-datatable-component"
             })
-           
+
       }
 });*/
 /*
@@ -24,4 +24,7 @@ let mix = require('laravel-mix');
  */
 mix
    .js('resources/assets/js/modules/system/method/create.js','public/js/system/method/')
+   //.js('resources/assets/js/modules/incidence/solicitudes.js', 'public/js/incidence/')
    .js('resources/assets/js/modules/system/module/create.js','public/js/system/module/');
+
+   //

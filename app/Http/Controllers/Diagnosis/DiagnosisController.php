@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Diagnosis;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Incidence\Incidence;
 use App\Models\TypeInput;
 use App\Models\Solicitude;
 

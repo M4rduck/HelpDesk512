@@ -52,7 +52,6 @@
                                                                                           'data-target'=>'#myModal'
         ]) !!}
     </div>
-
     <div class="absolute bottom-btn">
         {!! Form::button('<span class="glyphicon glyphicon-circle-arrow-right"></span>', ['class' => 'btn btn-primary',
                                                                                           'title' => 'Crear Controlador',
