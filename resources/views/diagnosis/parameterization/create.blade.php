@@ -28,6 +28,35 @@
     {!! Html::style('./css/button_float.css') !!}
 
     <style>
+        /* -------------------------------------------- grid subcategory ---------------------------------------------------------------- */
+
+        .grid-sub-category {
+            background: #efefef;
+            max-width: 1900px;
+        }
+
+        /* clear fix */
+        .grid-sub-category:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .grid-item-sub-category {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: #ffff81;
+            border: 2px solid hsla(0, 0%, 0%, 0.5);
+        }
+
+        .grid-item-sub-category.is-dragging,
+        .grid-item-sub-category.is-positioning-post-drag {
+            background: #ffff81;
+            z-index: 2;
+        }
+        /* --------------------------------------------------------------------------------------------------------------------------------- */
+
         /* ---- grid ---- */
 
         .grid {
@@ -48,11 +77,11 @@
             float: left;
             width: 100px;
             height: 100px;
-            background: #C09;
+            background: #ffd54f;
             border: 2px solid hsla(0, 0%, 0%, 0.5);
         }
 
-        .grid-item--width2 { width: 400px; }
+        .grid-item--width2 { width: 600px; height: 300px; }
         .grid-item--height2 { height: 200px; }
 
         .grid-item:hover {
@@ -62,7 +91,7 @@
 
         .grid-item.is-dragging,
         .grid-item.is-positioning-post-drag {
-        background: #C90;
+        background: #ffd54f;
         z-index: 2;
         }
 
@@ -104,12 +133,16 @@
                             </div>  
                             <!-- Diagnosis name -->
 
-                            <p><button class="append-button">Append items</button></p>
+                            <p>{!! Form::button('Agregar Categoria', ['class' => 'btn btn-success append-button']) !!}</p>
 
                             <div class="grid">
                                 <div class="grid-item grid-item--width2">
                                     {!! Form::label('name', Lang::get('diagnosis/create.form-name')) !!}
                                     {!! Form::text('name', null, ['id' => 'name', 'class' => 'form-control']) !!}
+                                    <p>{!! Form::button('Agregar SubCategoria', ['class' => 'btn btn-success append-subcategory-button']) !!}</p>
+                                    <div class="grid-sub-category">                                        
+                                        <div class="grid-item-sub-category"></div>
+                                    </div>
                                 </div>
                                 <div class="grid-item grid-item--width2"></div>
                                 <div class="grid-item grid-item--width2"></div>
