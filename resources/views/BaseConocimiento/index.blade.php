@@ -34,7 +34,6 @@
         <section class="content-header">
             
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-<<<<<<< HEAD
             {!! Form::button('<i class="fas fa-plus"></i> Create', 
                             ['class'=>'btn btn-info pull-right',
                             'data-toggle' =>'modal',
@@ -54,25 +53,6 @@
             </div>
             
             </h1>
-=======
-            
-            
-            {{ Form::open(['route' => 'baseConocimiento.index', 'method' => 'GET', 'class' => 'form-inline pull-right']) }}
-            <form action="#" method="post">
-                <div class="input-group">
-                  <input name="message" placeholder="Type Message ..." class="form-control" type="text">
-                      <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary btn-flat">Send</button>
-                      </span>
-                </div>
-                {!! Form::button('<i class="fas fa-plus"></i> Create', 
-                    ['class'=>'btn btn-info ',
-                    'data-toggle' =>'modal',
-                    'onclick'=>'addFrom()',
-                    'style'=>'']) !!}
-            {{ Form::close() }}</h1>
-            
->>>>>>> 7e7cc21504e83b40e1b2f41189d950d337045203
             
         </section>
         <section class="content" id="content-body">
