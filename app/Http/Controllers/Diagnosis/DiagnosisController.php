@@ -11,6 +11,7 @@ use App\Models\Solicitude;
 class DiagnosisController extends Controller
 {
     public function index(){
+        dd(route('diagnosis.show', ['id' => 1]));
         $solicitudes = Solicitude::where('is_deleted', 0)->get()->pluck('title', 'id');
         return view('diagnosis.parameterization.index')->with('solicitudes', $solicitudes);
     }
@@ -24,4 +25,9 @@ class DiagnosisController extends Controller
                 
         return view('diagnosis.parameterization.create')->with(['inputs' => $inputs]);
     }    
+
+    public function show($id){
+        $incidencia = Incidence::find($id);
+        return view('diagnosis.consulta.index');
+    }
 }
