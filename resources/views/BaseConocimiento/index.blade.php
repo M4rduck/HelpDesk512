@@ -155,7 +155,11 @@
 
         });
         
-
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                search();
+            }
+        });
         function search(){
             contentBody.LoadingOverlay('show');
             var criterio = $('#criterio').val();

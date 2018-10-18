@@ -42,7 +42,7 @@
                         <div class="col-md-6"><em>Ultima actualización: {{ $base->updated_at}} </em></div>
                         <div class="col-md-4"><em>Número de visualizaciones:{{ $base->score }}</em></div>
                         <div class="col-md-2 pull-right"><em>FAQ({{ $base->sw_faq }})</em></div>
-                    </div>
+                </div>
                 </div>
                 <div class="panel-footer">
                 @forelse($base->tags as $tag)
