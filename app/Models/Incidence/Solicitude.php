@@ -22,7 +22,7 @@ class Solicitude extends Model
 
     public function area()
     {
-        return $this->belongsTo('App\Area', 'id_area', 'id');
+        return $this->belongsTo('App\Models\Area', 'area_id', 'id');
     }
 
     public function incidence()

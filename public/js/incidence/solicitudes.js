@@ -16,6 +16,7 @@ $(function() {
 
         },
 
+        /*
         get_areas_list: function(){
 
             var self = this;
@@ -23,6 +24,7 @@ $(function() {
             $.get({
                 url: this.element.elements['temp_areas_route'].value,
                 success: function(response){
+                    console.log('');
                     response.forEach(function(element) {
                         console.log(element);
                         self.$area.append('<option value="'+ element.value +'">'+ element.label +'</option>');                    
@@ -31,6 +33,7 @@ $(function() {
             });
 
         },
+        */
 
         init: function() {
 
@@ -82,7 +85,7 @@ $(function() {
 
             })
 
-            this.get_areas_list();
+            //this.get_areas_list();
 
             this.parsley_form = $(this.element).parsley({
                 

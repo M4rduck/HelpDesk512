@@ -40,4 +40,14 @@ class User extends Authenticatable
         return $this->belongsToMany(Speciality::class, 'user_has_speciality');
     }
 
+    public function areas()
+    {
+        return $this->belongsToMany('App\Models\Area', 'area_has_users', 'user_id', 'area_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Roles', 'role_user', 'user_id', 'role_id');
+    }
+
 }

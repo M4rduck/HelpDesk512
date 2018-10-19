@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Incidence;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
 use App\Models\Poll;
 use App\Models\Incidence\IncidenceState;
 use App\Models\Category;
+use App\Models\Area;
 use App\User;
 use DB;
 
@@ -21,6 +23,8 @@ class SolicitudeController extends Controller
 
         $categories = Category::all();
 
+        $areas_available = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+
         //solicitudes unidas con el area
         $data = [];
 
@@ -29,7 +33,7 @@ class SolicitudeController extends Controller
             $data[] = [
                 
                 'id' => $solicitude->id,
-                'area' => DB::table('area')->where('id', $solicitude->area_id)->value('name'),
+                'area' => $solicitude->area()->pluck('name'),
                 'title' => $solicitude->title,
                 'description' => $solicitude->description,
                 'details' => '<a class="btn btn-default btn-block" href="'.url('/incidence/solicitudes/'.$solicitude->id).'"><i class="fa fa-bars" aria-hidden="true"></i></a>'
@@ -42,7 +46,8 @@ class SolicitudeController extends Controller
             [
                 'solicitudes' => $data,
                 'polls' => $polls,
-                'categories' => $categories
+                'categories' => $categories,
+                'areas_available' => $areas_available
             ]);
     }
 
@@ -160,7 +165,7 @@ class SolicitudeController extends Controller
         $polls = $solicitude->polls()->orderBy('pivot_is_active', 'desc')->get();
         $registered_categories = $solicitude->categories()->pluck('id');
         $available_categories = Category::all();
-        $areas = DB::table('area')->get();
+        $areas = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
         $contactos = User::all();
         $estados_incidencia = IncidenceState::all();
         $prioridades = [
@@ -207,6 +212,7 @@ class SolicitudeController extends Controller
         }
 
         $solicitude->polls()->detach();
+        $solicitude->categories()->detach();
         
         return response()->json(Solicitude::destroy($id), 200);
         
@@ -217,29 +223,22 @@ class SolicitudeController extends Controller
 
         $solicitude = Solicitude::findOrFail($id);
 
-        switch ($req->column) {
+        $solicitude->area_id = $req->area;
 
-            case 'area':
-                $solicitude->area_id = $req->value;
-                $solicitude->save();
-                break;
+        $old_poll = $solicitude->polls()->wherePivot('is_active', '=', '1')->first();
+        $old_poll->pivot->is_active = 0;
+        $old_poll->pivot->save();
+        $new_poll = $solicitude->polls()->where('solicitude_id', '=', $id)->where('poll_id', '=', $req->encuesta)->first();
+        $new_poll->pivot->is_active = 1;
+        $new_poll->pivot->save();
 
-            case 'default_poll':
-                $old_poll = $solicitude->polls()->wherePivot('is_active', '=', '1')->first();
-                $old_poll->pivot->is_active = 0;
-                $old_poll->pivot->save();
-                $new_poll = $solicitude->polls()->where('solicitude_id', '=', $id)->where('poll_id', '=', $req->value)->first();
-                $new_poll->pivot->is_active = 1;
-                $new_poll->pivot->save();
-                $solicitude->save();
-                break;
+        $solicitude->categories()->sync($req->categorias);
 
-            case 'categories':
-                $solicitude->categories()->sync($req->value);
-                //$solicitude->save();
-                break;
-            
-        }
+        $solicitude->description = $req->descripcion;
+
+        $solicitude->save();
+
+        
         return response()->json($solicitude);
 
     }

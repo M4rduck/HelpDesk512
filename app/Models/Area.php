@@ -44,4 +44,9 @@ class Area extends Model
     {
         return $this->hasMany(Solicitude::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'area_has_users', 'user_id', 'area_id');
+    }
 }

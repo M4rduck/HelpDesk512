@@ -70,7 +70,11 @@
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="solicitude_area">Area:</label>
-                                        <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="solicitude_area" name="solicitude_area" required></select>
+                                        <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="solicitude_area" name="solicitude_area" required>
+                                            @foreach ($areas_available as $area)
+                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +168,13 @@
                         <br><br>
                     </div>
                     <div class="box-footer clearfix">
-                        <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
-                            Nueva Solicitud
-                        </button>
+                        @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin' || $role->name == 'tecnico')
+                                <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
+                                    Nueva Solicitud
+                                </button> 
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
