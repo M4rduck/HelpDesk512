@@ -35,7 +35,7 @@
     {!! Html::style('./css/button_float.css') !!}
 @endpush
 
-@section('content')
+@section('content')    
     <div class="row">
         <div class="col-lg-12">
             <div class="box">
