@@ -168,7 +168,7 @@ var table = $('#module-table').DataTable({
                   success : function(data) {
                       table.ajax.reload();
                        swal({
-                          title: 'Success!',
+                          title: 'Excelente',
                           text: data.message,
                           type: 'success',
                           timer: '1500'

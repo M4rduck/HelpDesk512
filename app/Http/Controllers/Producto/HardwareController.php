@@ -97,27 +97,22 @@ class HardwareController extends Controller
         $valor2= '';
         if($hard->is_active == 1){
             $valor = '0';
-        }else if($hard->is_active==0){
-            $valor= '1';
-            
-        }
-        return $valor;
-
-        
-
-        if($hard->is_deleted == 1){
             $valor2 = '0';
-        }else if($hard->is_deleted==0){
+        }else if($hard->is_active == 0){
+            $valor= '1';
             $valor2= '1';
             
         }
-        return $valor2;
-
 
         $hard->is_active = $valor;
-       dd( $hard->is_deleted= $valor2);
+        $hard->is_deleted= $valor2;
         $hard->save();
         
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Hardware Desactivado'
+        ]);  
 
 
         
@@ -131,13 +126,13 @@ class HardwareController extends Controller
                 return '<td width="10px">
                 <button  class="btn btn-success btn-sm" 
                     onclick="editForm('. $hard->id .')">
-                    <i class="fa fa-pencil-square-o"></i> Edit</button>
+                    <i class="fa fa-pencil-square-o"></i> Editar</button>
               </td>' .
               '<td width="10px">
                <button class="btn btn-danger btn-sm" href="#"
                onclick="deleteData('. $hard->id .')">
                 <i class="fa fa-trash"></i> 
-              Delete</button>  
+              Desactivar</button>  
               </td>';
 
 
