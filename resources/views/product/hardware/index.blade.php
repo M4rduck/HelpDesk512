@@ -107,8 +107,8 @@ var table = $('#module-table').DataTable({
         $('input[name=_method]').val('POST');
         $('#modal-form').modal('show');
         $('#modal-form form')[0].reset();
-        $('.modal-title').html('<i class="fas fa-user-plus"></i> Add Users');
-        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('.modal-title').html('<i class="fas fa-user-plus"></i> Añadir Hardware');
+        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Crear Hardware');
         $('#type_hardware').select2({
             width:'100%'
         });
@@ -127,7 +127,7 @@ var table = $('#module-table').DataTable({
           success: function(data) {
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-user-edit"></i> Editar Hardware');
-            $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
+            $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Editar');
             $('#id').val(data.hard.id);
             $('#type_hardware').val(data.hard.type_hardware);
             $('#name').val(data.hard.name);
