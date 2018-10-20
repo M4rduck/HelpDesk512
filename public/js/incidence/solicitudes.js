@@ -10,11 +10,13 @@ $(function() {
             this.title.value = null;
             this.description.value = null;
             this.$polls.val([]).trigger('change');
+            this.$categories.val([]).trigger('change');
             this.default_poll = "";
             //document.getElementById('solicitude_evidence').value = "";
 
         },
 
+        /*
         get_areas_list: function(){
 
             var self = this;
@@ -22,6 +24,7 @@ $(function() {
             $.get({
                 url: this.element.elements['temp_areas_route'].value,
                 success: function(response){
+                    console.log('');
                     response.forEach(function(element) {
                         console.log(element);
                         self.$area.append('<option value="'+ element.value +'">'+ element.label +'</option>');                    
@@ -30,6 +33,7 @@ $(function() {
             });
 
         },
+        */
 
         init: function() {
 
@@ -40,6 +44,7 @@ $(function() {
             //campos del formulario
             this.$area = $(this.element.elements['solicitude_area']);
             this.$polls = $('#solicitude_poll');
+            this.$categories = $('#solicitude_categories');
             this.default_poll = "";
             this.title = this.element.elements['solicitude_title'];
             this.description = this.element.elements['solicitude_description'];
@@ -54,6 +59,7 @@ $(function() {
             var self = this;
 
             this.$polls.select2();
+            this.$categories.select2();
 
             this.$polls.on('select2:select', function(){
 
@@ -79,7 +85,7 @@ $(function() {
 
             })
 
-            this.get_areas_list();
+            //this.get_areas_list();
 
             this.parsley_form = $(this.element).parsley({
                 
@@ -107,6 +113,7 @@ $(function() {
                     form_data.append('description', self.description.value);
                     form_data.append('polls', self.$polls.val());
                     form_data.append('default_poll', self.default_poll);
+                    form_data.append('categories', self.$categories.val());
 
                     for (var value of form_data.values()) {
                         console.log(value); 

@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "fd8e36667a399fd1bd4b734592588dbf",
-=======
-    "content-hash": "df4ff8ead4de02e0f215627d7b2a0523",
->>>>>>> 51c413c2c23bc8412e8fd8e869f8ef295d391b59
     "packages": [
         {
             "name": "caffeinated/shinobi",
@@ -1868,16 +1864,16 @@
         },
         {
             "name": "rtconner/laravel-tagging",
-            "version": "3.0.0",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rtconner/laravel-tagging.git",
-                "reference": "6f58920a2146d520de34d858ad93fe9af2012256"
+                "reference": "a945f2e7ef40ece795b5dd749b3325705420a90a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rtconner/laravel-tagging/zipball/6f58920a2146d520de34d858ad93fe9af2012256",
-                "reference": "6f58920a2146d520de34d858ad93fe9af2012256",
+                "url": "https://api.github.com/repos/rtconner/laravel-tagging/zipball/a945f2e7ef40ece795b5dd749b3325705420a90a",
+                "reference": "a945f2e7ef40ece795b5dd749b3325705420a90a",
                 "shasum": ""
             },
             "require": {
@@ -1892,13 +1888,6 @@
                 "vlucas/phpdotenv": "~2.0"
             },
             "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Conner\\Tagging\\Providers\\TaggingServiceProvider"
-                    ]
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Conner\\Tagging\\": "src/"
@@ -1926,7 +1915,7 @@
                 "tagging",
                 "tags"
             ],
-            "time": "2018-08-13T16:25:54+00:00"
+            "time": "2017-09-06T03:49:28+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4453,7 +4442,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "6.1-dev"
+                    "dev-master": "6.0-dev"
                 }
             },
             "autoload": {

@@ -22,7 +22,7 @@ class Solicitude extends Model
 
     public function area()
     {
-        return $this->belongsTo('App\Area', 'id_area', 'id');
+        return $this->belongsTo('App\Models\Area', 'area_id', 'id');
     }
 
     public function incidence()
@@ -35,4 +35,10 @@ class Solicitude extends Model
         return $this->belongsToMany('App\Models\Poll', 'solicitude_has_poll')
             ->withPivot('is_active');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'solicitude_has_categories');
+    }
+
 }
