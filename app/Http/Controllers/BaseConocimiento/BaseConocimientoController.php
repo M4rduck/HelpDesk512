@@ -95,9 +95,11 @@ class BaseConocimientoController extends Controller
             'name' => 'required|string|max:100',
             'description' => 'required|string|max:300'
         ]);
-        $tags = explode(',', $request->tags);
-        $base = KnowledgeBase::update($request->all());
-        $base->retag($tags);
+        $tags = explode(',', $request->tags); // esta es la parte donde quita las comas de los tags
+        $base = KnowledgeBase::findOrFail($id); //busqueda
+        $input = $request->all();
+        $base->update($input);
+        $base->retag($tags);  // aqui donde me toca validar que el tag no este vacio 
         return $base;
     }
 

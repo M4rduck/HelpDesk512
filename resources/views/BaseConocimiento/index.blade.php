@@ -72,6 +72,7 @@
         function addFrom(){
             $('#modal').modal('show');
             $('#modal-title').text('Create Solution');
+            $('#modal-btn-save').text('Create');
             $('#modal-body form')[0].reset();
             $('#tags').tagsinput('removeAll');
             $('#tags').tagsinput({
@@ -83,6 +84,7 @@
           
           $('#modal').modal('show');
           $('#modal-title').text('Edit Solution');
+          $('#modal-btn-save').text('Edit');
           $('input[name=_method]').val('PATCH');
           $('#modal-body form')[0].reset();
           contentBody.LoadingOverlay('show');
@@ -114,15 +116,27 @@
           }
         });
         }
+
+        $('.close-modal').click(function(){
+            $('#id').val('');
+        });
         
 
         $('#modal-btn-save').click(function(event){
             event.preventDefault();
-            var me = $('#modal-body form'),
-                url = me.attr('action'),
-                method = $('input[name=_method]').val() == undefined ? 'POST' : 'PATCH';
+            idUpdate = $('#id');
+            var me = $('#modal-body form');
+                
+                if(idUpdate.val().trim().length == 0){
+                    url = me.attr('action');
+                    method = 'POST';
+                }else{
+                    url = `update/${idUpdate.val()}`;
+                    method = 'PUT'; 
+                }
                 me.find('.help-block').remove();
                 me.find('.form-group').removeClass('has-error');
+                
                 
             $.ajax({
                 url : url,
@@ -130,13 +144,13 @@
                 data : me.serialize(),
                 success: function (response){
                     me.trigger('reset');
-                    loadBody();
                     $('#modal').modal('hide');
                     swal({
                         type : 'success',
                         title : 'Success!',
                         text : 'Data has been saved!'
                     });
+                    loadBody();
                 },
                 error: function (xhr){
                     var  res = xhr.responseJSON;
