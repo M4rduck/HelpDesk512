@@ -15,7 +15,8 @@
         "overtrue/laravel-follow": "^1.1",
         "rtconner/laravel-tagging": "^3.0",
         "unisharp/laravel-ckeditor": "^4.7",
-        "yajra/laravel-datatables": "^1.0"
+        "yajra/laravel-datatables": "^1.0",
+        "yajra/laravel-datatables-oracle": "~8.0"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
