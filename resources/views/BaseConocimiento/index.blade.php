@@ -35,7 +35,7 @@
         <section class="content-header">
             
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-		{!! Form::button('<i class="fas fa-plus"></i> Create', 
+		        {!! Form::button('<i class="fas fa-plus"></i> Create', 
                             ['class'=>'btn btn-info pull-right',
                             'data-toggle' =>'modal',
                             'onclick'=>'addFrom()',
@@ -176,9 +176,9 @@
         });
         function search(){
             contentBody.LoadingOverlay('show');
-            var criterio = $('#criterio').val();
+            criterio = $('#criterio').val();
             ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio;
-            if(criterio != "null"){
+            if(criterio != ""){
             $.getJSON(ruta)
             .done(function(data){
                 contentBody.LoadingOverlay('hide', true);
@@ -227,13 +227,13 @@
         $(document).on('click', '.pagination a', function(event){            
             contentBody.LoadingOverlay('show');
             event.preventDefault();
+            criterio = $('#criterio').val(); 
             paginador = $(this).attr('href').split('page')[1];
-            var criterio = $('#criterio').val();
-           if(criterio != "null"){
-            ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio +'?page'+paginador;
-           }else{
-            ruta = '{!! route('baseConocimiento.loadBody') !!}'+'?page'+paginador;
-           }
+            if(criterio != ""){
+                ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio +'?page'+paginador;   
+            }else{
+                ruta = '{!! route('baseConocimiento.loadBody') !!}'+'?page'+paginador;
+            }
             $.getJSON(ruta)
             .done(function(data){
                 contentBody.LoadingOverlay('hide', true);
