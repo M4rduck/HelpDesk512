@@ -13,7 +13,7 @@ $(function(){
             document.getElementById('evidence').value = "";
             console.log("set_form_values", this.$label.val());
             this.$label.val([]).trigger('change');
-            this.state.value = "";
+            this.state.value = 4;
             this.priority.value = "";
 
         },

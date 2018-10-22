@@ -23,7 +23,15 @@ class SolicitudeController extends Controller
 
         $categories = Category::all();
 
-        $areas_available = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+        if(Auth::user()->areas()->count() > 0){
+
+            $areas_available = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+
+        }else{
+            
+            $areas_available = [];
+
+        }
 
         //solicitudes unidas con el area
         $data = [];
@@ -165,7 +173,16 @@ class SolicitudeController extends Controller
         $polls = $solicitude->polls()->orderBy('pivot_is_active', 'desc')->get();
         $registered_categories = $solicitude->categories()->pluck('id');
         $available_categories = Category::all();
-        $areas = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+        if(Auth::user()->areas()->count() > 0){
+
+            $areas = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+
+        }else{
+            
+            $areas = [];
+
+        }
+        //$areas = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
         $contactos = User::all();
         $estados_incidencia = IncidenceState::all();
         $prioridades = [
