@@ -8,7 +8,8 @@
 
 @section('content_header')
     <div class="page-header">
-        <h2> &nbsp;&nbsp;&nbsp;{{ 'Incidencia '.'# '.$incidence->id }}</h2>
+        <h2> &nbsp;&nbsp;&nbsp;{{ $incidence->solicitude->title }}</h2>
+        <small>&nbsp;&nbsp;&nbsp;{{ 'Incidencia '.'# '.$incidence->id }}</small>
     </div>
 @stop
 
@@ -19,6 +20,7 @@
     {!! Html::script('vendor/adminlte/vendor/jquery/dist/jquery.slimscroll.min.js') !!}
     {!! Html::script('js/incidence/tracing-index.js') !!}
     {!! Html::script('js/incidence/tracing-store.js') !!}
+    {!! Html::script('js/incidence/tracing-update.js') !!}
 @endpush
 
 @section('content')
@@ -58,20 +60,126 @@
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title center-block">Informaci&oacute;n</h3>
+                        @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin')
+                            <button title="Guardar cambios" class="btn btn-default pull-right" id="btn_guardar" name="btn_guardar"><i class="fas fa-save"></i></button>
+                            @endif
+                        @endforeach
                     </div>
                     <div class="box-body">
+                            <div class="form-group">
+                                <label for="theme">Tema</label>
+                                <p id="theme">{{ $incidence->theme }}</p>
+                            </div>
+                            @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin')
+                                <div class="form-group">
+                                    <input type="hidden" id="update_incidence_route" value="{{ route('incidence.update',['id' => $incidence->id]) }}">
+                                    <label for="contacto">Contacto:</label>
+                                    <select class="form-control" name="contacto" id="contacto">
+                                        @foreach ($contactos as $contacto)
+                                            @if ($contacto->id == $incidence->contact->id)
+                                            <option value="{{ $contacto->id }}" selected>{{ $contacto->name }}</option>    
+                                            @else
+                                            <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prioridad">Prioridad:</label>
+                                    <select class="form-control" name="prioridad" id="prioridad">
+                                        @foreach ($prioridades as $prioridad)
+                                            @if ($prioridad['id'] == $incidence->priority)
+                                            <option value="{{ $prioridad['id'] }}" selected>{{ $prioridad['name'] }}</option>    
+                                            @else
+                                            <option value="{{ $prioridad['id'] }}">{{ $prioridad['name'] }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Estado:</label>
+                                    <select class="form-control" name="estado" id="estado">
+                                        @foreach ($estados as $estado)
+                                            @if ($estado->id == $incidence->incidenceState->id)
+                                                <option value="{{ $estado->id }}" selected>{{ $estado->name }}</option>    
+                                            @else
+                                                <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Agente asignado:</label>
+                                    <select class="form-control" name="agente" id="agente">
+                                        @foreach ($agentes as $agente)
+                                            @if ($agente->id == $incidence->agent->id)
+                                                <option value="{{ $agente->id }}" selected>{{ $agente->name }}</option> 
+                                            @else
+                                                <option value="{{ $agente->id }}">{{ $agente->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <input type="hidden" id="update_incidence_route" value="{{ route('incidence.update',['id' => $incidence->id]) }}">
+                                    <label for="contacto">Contacto:</label>
+                                    <select class="form-control" name="contacto" id="contacto" disabled>
+                                        @foreach ($contactos as $contacto)
+                                            @if ($contacto->id == $incidence->contact->id)
+                                                <option value="{{ $contacto->id }}" selected>{{ $contacto->name }}</option>    
+                                            @else
+                                                <option value="{{ $contacto->id }}">{{ $contacto->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prioridad">Prioridad:</label>
+                                    <select class="form-control" name="prioridad" id="prioridad" disabled>
+                                        @foreach ($prioridades as $prioridad)
+                                            @if ($prioridad['id'] == $incidence->priority)
+                                                <option value="{{ $prioridad['id'] }}" selected>{{ $prioridad['name'] }}</option>    
+                                            @else
+                                                <option value="{{ $prioridad['id'] }}">{{ $prioridad['name'] }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Estado:</label>
+                                    <select class="form-control" name="estado" id="estado" disabled>
+                                        @foreach ($estados as $estado)
+                                            @if ($estado->id == $incidence->incidenceState->id)
+                                                <option value="{{ $estado->id }}" selected>{{ $estado->name }}</option>    
+                                            @else
+                                                <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Agente asignado:</label>
+                                    <select class="form-control" name="agente" id="agente" disabled>
+                                        @foreach ($agentes as $agente)
+                                            @if ($agente->id == $incidence->agent->id)
+                                                <option value="{{ $agente->id }}" selected>{{ $agente->name }}</option> 
+                                            @else
+                                                <option value="{{ $agente->id }}">{{ $agente->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>    
+                            @endif
+                        @endforeach
+                        {{--
                         <div class="form-group">
                             <label for="title">Titulo de la Solicitud</label>
                             <p id="title">{{ $incidence->solicitude->title }}</p>
                         </div>
-                        <div class="form-group">
-                            <label for="theme">Nombre de Incidencia</label>
-                            <p id="theme">{{ $incidence->theme }}</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="contacto">Contacto</label>
-                            <p id="contacto">{{ $incidence->contact->name }}</p>
-                        </div>
+                        --}}
                         <div class="form-group">
                             <label for="etiquetas">Etiquetas</label>
                             <p id="etiquetas">
@@ -79,14 +187,6 @@
                                 {{'#'.$item}}&nbsp;
                             @endforeach
                             </p>
-                        </div>
-                        <div class="form-group">
-                            <label for="prioridad">Prioridad</label>
-                            <p id="prioridad">{{ $incidence->priority }}</p>
-                        </div>
-                        <div class="form-group">
-                            <label for="state">Estado</label>
-                            <p id="state">{{ $incidence->incidencestate->name }}</p>
                         </div>
                         <div class="form-group">
                             <label for="description">Descripci&oacute;n</label>

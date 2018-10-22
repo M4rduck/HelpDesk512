@@ -35,26 +35,6 @@ $(function(){
             this.btn_submit = document.getElementById('btn_submit');
             this.id_solicitude = document.getElementById('solicitude_id');
 
-            this.render();
-
-        },
-
-        render: function(){
-
-            _this = this;
-
-            this.$agent.select2({
-                placeholder: 'Seleccione un agente',
-                allowClear: true
-            });
-            this.$contact.select2({
-                placeholder: 'Seleccione un contacto',
-                allowClear: true
-            });
-            this.$label.select2({
-                tags: true
-            });
-
             this.$parsley_form = $(this.element).parsley({
                 
                 errorClass: 'has-error',
@@ -70,6 +50,26 @@ $(function(){
 
             });
 
+            this.render();
+
+        },
+
+        render: function(){
+
+            let _this = this;
+
+            this.$agent.select2({
+                placeholder: 'Seleccione un agente',
+                allowClear: true
+            });
+            this.$contact.select2({
+                placeholder: 'Seleccione un contacto',
+                allowClear: true
+            });
+            this.$label.select2({
+                tags: true
+            });
+
             this.element.elements['evidence'].addEventListener('change', function(){
                 console.log(this);
                 _this.evidence = this.files[0];
@@ -79,6 +79,8 @@ $(function(){
             this.element.addEventListener('submit', function(e){
                 
                 e.preventDefault();
+
+                console.log(_this, _this.$parsley_form);
 
                 if(_this.$parsley_form.validate()){
 
