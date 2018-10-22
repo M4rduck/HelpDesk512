@@ -197,7 +197,10 @@ $(function(){
                 self.datatable = $(self.element).DataTable({
                     columns: [
                         {data: 'id'},
-                        {data: 'theme'},
+                        {
+                            data: 'theme',
+                            visible: false
+                        },
                         {data: 'description'},
                         {data: 'incidence_state.name'},
                         {data: 'agent.name'},
@@ -225,8 +228,11 @@ $(function(){
 
             this.btn_delete = document.getElementById('btn_delete');
             this.btn_edit = document.getElementById('btn_edit');
+            this.btn_guardar = document.getElementById('btn_guardar');
             this.select_area = document.getElementById('area');
             this.select_encuesta = document.getElementById('encuesta');
+            this.$select_categorias = $('#categories');
+            this.descripcion = document.getElementById('solicitude_description')
 
             this.render();
 
@@ -235,6 +241,46 @@ $(function(){
         render: function(){
 
             console.log(this.select_area, this.btn_delete);
+
+            this.$select_categorias.select2();
+
+            if(this.btn_guardar !== null){
+
+                _this = this;
+
+                this.btn_guardar.onclick = function(){
+
+                    $.post({
+                        url: document.getElementById('update_solicitude_route').value,
+                        data: {
+                            area: _this.select_area.value,
+                            encuesta: _this.select_encuesta.value,
+                            categorias: _this.$select_categorias.val(),
+                            descripcion: _this.descripcion.value
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            console.log(response);
+
+                            swal(
+                                'Exito',
+                                "Los cambios se han aplicado con exito",
+                                'success'
+                            );
+
+                        },
+                        error: function(response) {
+                            console.log('error', response);
+                        }
+                    });
+
+                }
+
+            }
+
+            /*
 
             this.select_area.onchange = function(){
 
@@ -281,48 +327,77 @@ $(function(){
                 });
 
             };
-            
-            this.btn_delete.onclick = function(e){
 
-                e.preventDefault();
+            this.$select_categorias.on('change', function(){
 
-                _this = this;
-                
-                swal({
-                    title: '¿Esta seguro de eliminar esta solicitud?',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'SI',
-                    cancelButtonText: 'NO',
-                    
-                }).then(function(isConfirm){
-                    
-                    if(isConfirm.value){
+                _this = $(this);
 
-                        //return;
-
-                        $.ajax({
-
-                            url: _this.href,
-                            type: 'DELETE',
-                            data: {
-                                _method: 'delete',
-                                _token: $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(response){
-                                window.location = 'http://www.helpdesk.local/incidence/solicitudes';
-                            },
-                            error: function(response){
-                                console.log(response);
-                            }
-        
-                        });
-
+                $.post({
+                    url: document.getElementById('update_solicitude_route').value,
+                    data: {
+                        value: _this.val(),
+                        column: 'categories'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(response) {
+                        console.log('error', response);
                     }
-
                 });
 
-            };
+            });
+
+            */
+            
+            if(this.btn_delete !== null){
+
+                this.btn_delete.onclick = function(e){
+
+                    e.preventDefault();
+    
+                    _this = this;
+                    
+                    swal({
+                        title: '¿Esta seguro de eliminar esta solicitud?',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'SI',
+                        cancelButtonText: 'NO',
+                        
+                    }).then(function(isConfirm){
+                        
+                        if(isConfirm.value){
+    
+                            //return;
+    
+                            $.ajax({
+    
+                                url: _this.href,
+                                type: 'DELETE',
+                                data: {
+                                    _method: 'delete',
+                                    _token: $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(response){
+                                    window.location = 'http://www.helpdesk.local/incidence/solicitudes';
+                                },
+                                error: function(response){
+                                    console.log(response);
+                                }
+            
+                            });
+    
+                        }
+    
+                    });
+    
+                };
+
+            }
 
         }
 

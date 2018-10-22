@@ -70,7 +70,11 @@
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
                                         <label for="solicitude_area">Area:</label>
-                                        <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="solicitude_area" name="solicitude_area" required></select>
+                                        <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="solicitude_area" name="solicitude_area" required>
+                                            @foreach ($areas_available as $area)
+                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -93,14 +97,30 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <div class="form-group">
-                                        <label for="solicitude_evidence">Encuesta</label>
+                                        <label for="solicitude_evidence">Encuestas:</label>
                                         <select data-parsley-required-message="Debe elegir una opcion" style="width: 100%;" tabindex="-1" class="form-control" name="solicitude_poll" id="solicitude_poll" required multiple>
                                             @if ($polls->count())
                                                 @foreach ($polls as $poll)
                                                     <option value="{{ $poll->id }}">{{ $poll->title }}</option>
                                                 @endforeach
                                             @else
-                                                <option value="">no hay encuestas registradas</option>
+                                                <option value="">no hay encuestas disponibles</option>
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="solicitude_evidence">Categorias:</label>
+                                        <select data-parsley-required-message="Debe elegir una opcion" style="width: 100%;" tabindex="-1" class="form-control" name="solicitude_categories" id="solicitude_categories" required multiple>
+                                            @if ($categories->count())
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                @endforeach
+                                            @else
+                                                <option value="">no hay categorias disponibles</option>
                                             @endif
                                         </select>
                                     </div>
@@ -124,7 +144,7 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Solicitudes</h3>
+                        <h3 class="box-title">Solicitudes Disponibles</h3>
                     </div>
                     <div class="box-body">
                         <!-- <solicitudes-table solicitudes_route=""></solicitudes-table></div>-->
@@ -148,9 +168,13 @@
                         <br><br>
                     </div>
                     <div class="box-footer clearfix">
-                        <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
-                            Nueva Solicitud
-                        </button>
+                        @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin' || $role->name == 'tecnico')
+                                <button data-toggle="modal" data-target="#solicitude_create_modal" class="btn btn-default btn-flat pull-right">
+                                    Nueva Solicitud
+                                </button> 
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>

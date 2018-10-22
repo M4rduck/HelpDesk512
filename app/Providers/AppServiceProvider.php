@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Providers;
-
 use App\Models\General\Module;
 use App\Models\General\Controller as ModelController;
 use Illuminate\Events\Dispatcher;
@@ -53,7 +51,6 @@ class AppServiceProvider extends ServiceProvider
                         }        
                     }
                 }
-
                 $items = [
                     'text' => $modulo->text,
                     'icon' => $modulo->icon,
@@ -82,7 +79,6 @@ class AppServiceProvider extends ServiceProvider
             }         
         });
     }
-
     /**
      * Register any application services.
      *

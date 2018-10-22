@@ -15,17 +15,46 @@
         
         <div class="box box-warning">
 
-            <div class="box-header">
+            @if (is_null($formulario))
+                <p>No hay diagnosis creado para esta incidencia con solicitud {!! $title_solicitude !!}</p>
+            @else
+                <div class="box-header">
+                    <h3 class="box-title">{!! $formulario->name !!}</h3>                
+                </div>
 
-            </div>
+                <div class="box-body">
+                    @foreach ($formulario->sections->chunk(2) as $sectionsChunk)
+                        <div class="row">
+                            @foreach ($sectionsChunk as $section)
+                                <div class="col-lg-6">
+                                    <p>{!! $section->name !!}</p>
+                                    @foreach ($section->subSections->chunk(2) as $subSectionsChunk)
+                                        <div class="row">
+                                            
+                                                @foreach ($subSectionsChunk as $subSection)
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        {!! Form::label($formulario->id.'_'.$section->id.'_'.$subSection->id, $subSection->name) !!}
+                                                        <br>
+                                                        @foreach ($subSection->fields as $field)
+                                                            @include('diagnosis.consulta.input')
+                                                        @endforeach
+                                                    </div>                                                    
+                                                </div>    
+                                                @endforeach
+                                            
+                                        </div>                                        
+                                    @endforeach
+                                </div>                                
+                            @endforeach
+                        </div>                        
+                    @endforeach
+                </div>
 
-            <div class="box-body">
+                <div class="box-footer">
 
-            </div>
-
-            <div class="box-footer">
-
-            </div>
+                </div>
+            @endif
 
         </div>
 

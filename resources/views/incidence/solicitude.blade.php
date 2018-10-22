@@ -213,45 +213,112 @@
             <div class="col-md-3 col-lg-3 col-sm-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title center-block">Informaci&oacute;n</h3>
+                        <h3 class="box-title">Informaci&oacute;n</h3>
+                        @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin')
+                            <button title="Guardar cambios" class="btn btn-default pull-right" id="btn_guardar" name="btn_guardar"><i class="fas fa-save"></i></button>
+                            @endif
+                        @endforeach
                     </div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <input type="hidden" id="update_solicitude_route" value="{{ route('solicitudes.update',['id' => $solicitude->id]) }}">
-                            <label for="area">Area</label>
-                            <select class="form-control" name="area" id="area">
-                                @foreach ($areas as $area)
-
-                                    @if ($area->id == $solicitude->area_id)
-                                        <option value="{{ $area->id }}" selected>{{ $area->name }}</option>    
-                                    @else
-                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                    @endif
-
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="area">Encuesta</label>
-                            <select class="form-control" name="encuesta" id="encuesta">
-                                @foreach ($polls as $poll)
-                                    <option value="{{ $poll->id }}">{{ $poll->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Descripci&oacute;n</label>
-                            <p id="description">{{ $solicitude->description }}</p>
-                        </div>
+                        @foreach (Auth::user()->roles()->get() as $role)
+                            @if ($role->name == 'Admin')
+                                <div class="form-group">
+                                    <input type="hidden" id="update_solicitude_route" value="{{ route('solicitudes.update',['id' => $solicitude->id]) }}">
+                                    <label for="area">Area</label>
+                                    <select class="form-control" name="area" id="area">
+                                        @foreach ($areas as $area)
+        
+                                            @if ($area->id == $solicitude->area_id)
+                                                <option value="{{ $area->id }}" selected>{{ $area->name }}</option>    
+                                            @else
+                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                            @endif
+        
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Encuesta</label>
+                                    <select class="form-control" name="encuesta" id="encuesta">
+                                        @foreach ($polls as $poll)
+                                            <option value="{{ $poll->id }}">{{ $poll->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Categorias</label>
+                                    <select class="form-control" name="categories" id="categories" multiple>
+                                        @foreach ($available_categories as $available_category)
+                                            @if(in_array($available_category->id, $registered_categories->toArray()))
+                                                <option value="{{ $available_category->id }}" selected>{{ $available_category->name }}</option>
+                                            @else
+                                                <option value="{{ $available_category->id }}">{{ $available_category->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Descripci&oacute;n</label>
+                                    <textarea class="form-control" id="solicitude_description">{{ $solicitude->description }}</textarea>
+                                </div>
+                            @else
+                                <div class="form-group">
+                                    <input type="hidden" id="update_solicitude_route" value="{{ route('solicitudes.update',['id' => $solicitude->id]) }}">
+                                    <label for="area">Area</label>
+                                    <select class="form-control" name="area" id="area" disabled>
+                                        @foreach ($areas as $area)
+        
+                                            @if ($area->id == $solicitude->area_id)
+                                                <option value="{{ $area->id }}" selected>{{ $area->name }}</option>    
+                                            @else
+                                                <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                            @endif
+        
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Encuesta</label>
+                                    <select class="form-control" name="encuesta" id="encuesta" disabled>
+                                        @foreach ($polls as $poll)
+                                            <option value="{{ $poll->id }}">{{ $poll->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categories">Categorias</label>
+                                    <select class="form-control" name="categories" id="categories" multiple disabled>
+                                        @foreach ($available_categories as $available_category)
+                                            @if(in_array($available_category->id, $registered_categories->toArray()))
+                                                <option value="{{ $available_category->id }}" selected>{{ $available_category->name }}</option>
+                                            @else
+                                                <option value="{{ $available_category->id }}">{{ $available_category->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Descripci&oacute;n</label>
+                                    <textarea class="form-control" id="solicitude_description" disabled>{{ $solicitude->description }}</textarea>
+                                </div>    
+                            @endif
+                        @endforeach
                     </div>
                     <div class="box-footer">
                         <button id="btn_incidencia" data-target="#incidence_create_modal" data-toggle="modal" class="btn btn-default pull-right">Nueva Incidencia</button>
                     </div>
                 </div>
-                <div class="pull-right">
-                    <!--<a id="btn_edit" href="" class="btn btn-info">Editar</a>-->
-                    <a id="btn_delete" href="{{ route('solicitudes.destroy',['id' => $solicitude->id]) }}" class="btn btn-danger">Eliminar</a>
-                </div>
+                
+                    
+                @foreach (Auth::user()->roles()->get() as $role)
+                    @if ($role->name == 'Admin')
+                        <div class="pull-right">
+                            <!--<a id="btn_edit" href="" class="btn btn-info">Editar</a>-->
+                            <a id="btn_delete" href="{{ route('solicitudes.destroy',['id' => $solicitude->id]) }}" class="btn btn-danger">Eliminar</a>
+                        </div> 
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

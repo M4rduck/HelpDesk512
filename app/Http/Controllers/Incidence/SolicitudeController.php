@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Incidence;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Solicitude;
 use App\Models\Poll;
 use App\Models\Incidence\IncidenceState;
+use App\Models\Category;
+use App\Models\Area;
 use App\User;
 use DB;
 
@@ -18,6 +21,10 @@ class SolicitudeController extends Controller
 
         $polls = Poll::all();
 
+        $categories = Category::all();
+
+        $areas_available = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
+
         //solicitudes unidas con el area
         $data = [];
 
@@ -26,7 +33,7 @@ class SolicitudeController extends Controller
             $data[] = [
                 
                 'id' => $solicitude->id,
-                'area' => DB::table('area')->where('id', $solicitude->area_id)->value('name'),
+                'area' => $solicitude->area()->pluck('name'),
                 'title' => $solicitude->title,
                 'description' => $solicitude->description,
                 'details' => '<a class="btn btn-default btn-block" href="'.url('/incidence/solicitudes/'.$solicitude->id).'"><i class="fa fa-bars" aria-hidden="true"></i></a>'
@@ -38,7 +45,9 @@ class SolicitudeController extends Controller
         return view('incidence.solicitudes', 
             [
                 'solicitudes' => $data,
-                'polls' => $polls
+                'polls' => $polls,
+                'categories' => $categories,
+                'areas_available' => $areas_available
             ]);
     }
 
@@ -83,6 +92,8 @@ class SolicitudeController extends Controller
         $solicitude->description = filter_var($req->description, FILTER_SANITIZE_STRING);
         
         if($solicitude->save()){
+
+            $solicitude->categories()->attach(explode(',', $req->categories));
 
             $polls_array = explode(',', $req->polls);
 
@@ -152,7 +163,9 @@ class SolicitudeController extends Controller
 
         $solicitude = Solicitude::with(['incidence.agent:id,name', 'incidence.contact:id,name', 'incidence.incidenceState:id,name'])->findOrFail($id);
         $polls = $solicitude->polls()->orderBy('pivot_is_active', 'desc')->get();
-        $areas = DB::table('area')->get();
+        $registered_categories = $solicitude->categories()->pluck('id');
+        $available_categories = Category::all();
+        $areas = Auth::user()->areas()->first()->eterprises()->first()->areas()->get();
         $contactos = User::all();
         $estados_incidencia = IncidenceState::all();
         $prioridades = [
@@ -179,6 +192,8 @@ class SolicitudeController extends Controller
             'areas' => $areas,
             'contactos' => $contactos,
             'polls' => $polls,
+            'registered_categories' => $registered_categories,
+            'available_categories' => $available_categories,
             'estados_incidencia' => $estados_incidencia,
             'prioridades' => $prioridades
         ]);
@@ -197,6 +212,7 @@ class SolicitudeController extends Controller
         }
 
         $solicitude->polls()->detach();
+        $solicitude->categories()->detach();
         
         return response()->json(Solicitude::destroy($id), 200);
         
@@ -207,24 +223,22 @@ class SolicitudeController extends Controller
 
         $solicitude = Solicitude::findOrFail($id);
 
-        switch ($req->column) {
+        $solicitude->area_id = $req->area;
 
-            case 'area':
-                $solicitude->area_id = $req->value;
-                $solicitude->save();
-                break;
+        $old_poll = $solicitude->polls()->wherePivot('is_active', '=', '1')->first();
+        $old_poll->pivot->is_active = 0;
+        $old_poll->pivot->save();
+        $new_poll = $solicitude->polls()->where('solicitude_id', '=', $id)->where('poll_id', '=', $req->encuesta)->first();
+        $new_poll->pivot->is_active = 1;
+        $new_poll->pivot->save();
 
-            case 'default_poll':
-                $old_poll = $solicitude->polls()->wherePivot('is_active', '=', '1')->first();
-                $old_poll->pivot->is_active = 0;
-                $old_poll->pivot->save();
-                $new_poll = $solicitude->polls()->where('solicitude_id', '=', $id)->where('poll_id', '=', $req->value)->first();
-                $new_poll->pivot->is_active = 1;
-                $new_poll->pivot->save();
-                $solicitude->save();
-                break;
-            
-        }
+        $solicitude->categories()->sync($req->categorias);
+
+        $solicitude->description = $req->descripcion;
+
+        $solicitude->save();
+
+        
         return response()->json($solicitude);
 
     }

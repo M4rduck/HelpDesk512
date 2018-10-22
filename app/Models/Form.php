@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $is_deleted
  * @property string $created_at
  * @property string $updated_at
- * @property FormSection[] $formSections
+ * @property Collection $formSections
  */
 class Form extends Model
 {
@@ -28,10 +28,10 @@ class Form extends Model
     protected $fillable = ['name', 'description', 'is_deleted', 'created_at', 'updated_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function formSections()
+    public function sections()
     {
-        return $this->hasMany('App\FormSection');
+        return $this->belongsToMany(Section::class, 'form_section');
     }
 }

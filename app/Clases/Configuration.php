@@ -43,11 +43,11 @@ class Configuration
      * @params FormularioCampo $campo
      * @return Array
      */
-    static function createOptions($campo)
+    static function createOptions($field)
     {
         $opciones = [];
         // Las opciones vienen en la siguiente forma: campo, valor, campo, valor, campo, valor...
-        $opcionesQuery = explode(',', $campo->pivot->opciones);
+        $opcionesQuery = explode(',', $field->pivot->options);
         if (count($opcionesQuery) > 1) {
             for ($i = 0; $i < count($opcionesQuery); $i++) {
                 if ($i % 2 === 0) {
@@ -62,20 +62,25 @@ class Configuration
     /**
      * Convert the field from a string to an array, execute a consult in database and return an array or extract the value from the model if isn't a query
      *
-     * @param $campo
+     * @param $field
      * @return array
      */
-    static function createValue($campo, $datos = null)
+    static function createValue($field, $datos = null)
     {
-        switch ($campo->pivot->sw_query) {
+        switch ($field->pivot->sw_query) {
             //Extract the value from the model
-            case 0:
-                $valor = $campo->pivot->valor;
+            case 0:            
+                if(is_numeric(strpos($field->pivot->value, ','))){
+                    $valor = explode(',', $field->pivot->value); 
+                }else{
+                    $valor = $field->pivot->value;
+                }
+                
                 break;
 
             //Execute a consult in database and return an array
             case 1:
-                $resultados = DB::select(DB::raw($campo->pivot->valor));
+                $resultados = DB::select(DB::raw($field->pivot->value));
                 foreach ($resultados as $resultado) {
                     $arrayResultado[$resultado->id] = $resultado->opcion;
                 }
@@ -84,15 +89,15 @@ class Configuration
 
             //Convert the field from a string to an array
             case 2:
-                $valor = explode(',', $campo->pivot->valor);
+                $valor = explode(',', $field->pivot->value);
                 break;
 
             //Variable from view
-            case 3:
+            /*case 3:
                 $variables = DB::table('campo_sub_seccion_variables as CSV')
                     ->join('variables as V', 'CSV.id_variable', '=', 'V.id')
-                    ->where([['id_campo', $campo->pivot->id_campo],
-                        ['id_sub_seccion', $campo->pivot->id_sub_seccion]
+                    ->where([['id_campo', $field->pivot->id_campo],
+                        ['id_sub_seccion', $field->pivot->id_sub_seccion]
                     ])
                     ->orderBy('orden_concatenar')
                     ->get(['id_variable', 'atributo', 'sw_method', 'nombre', 'concatenar', 'sw_model', 'parametros']);
@@ -113,7 +118,7 @@ class Configuration
                             $valor .= ' ' . self::identifyVariableType($variable, $datos);
                         }
                     }
-                }
+                }*/
 
                 break;
         }

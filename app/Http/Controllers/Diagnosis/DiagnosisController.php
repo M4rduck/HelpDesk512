@@ -28,8 +28,18 @@ class DiagnosisController extends Controller
     }    
 
     public function show($id){
-        $incidencia = Incidence::with('solicitude')->find($id);
-        dd($incidencia);
-        return view('diagnosis.consulta.index');
+        try{
+            $incidencia = Incidence::with(['solicitude.forms' => function($join){
+                                $join->with('sections.subSections.fields.typeInput')->where('is_active', 1);
+                          }])->find($id);
+            
+            if(is_null($incidencia)){
+                abort(404, 'No es posible encontrar la incidencia');                                                
+            }
+        }catch(QueryException $queryException){
+            abort(404, 'Ha ocurrido un error al cargar la incidencia');
+        }
+        
+        return view('diagnosis.consulta.index')->with(['formulario' => $incidencia->solicitude->forms->first(), 'title_solicitude' => $incidencia->solicitude->title]);
     }
 }

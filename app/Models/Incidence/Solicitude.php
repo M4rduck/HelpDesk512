@@ -3,6 +3,8 @@
 namespace App\Models\Incidence;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Form;
+use App\Models\Poll;
 
 class Solicitude extends Model
 {
@@ -22,7 +24,12 @@ class Solicitude extends Model
 
     public function area()
     {
-        return $this->belongsTo('App\Area', 'id_area', 'id');
+        return $this->belongsTo('App\Models\Area', 'area_id', 'id');
+    }
+
+    public function forms()
+    {
+        return $this->belongsToMany(Form::class, 'solicitude_has_forms')->withPivot('is_active');
     }
 
     public function incidence()
@@ -32,7 +39,13 @@ class Solicitude extends Model
 
     public function polls()
     {
-        return $this->belongsToMany('App\Models\Poll', 'solicitude_has_poll')
+        return $this->belongsToMany(Poll::class, 'solicitude_has_poll')
             ->withPivot('is_active');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Models\Category', 'solicitude_has_categories');
+    }
+
 }

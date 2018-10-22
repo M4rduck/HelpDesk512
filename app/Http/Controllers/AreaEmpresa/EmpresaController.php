@@ -13,7 +13,7 @@ class EmpresaController extends Controller
 {
 
     function index(){    
-        try{
+        try{            
             $citys = City::where('visible', 1)->get()->pluck('name', 'id');
         }catch(QueryException $queryException){
             abort(404, 'Error al traer las ciudades, error: '.$queryException->getCode());
