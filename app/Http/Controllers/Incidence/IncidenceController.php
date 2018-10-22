@@ -116,6 +116,8 @@ class IncidenceController extends Controller
             //Disparo de incidencia cerrada
         }
         */
+        return response()->json($req->solucion, 500);
+
 
         $incidence = Incidence::findOrFail($id);
 
