@@ -27,7 +27,7 @@ class Solicitude extends Model
 
     public function incidence()
     {
-        return $this->hasMany('App\Models\Incidence\Incidence', 'id_solicitude', 'id');
+        return $this->hasMany(Incidence::class, 'id_solicitude', 'id');
     }
 
     public function polls()
