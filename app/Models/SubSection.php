@@ -31,7 +31,7 @@ class SubSection extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function fieldSubSections()
+    public function fields()
     {
         return $this->belongsToMany(Field::class, 'field_sub_section')->withPivot('order', 'value', 'options');
     }

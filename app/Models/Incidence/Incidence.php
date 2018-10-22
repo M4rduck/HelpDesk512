@@ -35,6 +35,11 @@ class Incidence extends Model
         return $this->belongsTo('App\User', 'id_agent', 'id');
     }
 
+    public function forms()
+    {
+        return $this->belongsToMany(Form::class, 'id_incidence', 'id');
+    }
+
     public function contact()
     {
         return $this->belongsTo('App\User', 'id_contact', 'id');

@@ -31,15 +31,15 @@ class Section extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function formSections()
+    public function sections()
     {
-        return $this->belongsToMany('App\FormSection');
+        return $this->belongsToMany(Form::class, 'form_section')->withPivot('order');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function sectionSubSections()
+    public function subSections()
     {
         return $this->belongsToMany(SubSection::class, 'section_sub_section');
     }
