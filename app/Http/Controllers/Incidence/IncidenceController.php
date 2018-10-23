@@ -114,7 +114,7 @@ class IncidenceController extends Controller
 
         $incidence = Incidence::findOrFail($id);
         
-        if($req->estado == "5"){
+        if($req->estado == "5" and $req->insertar_solucion == "true"){
             DB::table('solution')->insert(
                 [
                     'incidence_id' => $incidence->id,
@@ -135,7 +135,7 @@ class IncidenceController extends Controller
 
         }
 
-        //return response()->json(Incidence::findOrFail($id), 500);
+        return response()->json(Incidence::findOrFail($id), 500);
 
     }
 

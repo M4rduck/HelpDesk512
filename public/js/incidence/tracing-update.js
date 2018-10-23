@@ -62,6 +62,8 @@ $(function(){
 
             console.log('btn_update', this);
 
+            console.log(estado_inicial !== select_estado.value);
+
             $.post({
                 url: document.getElementById('update_incidence_route').value,
                 data: {
@@ -70,6 +72,7 @@ $(function(){
                     estado: document.getElementById('estado').value,
                     agente: document.getElementById('agente').value,
                     solucion: solucion,
+                    insertar_solucion: estado_inicial !== select_estado.value,
                     baseconocimiento: baseconocimiento
                 },
                 headers: {
