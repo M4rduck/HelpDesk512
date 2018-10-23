@@ -33,8 +33,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $sw_main= Sw_main::findOrFail($request->sw_main);
-            if($sw_main==1){
+      
        
         $input = $request->all();
         $categories = Category::create($input);
@@ -44,17 +43,9 @@ class CategoryController extends Controller
             'success' => true,
             'message' => 'Category Created'
         ]);
-    }else{
+    
         
-        $input = $request->all();
-        $categories = Category::create($input);
-        dd($request->get('categories'));
-        $categories->categories()->sync($request->get('categories'));
-        return response()->json([
-            'success' => true,
-            'message' => 'subCategory Created'
-            ]);
-    }
+  
     }
 
     /**

@@ -37,7 +37,7 @@
             <table class="table table-striped" id="categories-table">
                 <thead>
                 <tr>
-                    <th></th>
+                    
                     <th width="30px">ID</th>
                     <th>Name</th>                    
                     <th>Description</th>
@@ -59,80 +59,24 @@
 @endsection
 
 @section('js')
-    {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js') !!}
-    <script id="details-template" type="text/x-handlebars-template">
-        <table class="table">
-            <tbody>
-            
-                <tr>
-                
-                    <td><b>ID:</b></td>
-                    <td>@{{category.id}}<td>
-                    <td><b>NAME:</b></td>
-                    <td>@{{category.name}}</td>
-                    <td><b>DESCRIPTION</b></td>
-                    <td>@{{category.description}}</td>
-                    <td><b>OPTIONS:</b></td>
-                    <td> 
-                    <td>@{{category.sw_main}}</td>
-
-                        <button class="btn btn-success btn-sm" onclick="editForm(@{{category.id}})">
-                            <i class="fa fa-pencil-square-o"></i> Edit
-                        </button>
-                          
-                        <button class="btn btn-danger btn-sm" href="#" onclick="deleteData(@{{category.id}})">
-                            <i class="fa fa-trash"></i> Delete
-                        </button>  
-                          
-                    </td>
-                </tr>
-            
-            </tbody>
-        </table>
-    </script>
+  
 	<script type="text/javascript">
      $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
      });
-    
-
-    const template = Handlebars.compile($("#details-template").html());    
     var table = $('#categories-table').DataTable({
                       processing: true,
                       serverSide: true,
                       ajax: "{{ route('api.category') }}",
                       columns: [
-                        {
-                            orderable: false,
-                            searchable: false,
-                            data: function(data){
-                                return data.category != null ? '<button class="btn btn-success details-control">+</button>' : '';
-                            }
-                        },
                         {data: 'id', name: 'id'},
-                        {data: 'name', name: 'name'},                        
+                        {data: 'name', name: 'name'},
                         {data: 'description', name: 'description'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
-
-        $('#categories-table tbody').on('click', 'td .details-control', function(){
-            const tr = $(this).closest('tr');
-            const row = table.row( tr );
-
-            if ( row.child.isShown() ) {
-                row.child.hide();
-                tr.removeClass('shown');
-            }
-            else {
-                row.child( template(row.data()) ).show();
-                tr.addClass('shown');
-            }
-        });            
-        
-    
 
     function addFrom()
     {
@@ -177,7 +121,7 @@
             $('#categories').select2({
             width:'100%'
         });
-        
+            $('#id').val(data.id);
             $('#name').val(data.name);
             $('#description').val(data.description);
             },
