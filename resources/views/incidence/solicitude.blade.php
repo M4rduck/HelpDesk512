@@ -133,7 +133,7 @@
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
                                     <label for="state">Estado</label>
-                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required>
+                                    <select data-parsley-required-message="Debe elegir una opci&oacute;n" class="form-control" id="state" name="state" required disabled>
                                         @foreach ($estados_incidencia as $estado)
                                             @if ($estado->id == 4)
                                                 <option value="{{ $estado->id }}" selected>{{ $estado->name }}</option>
