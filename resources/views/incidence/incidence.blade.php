@@ -21,29 +21,30 @@
     {!! Html::script('js/incidence/tracing-index.js') !!}
     {!! Html::script('js/incidence/tracing-store.js') !!}
     {!! Html::script('js/incidence/tracing-update.js') !!}
+    {{-- Html::script('vendor/unisharp/laravel-ckeditor/ckeditor.js') --}}
 @endpush
 
 @section('content')
-<!-- Modal para registrar una incidencia -->
+<!-- Modal para registrar una solucion -->
 <div id="solution_create_modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" data-dismiss="modal">&times;</button>
                 <h2 class="modal-title">¿Cual fue la soluci&oacute;n?</h2>
             </div>
             <div class="modal-body">
                 <textarea name="txta_solucion" id="txta_solucion" style="width:100%"></textarea>
+                ¿Incluir en la base de conocimiento?&nbsp;&nbsp;<input type="checkbox" name="check_baseconocimiento" id="check_baseconocimiento" checked>
             </div>
             <div class="modal-footer">
-                <button class = "btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
+                <button id="btn_dismiss" class = "btn btn-danger pull-left" data-dismiss="modal">Cerrar</button>
                 <button id="btn_submit" name="btn_submit"  type="submit" class="btn btn-success pull-right">Guardar</button>
             </div>
         </div>
         <!--<solicitude-create-form areas_route="{{ route('solicitudes.temp_areas') }}" submit_route = "{{ route('solicitudes.store') }}"></solicitude-create-form>-->
     </div>
 </div>
-<!-- Fin modal registrar incidencia -->
+<!-- Fin modal registrar solucion -->
  <div class="container-fluid">
     <div class="row">
         <div class="col-md-9 col-lg-9 col-sm-12">

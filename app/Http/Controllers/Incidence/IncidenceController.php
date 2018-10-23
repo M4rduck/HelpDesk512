@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Incidence\Incidence;
 use App\Models\Incidence\IncidenceState;
 use App\User;
+use DB;
 
 class IncidenceController extends Controller
 {
@@ -111,13 +112,17 @@ class IncidenceController extends Controller
 
     public function update(Request $req, $id){
 
-        /*
-        if($req->estado == 2){
-            //Disparo de incidencia cerrada
-        }
-        */
-
         $incidence = Incidence::findOrFail($id);
+        
+        if($req->estado == "5"){
+            DB::table('solution')->insert(
+                [
+                    'incidence_id' => $incidence->id,
+                    'description' => $req->solucion,
+                    'sw_knowledgebase' => $req->baseconocimiento
+                ]
+            );
+        }
 
         $incidence->id_contact = $req->contacto;
         $incidence->id_agent = $req->agente;
@@ -126,11 +131,11 @@ class IncidenceController extends Controller
 
         if($incidence->save()){
 
-            return response()->json(Incidence::findOrFail($id), 200);
+            return response()->json("La incidencia ha sido actualizada", 200);
 
         }
 
-        return response()->json(Incidence::findOrFail($id), 500);
+        //return response()->json(Incidence::findOrFail($id), 500);
 
     }
 
