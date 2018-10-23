@@ -18,6 +18,7 @@
             @if (is_null($formulario))
                 <p>No hay diagnosis creado para esta incidencia con solicitud {!! $title_solicitude !!}</p>
             @else
+                {!! Form::open(['route' => 'diganosis.storeDiagnosisTechnic']) !!}
                 <div class="box-header">
                     <h3 class="box-title">{!! $formulario->name !!}</h3>                
                 </div>
@@ -30,8 +31,7 @@
                                     <p>{!! $section->name !!}</p>
                                     @foreach ($section->subSections->chunk(2) as $subSectionsChunk)
                                         <div class="row">
-                                            
-                                                @foreach ($subSectionsChunk as $subSection)
+                                            @foreach ($subSectionsChunk as $subSection)
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         {!! Form::label($formulario->id.'_'.$section->id.'_'.$subSection->id, $subSection->name) !!}
@@ -41,8 +41,7 @@
                                                         @endforeach
                                                     </div>                                                    
                                                 </div>    
-                                                @endforeach
-                                            
+                                            @endforeach                                            
                                         </div>                                        
                                     @endforeach
                                 </div>                                
@@ -52,8 +51,9 @@
                 </div>
 
                 <div class="box-footer">
-
+                    {!! Form::button('Guardar', ['class' => 'btn btn-success pull-right', 'type' => 'submit']) !!}
                 </div>
+                {!! Form::close() !!}
             @endif
 
         </div>
