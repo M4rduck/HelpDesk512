@@ -6,10 +6,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Speciality;
 use Caffeinated\Shinobi\Traits\ShinobiTrait;
+use Overtrue\LaravelFollow\Traits\CanLike;
 
 class User extends Authenticatable
 {
-    use Notifiable,ShinobiTrait;
+    use Notifiable,ShinobiTrait,CanLike;
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +38,16 @@ class User extends Authenticatable
     public function speciality()
     {
         return $this->belongsToMany(Speciality::class, 'user_has_speciality');
+    }
+
+    public function areas()
+    {
+        return $this->belongsToMany('App\Models\Area', 'area_has_users', 'user_id', 'area_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Roles', 'role_user', 'user_id', 'role_id');
     }
 
 }

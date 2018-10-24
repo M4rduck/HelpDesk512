@@ -17,7 +17,7 @@ class CreateModuleTable extends Migration
             $table->increments('id');
             $table->integer('software_id')->unsigned()->index();
             $table->foreign('software_id')->references('id')->on('software')->onDelete('restrict');
-            $table->string('name');
+            $table->string('name');            
             $table->string('descritpion')->nullable(true);
             $table->timestamps();
         });

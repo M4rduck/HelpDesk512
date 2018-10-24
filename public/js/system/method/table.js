@@ -1,7 +1,7 @@
 $('#method-table').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '/HelpDesk512/public/general/method/getData',
+    ajax: '/general/method/getData',
     columns: [
         {data: 'Controlador', name: 'name'},
         {data: 'name_function', name: 'name_function'},

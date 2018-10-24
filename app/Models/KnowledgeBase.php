@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Models\Category;
+use \Conner\Tagging\Taggable;
+use Overtrue\LaravelFollow\Traits\CanBeLiked;
 
 /**
  * @property int $id
@@ -19,6 +22,9 @@ use App\User;
  */
 class KnowledgeBase extends Model
 {
+    
+    use Taggable,CanBeLiked;
+    
     /**
      * The table associated with the model.
      * 
@@ -29,7 +35,15 @@ class KnowledgeBase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'score', 'name', 'solution', 'sw_faq', 'created_at', 'updated_at'];
+    protected $fillable = ['score', 'name', 'solution', 'sw_faq', 'description', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_has_knowledgebase','knowledgebase_id','user_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -39,11 +53,14 @@ class KnowledgeBase extends Model
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function users()
+    // Scope
+
+    public function scopeName($query, $name)
     {
-        return $this->belongsToMany(User::class, 'user_has_knowledgebase');
+        if($name)
+        return $query->where('name', 'LIKE', "%$name%");
     }
+
+    
+
 }

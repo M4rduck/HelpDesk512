@@ -137,6 +137,19 @@ class RoleController extends Controller
                             <i class="fas fa-trash"></i> 
                           Delete</button>  
                           </td>';
-            })->make(true); 
+            })
+            ->editColumn('description',function($roles){
+                $desc = '';
+                
+                $desc = ''.$roles->description.'';   
+                
+                return $desc;
+            })
+            ->editColumn('edit', function($roles){
+                return '<span class="label label-primary">'
+                . $roles->special .'</span>';
+            })
+            ->rawColumns(['description'=>'description','edit' => 'edit', 'action' => 'action'])
+            ->make(true); 
     }
 }

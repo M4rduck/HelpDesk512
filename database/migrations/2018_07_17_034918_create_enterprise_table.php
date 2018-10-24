@@ -19,6 +19,7 @@ class CreateEnterpriseTable extends Migration
             $table->string('address')->nullable(false)->comment('Main address');
             $table->string('legal_representative')->nullable(false)->comment('legal representative\'s name');
             $table->boolean('visible')->nullable(false)->comment('1 for active, 0 for no active');
+            $table->boolean('sw_active')->default(1)->nullable(false)->comment('1 for active, 0 for no active');
             $table->timestamps();
         });
     }

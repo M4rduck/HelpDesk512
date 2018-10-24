@@ -24,10 +24,10 @@
                                             <!-- form-group -->
                                             <div class="form-group">
                                                 {!! Form::label($field->id.'_'.$field->input_type_id, $field->name) !!}                        
-                                                @if($input->name === 'select')
+                                                @if($input->name == 'select')
                                                     {!! Form::{$input->name}($field->id.'_'.$field->input_type_id, [], null, ['id' => $field->id.'_'.$field->input_type_id, 'class' => 'form-control']) !!}
                                                 @elseif($input->name == 'checkbox' || $input->name == 'radio')
-                                                    {!! Form::{$input->name}($field->id.'_'.$field->input_type_id, null, null, ['id' => $field->id.'_'.$field->input_type_id, 'class' => 'form-control']) !!}
+                                                    {!! Form::{$input->name}($field->id.'_'.$field->input_type_id, '1', null, ['id' => $field->id.'_'.$field->input_type_id]) !!}
                                                 @elseif($input->name === 'file' || $input->name === 'submit' || $input->name === 'button')
                                                     {!! Form::{$input->name}($field->id.'_'.$field->input_type_id, []) !!}
                                                 @else

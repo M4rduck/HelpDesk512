@@ -213,7 +213,7 @@
 							<div class="modal-footer">
 							<button type="submit" class="btn btn-primary btn-save" id="bcreate"></button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
-                <i class="fa fa-times-circle"></i> Close
+                <i class="fa fa-times-circle"></i> Cerrar
                 </button>
                 </div>
             </div>

@@ -100,7 +100,7 @@
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
-            $('.modal-title').html('<i class="fas fa-user-edit"></i> Edit Users');
+            $('.modal-title').html('<i class="fas fa-file-alt"></i> Edit Speciality');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
             $('#id').val(data.specility.id);
             $('#name').val(data.specility.name);

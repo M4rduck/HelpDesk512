@@ -29,7 +29,8 @@ class Configuration
                     if($metodo->name == ""){
                         Route::{$metodo->verbName}($metodo->url, $contenedor2);
                     }else{
-                        Route::{$metodo->verbName}($metodo->url, $contenedor2)->name($metodo->name);
+                        Route::{$metodo->verbName}($metodo->url, $contenedor2)->name($metodo->name)
+                                    ->middleware('permission:'.$metodo->name);
                     }
                 }
             }

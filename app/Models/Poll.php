@@ -34,7 +34,7 @@ class Poll extends Model
      */
     public function incidences()
     {
-        return $this->belongsToMany('App\Models\Incidence', 'incidence_has_poll');
+        return $this->belongsToMany('App\Models\Incidence\Incidence', 'incidence_has_poll');
     }
 
     /**
