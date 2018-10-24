@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Incidence\Incidence;
 use App\Models\Incidence\IncidenceState;
+use App\Models\Roles;
 use App\User;
 use DB;
 
@@ -80,6 +81,8 @@ class IncidenceController extends Controller
 
         $incidence= Incidence::with(['agent:id,name', 'contact:id,name', 'incidenceState:id,name', 'solicitude:id,title'])->findOrFail($id);
         $contactos = User::all();
+        $agentes = Roles::where('slug', '=', 'tecnico')->first()->users()->get();
+        $solucion = DB::table('solution')->where('incidence_id', '=', $incidence->id)->get();
         $prioridades = [
             [
                 'id' => 'low',
@@ -105,8 +108,9 @@ class IncidenceController extends Controller
             'incidence'=>$incidence,
             'contactos' => $contactos,
             'prioridades' => $prioridades,
-            'agentes' => $contactos,
-            'estados' => $estados
+            'agentes' => $agentes,
+            'estados' => $estados,
+            'solucion' => $solucion
         ]);
     }
 

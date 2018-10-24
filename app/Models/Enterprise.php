@@ -51,4 +51,5 @@ class Enterprise extends Model
     {
         return $this->hasMany(Phone::class);
     }
+
 }
