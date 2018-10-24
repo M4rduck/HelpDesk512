@@ -24,10 +24,12 @@
                                     <h3 class="box-title">{{ $base->name }}</h3>
                                     <div class="box-tools pull-right">
                                         <a href="{{ route('baseConocimiento.show', $base->id )}}" class="btn btn-box-tool"><i class="fas fa-eye"></i></a>
+                                        @can('baseConocimiento.edit')
                                         {!! Form::button('<i class="fa fa-pencil"></i>', 
                                                             ['class'=>'btn btn-box-tool',
                                                                         'data-toggle' =>'modal',
                                                                         'onclick'=>'editFrom('.$base->id.')']) !!}
+                                        @endcan
                                         {!! Form::button('<i class="fa fa-minus"></i>', ['class'=>"btn btn-box-tool", 'data-widget'=>"collapse"]) !!}                                        
                                     </div>
                                 </div>

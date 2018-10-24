@@ -24,9 +24,8 @@ class AppServiceProvider extends ServiceProvider
             $modulos = Module::with(['method', 'modules' => function($join){
                             $join->with('method')->orderBy('order');
                        }])->where('main',1)
-                        ->orderBy('order')->get();       
-                        $a = 0;                 
-
+                        ->orderBy('order')->get();     
+                        
             foreach ($modulos as $modulo) {            
                 if($modulo->modules->isNotEmpty()){
                     $submenu = [];
@@ -72,11 +71,14 @@ class AppServiceProvider extends ServiceProvider
                 
                 if(count($submenu)){
                     $event->menu->add($items);
-                }else if(Auth::user()->can($module->method->name)){
+                }else if(Auth::user()->can($module->method->name)){                    
+                    $event->menu->add($items);
+                }else if(!is_null($modulo->method) && Auth::user()->can($modulo->method->name)){
                     $event->menu->add($items);
                 }
                 $submenu = [];                    
-            }         
+            }
+                               
         });
     }
     /**

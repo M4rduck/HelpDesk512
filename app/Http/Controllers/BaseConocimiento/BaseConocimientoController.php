@@ -23,7 +23,8 @@ class BaseConocimientoController extends Controller
     public function index()
     {
         
-        return view('BaseConocimiento.index');
+        $request = KnowledgeBase::where('sw_validate',0)->get();
+        return view('BaseConocimiento.index',compact('request'));
     }
     
 
@@ -120,7 +121,8 @@ class BaseConocimientoController extends Controller
      */
     public function loadBody(){
         try{
-            $request = KnowledgeBase::with('users','category')->orderBy('id','desc')->paginate(4);
+            $request = KnowledgeBase::with('users','category')->where('sw_validate',1)->orderBy('id','desc')->paginate(4);
+            
             $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
         }catch(QueryExcetion $queryException){
             return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
@@ -175,4 +177,33 @@ class BaseConocimientoController extends Controller
         }
         return response()->json(['error' => false, 'body' => $body]);
     }
+
+    public function base_validate(){
+        
+        return view('BaseConocimiento.validate.index');
+    }
+
+
+    public function loadValidate(){
+        try{
+            $request = KnowledgeBase::with('users','category')->where('sw_validate',0)->paginate(4);
+            $table = View('BaseConocimiento.validate.table')->with(['request'=>$request])->render();
+        }catch(QueryExcetion $queryException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }catch(RelationNotFoundException $relationNotFoundException){
+            return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
+        }
+    
+        return response()->json(['error' => false, 'body' => $table]);
+    }
+
+
+    public function active(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $base = KnowledgeBase::findOrFail($request->id); 
+        $base->sw_validate = '1';
+        $base->save();
+    }
+
 }

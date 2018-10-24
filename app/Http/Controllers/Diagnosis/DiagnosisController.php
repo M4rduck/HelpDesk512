@@ -12,7 +12,6 @@ use App\Models\Solicitude;
 class DiagnosisController extends Controller
 {
     public function index(){
-        dd(route('diagnosis.show', ['id' => 1]));
         $solicitudes = Solicitude::where('is_deleted', 0)->get()->pluck('title', 'id');
         return view('diagnosis.parameterization.index')->with('solicitudes', $solicitudes);
     }
@@ -25,7 +24,25 @@ class DiagnosisController extends Controller
         }
                 
         return view('diagnosis.parameterization.create')->with(['inputs' => $inputs]);
-    }    
+    } 
+    
+    public function store(Request $request){
+
+    }
+
+    public function storeDiagnosisTechnic(Request $request){       
+        //dd($request->all()); 
+        foreach($request->all() as $llave  => $valor){
+            $llaves = explode('_', $llave);
+            if(count($llaves) === 3 || count($llaves)  === 4){
+                $llaves[0];
+                $llaves[1];
+                $llaves[2];
+                $llaves[3];
+            }
+        }
+
+    }
 
     public function show($id){
         try{
