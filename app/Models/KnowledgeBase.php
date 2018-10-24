@@ -60,7 +60,4 @@ class KnowledgeBase extends Model
         if($name)
         return $query->where('name', 'LIKE', "%$name%");
     }
-
-    
-
 }

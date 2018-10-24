@@ -23,13 +23,13 @@ class TypeInput extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'description', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'description', 'is_deleted', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function fields()
     {
-        return $this->hasMany(Field::class);
+        return $this->hasMany(Field::class, 'input_type_id');
     }
 }

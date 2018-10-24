@@ -12,5 +12,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+
+        Schema::table('solicitude', function ($table) {
+            $table->string('evidence_route')->nullable();
+        });
     }
 }

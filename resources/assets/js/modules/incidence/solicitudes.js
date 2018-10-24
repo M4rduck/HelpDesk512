@@ -5,10 +5,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('../../bootstrap');
 
 window.Vue = require('vue');
-window.axios = require('axios');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,8 +15,17 @@ window.axios = require('axios');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+window.VuePaginate = require('vue-paginate');
 
-const app = new Vue({
-    el: '#app'
+/**
+ * Solicutdes Components
+ */
+Vue.use(VuePaginate);
+Vue.component('v-select', vSelect.VueSelect);
+Vue.component('vue-element-loading',loading);
+Vue.component('solicitudes-table', require('./../../components/incidence/solicitude_table.vue'));
+Vue.component('solicitude-create-form', require('./../../components/incidence/solicitude_create.vue'));
+
+const solicitudes = new Vue({
+    el: '#solicitudes'
 });

@@ -14,6 +14,8 @@
 
 @section('content')
 	<div class="row">
+       <div class="col-md-12">
+      
         @if(session('info'))
                     <div class="alert alert-success">
                         {{ session('info') }}
@@ -23,6 +25,7 @@
                     @if(count($errors))
                     <div class="alert alert-success">
                         <ul>
+			
                         @foreach($errors->all() as $error)
                         <li>{{ $error }}</li>
                         @endforeach
@@ -31,20 +34,39 @@
         @endif
         <section class="content-header">
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-            {!! Form::button('<i class="fas fa-search"></i> Search', 
-                ['class'=>'btn btn-secundary pull-right',
-                'data-toggle' =>'modal',
-                'onclick'=>'',
-                'style'=>'margin-top: -8px;']) !!}
-            {!! Form::button('<i class="fas fa-plus"></i> Create', 
-            ['class'=>'btn btn-info pull-right',
-            'data-toggle' =>'modal',
-            'onclick'=>'addFrom()',
-            'style'=>'margin-top: -8px;']) !!}
+            
+            <div class="pull-right">
+            
+                {!! Form::button('<i class="fas fa-plus"></i> Create', 
+                            ['class'=>'btn btn-info',
+                            'data-toggle' =>'modal',
+                            'onclick'=>'addFrom()',
+                            'style'=>'']) !!}
+
+            @can('baseConocimiento.validate')
+            <a href="{{ route('baseConocimiento.validate') }}" class="btn btn-primary">Validate <span class="badge badge-pill">{{ $request->count() }}</span></a>
+            @endcan
+            </div>
+            
+            <div class="col-md-3 pull-right">
+            
+            <div class="input-group">
+                {!! Form::text('criterio',null,['class'=>'form-control', 'id'=>'criterio','placeholder'=>'Search...']) !!}
+                        <span class="input-group-btn">
+                {!! Form::button('Search', 
+                                ['class'=>'btn btn-primary btn-flat',
+                                'onclick'=>'search()']) !!}
+
+                      </span>
+                </div>
+            </div>
+            </h1>
+            
         </section>
         <section class="content" id="content-body">
             
         </section>
+        </div>
     </div>
 @include('BaseConocimiento.modal')
 @endsection
@@ -53,9 +75,11 @@
 
 <script type="text/javascript">
     var contentBody = $('#content-body');
+    var criterio = $('#criterio').val('');
         function addFrom(){
             $('#modal').modal('show');
             $('#modal-title').text('Create Solution');
+            $('#modal-btn-save').text('Create');
             $('#modal-body form')[0].reset();
             $('#tags').tagsinput('removeAll');
             $('#tags').tagsinput({
@@ -67,6 +91,7 @@
           
           $('#modal').modal('show');
           $('#modal-title').text('Edit Solution');
+          $('#modal-btn-save').text('Edit');
           $('input[name=_method]').val('PATCH');
           $('#modal-body form')[0].reset();
           contentBody.LoadingOverlay('show');
@@ -98,15 +123,26 @@
           }
         });
         }
+
+        $('.close-modal').click(function(){
+            $('#id').val('');
+        });
         
+
         $('#modal-btn-save').click(function(event){
             event.preventDefault();
-            var me = $('#modal-body form'),
-                url = me.attr('action'),
-                method = $('input[name=_method]').val() == undefined ? 'POST' : 'PATCH';
-
+            idUpdate = $('#id');
+            var me = $('#modal-body form');
+                if(idUpdate.val().trim().length == 0){
+                    url = me.attr('action');
+                    method = 'POST';
+                }else{
+                    url = `update/${idUpdate.val()}`;
+                    method = 'PUT'; 
+                }
                 me.find('.help-block').remove();
                 me.find('.form-group').removeClass('has-error');
+                
                 
             $.ajax({
                 url : url,
@@ -114,13 +150,13 @@
                 data : me.serialize(),
                 success: function (response){
                     me.trigger('reset');
-                    loadBody();
                     $('#modal').modal('hide');
                     swal({
                         type : 'success',
                         title : 'Success!',
                         text : 'Data has been saved!'
                     });
+                    loadBody();
                 },
                 error: function (xhr){
                     var  res = xhr.responseJSON;
@@ -139,18 +175,42 @@
 
         });
         
+        $(document).keypress(function(e) {
+            if(e.which == 13) {
+                search();
+            }
+        });
+        function search(){
+            contentBody.LoadingOverlay('show');
+            criterio = $('#criterio').val();
+            ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio;
+            if(criterio != ""){
+            $.getJSON(ruta)
+            .done(function(data){
+                contentBody.LoadingOverlay('hide', true);
+                if(!data.error){
+                    contentBody.html(data.body);                        
+                }else{                    
+                    swal({
+                        title: data.title,
+                        text: data.text,
+                        icon: "error"
+                    });
+                }                
+            })
+            .fail(function() {
+                    loadBody();
+            });
+            }else{
+                loadBody();
+            }
+            
+        }
+
+
         function loadBody(){
             contentBody.LoadingOverlay('show');
-            @if(session()->has('category'))
-                contentBody.LoadingOverlay('hide', true);
-                cuerpo = {!! session()->get('category') !!};
-                contentBody.html(cuerpo);
-            @elseif(session()->has('tag'))
-                contentBody.LoadingOverlay('hide', true);
-                cuerpo = {!! session()->get('tag') !!};
-                contentBody.html(cuerpo);
-            @else
-                $.getJSON('{!! route('BaseConocimiento.loadBody') !!}')
+                $.getJSON('{!! route('baseConocimiento.loadBody') !!}')
                 .done(function(data){
                     contentBody.LoadingOverlay('hide', true);
                     if(!data.error){
@@ -163,7 +223,7 @@
                         });
                     }                
                 });
-            @endif
+            
             
         }
 
@@ -173,11 +233,13 @@
         $(document).on('click', '.pagination a', function(event){            
             contentBody.LoadingOverlay('show');
             event.preventDefault();
+            criterio = $('#criterio').val(); 
             paginador = $(this).attr('href').split('page')[1];
-           ruta = '{!! route('BaseConocimiento.loadBody') !!}'+'?page'+paginador;
-            
-
-
+            if(criterio != ""){
+                ruta = "{{ url('baseConocimiento/criterio') }}" + '/' + criterio +'?page'+paginador;   
+            }else{
+                ruta = '{!! route('baseConocimiento.loadBody') !!}'+'?page'+paginador;
+            }
             $.getJSON(ruta)
             .done(function(data){
                 contentBody.LoadingOverlay('hide', true);

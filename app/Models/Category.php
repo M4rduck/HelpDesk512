@@ -24,24 +24,7 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'category_id', 'description','created_at', 'updated_at'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class,'category_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function categories()
-    {
-        return $this->hasMany(Category::class,'category_id');
-    }
-
+    protected $fillable = ['name', 'level', 'description', 'sw_main', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

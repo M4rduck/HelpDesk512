@@ -36,4 +36,118 @@ class Configuration
             }
         }
     }
+
+    /*
+     * Convert the field from a string to an array
+     *
+     * @params FormularioCampo $campo
+     * @return Array
+     */
+    static function createOptions($field)
+    {
+        $opciones = [];
+        // Las opciones vienen en la siguiente forma: campo, valor, campo, valor, campo, valor...
+        $opcionesQuery = explode(',', $field->pivot->options);
+        if (count($opcionesQuery) > 1) {
+            for ($i = 0; $i < count($opcionesQuery); $i++) {
+                if ($i % 2 === 0) {
+                    $opciones[$opcionesQuery[$i]] = $opcionesQuery[($i + 1)];
+                }
+            }
+        }
+
+        return $opciones;
+    }
+
+    /**
+     * Convert the field from a string to an array, execute a consult in database and return an array or extract the value from the model if isn't a query
+     *
+     * @param $field
+     * @return array
+     */
+    static function createValue($field, $datos = null)
+    {
+        switch ($field->pivot->sw_query) {
+            //Extract the value from the model
+            case 0:            
+                if(is_numeric(strpos($field->pivot->value, ','))){
+                    $valor = explode(',', $field->pivot->value); 
+                }else{
+                    $valor = $field->pivot->value;
+                }
+                
+                break;
+
+            //Execute a consult in database and return an array
+            case 1:
+                $resultados = DB::select(DB::raw($field->pivot->value));
+                foreach ($resultados as $resultado) {
+                    $arrayResultado[$resultado->id] = $resultado->opcion;
+                }
+                $valor = $arrayResultado;
+                break;
+
+            //Convert the field from a string to an array
+            case 2:
+                $valor = explode(',', $field->pivot->value);
+                break;
+
+            //Variable from view
+            /*case 3:
+                $variables = DB::table('campo_sub_seccion_variables as CSV')
+                    ->join('variables as V', 'CSV.id_variable', '=', 'V.id')
+                    ->where([['id_campo', $field->pivot->id_campo],
+                        ['id_sub_seccion', $field->pivot->id_sub_seccion]
+                    ])
+                    ->orderBy('orden_concatenar')
+                    ->get(['id_variable', 'atributo', 'sw_method', 'nombre', 'concatenar', 'sw_model', 'parametros']);
+
+                //Identifica la cantidad de variables
+                if ($variables->count() === 1) {
+                    $valor = self::identifyVariableType($variables->first(), $datos);
+                } else {
+                    $valor = '';
+                    foreach ($variables as $variable) {
+                        if ($variable->concatenar === 1) {
+                            if (empty($valor)) {
+                                $valor = self::identifyAttributeType(${$variable->nombre} = isset($datos) ? $datos[$variable->nombre] : null, $variable);
+                            } else {
+                                $valor = self::identifyAttributeType($valor, $variable);
+                            }
+                        } else {
+                            $valor .= ' ' . self::identifyVariableType($variable, $datos);
+                        }
+                    }
+                }*/
+
+                break;
+        }
+
+        return $valor;
+    }
+
+    /**
+     * Identify the type of the variable 0 = unique value, 1 = model or object, 2 = array
+     *
+     * @param $variable
+     * @return String
+     */
+    public static function identifyVariableType($variable, $datos = null)
+    {
+        switch ($variable->sw_model) {
+            case 0:
+                //Obtiene el valor único de la variable
+                $valor = isset($datos) ? $datos[$variable->nombre] : null;
+                break;
+
+            case 1:
+                //Obtiene el valor del objeto
+                $valor = self::identifyAttributeType(${$variable->nombre} = isset($datos) ? $datos[$variable->nombre] : null, $variable);
+                break;
+
+            case 2:
+                $valor = ${$variable->nombre}[0];
+                break;
+        }
+    }
 }

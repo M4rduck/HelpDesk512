@@ -20,8 +20,8 @@ class CreateSolicitudeHasPollTable extends Migration
             $table->integer('poll_id')->unsigned()->index();
             $table->foreign('poll_id')->references('id')->on('poll')->onDelete('restrict');
             
-            $table->integer('is_active')->comment('1 to yes, 0 to no');
-            $table->integer('is_delete')->comment('1 to yes, 0 to no');
+            $table->integer('is_active')->default(1)->comment('1 to yes, 0 to no');
+            $table->integer('is_delete')->default(0)->comment('1 to yes, 0 to no');
         });
     }
 

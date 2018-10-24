@@ -40,9 +40,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-    
-       
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">   
+
+    {!! Html::style('./css/tools/toastr/toastr.min.css') !!}
 </head>
 <body class="hold-transition @yield('body_class')">
 
@@ -69,6 +69,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
 {!! Html::script('./js/tools/loadingOverlay/loadingoverlay.min.js') !!}
+{!! Html::script('./js/tools/toastr/toastr.min.js') !!}
 {!! Html::script('./js/configuration.js') !!}
 
 @yield('adminlte_js')

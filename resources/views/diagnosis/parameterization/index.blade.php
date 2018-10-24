@@ -8,11 +8,24 @@
 
 @push('js')
     {!! Html::script('https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js') !!}
+    <script>
+            $('#form-diagnosis-table').DataTable();
+
+            $(document).on('click', '.form-diagnosis-delete', function(){
+                swal({
+                    title: 'Eliminar',
+                    text: 'Deseas eliminar este diagnostico?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                });
+            });
+    </script>
 @endpush
 
 @push('css')
     <!-- Estilos para botón flotante -->
-    {!! Html::style('./css/button_float.css') !!}
+    {!! Html::style('./css/button_float.css') !!}    
 @endpush
 
 @section('content')
@@ -27,20 +40,27 @@
                 <!-- Box Body -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="module-table" class="table table-striped">
+                        <table id="form-diagnosis-table" class="table table-striped">
                             <thead>
                             <tr>
-                                <th></th>
-                                <th>Texto</th>
-                                <th>Icono</th>
-                                <th>Método</th>
-                                <th>Modulo</th>
-                                <th>Color Icono</th>
-                                <th>Label</th>
-                                <th>Color Label</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>                                
+                                <th>Solicitud</th>
                                 <th>Opciones</th>
                             </tr>
                             </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Diagnosis</td>
+                                    <td>Descripcion del tecnico al realizar la incidencia</td>
+                                    <td>No esta parametrizado a ninguna solicitud</td>
+                                    <td>
+                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Asignar', ['class' => 'btn btn-xs btn-primary form-diagnosis-assign', 'data-toggle'=>"modal", 'data-target'=>"#form-diagnosis-modal"]) !!}
+                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Editar', ['class' => 'btn btn-xs btn-success form-diagnosis-edit']) !!}
+                                        {!! Form::button('<i class="glyphicon glyphicon-edit"></i> Eliminar', ['class' => 'btn btn-xs btn-danger form-diagnosis-delete']) !!}
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -62,5 +82,32 @@
 @stop
 
 @section('modal')
-    
+    <!-- Modal -->
+    <div id="form-diagnosis-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header bg-yellow">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Asignar a Solicitud</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="form-group">
+                          {!! Form::label('solicitude_id', 'Solicitud') !!} <br>
+                          {!! Form::select('solicitude_id', $solicitudes, null, ['placeholder' => 'Selecciona la solicitud','id' => 'solicitude_id']) !!}
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Guardar</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>    
 @endsection

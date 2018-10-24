@@ -34,7 +34,7 @@ class Area extends Model
      */
     public function eterprises()
     {
-        return $this->belonsToMany(Enterprise::class, 'enterprise_has_area');
+        return $this->belongsToMany(Enterprise::class, 'enterprise_has_area');
     }
 
     /**
@@ -43,5 +43,10 @@ class Area extends Model
     public function solicitudes()
     {
         return $this->hasMany(Solicitude::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'area_has_users', 'user_id', 'area_id');
     }
 }

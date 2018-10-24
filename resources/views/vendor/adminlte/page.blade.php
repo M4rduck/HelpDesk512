@@ -4,7 +4,7 @@
     <link rel="stylesheet"
           href="{{ asset('vendor/adminlte/dist/css/skins/skin-' . config('adminlte.skin', 'blue') . '.min.css')}} ">
           <!-- Bootstrap-tagsInput -->
-          {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css') !!}
+          {!! Html::style('./css/tools/bootstrap-tagsinput/bootstrap-tagsinput.css')  !!}
           
     @stack('css')
     @yield('css')
