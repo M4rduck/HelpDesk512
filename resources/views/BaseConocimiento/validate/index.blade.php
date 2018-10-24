@@ -33,14 +33,6 @@
 @section('js')
 <script>
 var contentBody = $('#content-body');
-
-const toast = swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-
 function editBase(id){
    swal({
             title: 'Esta seguro de activar esta Entrada ?',

@@ -138,7 +138,7 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/validator/validator.min.js') }}"></script>
     <!-- Sweet Alert -->
-    {!! Html::script('./js/tools/sweetAlert/sweetalert.min.js') !!}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.8/dist/sweetalert2.all.min.js"></script>
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
