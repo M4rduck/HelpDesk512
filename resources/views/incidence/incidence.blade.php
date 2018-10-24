@@ -220,6 +220,9 @@
                         @endif
                     </div>
                 </div>
+                @if ($solucion->count())
+                    <a class="btn btn-success pull-right" href="{{ route('diagnosis.show', ['id' => $incidence->id]) }}">Ver Solucion</a>
+                @endif
             </div>
     </div>
 </div>
