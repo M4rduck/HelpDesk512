@@ -24,7 +24,7 @@
             <div class="box-header with-border">
                 <h1>
                Category Manager
-                {!! Form::button('<i class="fas fa-file-alt"></i> Create Category', 
+                {!! Form::button('<i class="fas fa-file-alt"></i> Create New Category', 
                 ['class'=>'btn btn-primary pull-right',
                 'data-toggle' =>'modal',
                 'onclick'=>'addFrom()']) !!}
@@ -37,9 +37,10 @@
             <table class="table table-striped" id="categories-table">
                 <thead>
                 <tr>
+                    
                     <th width="30px">ID</th>
-                    <th>Name</th>
-                    <th>Level</th>
+                    <th>Name</th>                    
+                    <th>Description</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -58,20 +59,13 @@
 @endsection
 
 @section('js')
-
+  
 	<script type="text/javascript">
      $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
      });
-    function format(data){
-        return 'Full name: '+d.first_name+' '+d.last_name+'<br>'+
-        'Salary: '+d.salary+'<br>'+
-        'The child row can contain any data you wish, including links, images, inner tables etc.';
-    }
-
-    
     var table = $('#categories-table').DataTable({
                       processing: true,
                       serverSide: true,
@@ -79,12 +73,10 @@
                       columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'level', name: 'level'},
+                        {data: 'description', name: 'description'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });
-        
-    
 
     function addFrom()
     {
@@ -94,6 +86,23 @@
         $('#modal-form form')[0].reset();
         $('.modal-title').html('<i class="far fa-file-alt"></i> Add Category');
         $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#categories').select2({
+            width:'100%'
+        });
+        
+    }
+
+    function addFromSubCategory()
+    {
+        save_method = "add";
+        $('input[name=_method]').val('POST');
+        $('#modal-form').modal('show');
+        $('#modal-form form')[0].reset();
+        $('.modal-title').html('<i class="far fa-file-alt"></i> Add  SubCategory');
+        $('#bcreate').html('<i class="fa fa-plus-circle"></i>  Create');
+        $('#categories').select2({
+            width:'100%'
+        });
         
     }
 
@@ -102,16 +111,19 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-          url: "{{ url('admin/categories') }}" + '/' + id + "/edit",
+          url: "{{ url('producto/category') }}" + '/' + id + "/edit",
           type: "GET",
           dataType: "JSON",
           success: function(data) {
             $('#modal-form').modal('show');
             $('.modal-title').html('<i class="fas fa-file-alt"></i> Edit Category');
             $('#bcreate').html('<i class="fas fa-pencil-alt"></i>  Edit');
-            $('#id').val(data.category.id);
-            $('#name').val(data.category.name);
-            $('#description').val(data.category.description);
+            $('#categories').select2({
+            width:'100%'
+        });
+            $('#id').val(data.id);
+            $('#name').val(data.name);
+            $('#description').val(data.description);
             },
           error : function() {
               swal({
@@ -135,7 +147,7 @@
             }).then((result) => {
               if (result.value) {
                $.ajax({
-                  url : "{{ url('admin/categories') }}" + '/' + id,
+                  url : "{{ url('producto/category') }}" + '/' + id,
                   type : "POST",
                   data : {'_method' : 'DELETE', '_token' : csrf_token},
                   success : function(data) {
@@ -164,9 +176,9 @@
                 if (!e.isDefaultPrevented()){
                     var id = $('#id').val();
                     if (save_method == 'add') 
-                        url = "{{ url('admin/categories') }}";
+                        url = "{{ url('producto/category') }}";
                     else 
-                        url = "{{ url('admin/categories') . '/' }}" + id;
+                        url = "{{ url('producto/category') . '/' }}" + id;
                     $.ajax({
                         url : url,
                         type : "POST",

@@ -15,9 +15,15 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('Categories.index');
+        $categories = Category::pluck('name','id'); 
+        return view('Categories.index')->with(['categories'=>$categories]);
     }
 
     /**
@@ -25,9 +31,21 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store(Request $request)
     {
-        //
+      
+       
+        $input = $request->all();
+        $categories = Category::create($input);
+        dd($request->get('categories'));
+        $categories->categories()->sync($request->get('categories'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Category Created'
+        ]);
+    
+        
+  
     }
 
     /**
@@ -36,11 +54,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+   
     /**
      * Display the specified resource.
      *
@@ -60,7 +74,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        $categories = Category::findOrFail($id);
+        return $categories;
     }
 
     /**
@@ -71,8 +87,17 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+   {
+
+        $input = $request->all();
+        $categories = Category::findOrFail($id);
+
+        $categories->update($input);
+
+       return response()->json([
+           'success' => true,
+           'message' => 'Category Updated'
+       ]);
     }
 
     /**
@@ -83,13 +108,18 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categories = Category::whereId($id)->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Category Delete'
+        ]); 
     }
 
     /* api que me traer los datos del datatable*/
     public function apiCategory()
     {
-            $categories = Category::all();
+        $categories = Category::with('category');
           
         
         return Datatables::of($categories)
