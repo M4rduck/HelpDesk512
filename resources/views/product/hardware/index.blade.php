@@ -151,14 +151,26 @@ var table = $('#module-table').DataTable({
           }
         });
       }
-      function deleteData(id){
+      function deleteData(id, cambio){
           var csrf_token = $('meta[name="csrf-token"]').attr('content');
+          var texto = "";
+          if(cambio == 0)
+          {
+              texto="Activar";
+
+          }else{
+              texto="Desactivar";
+          }
+       
           swal({
+
               title: 'Esta seguro?',
-              text: "Esta seguro de desactivar registro!",
+              html: 'Esta seguro de <b>asdasd</b> registro!',
               icon: "warning",
               buttons: true,
               dangerMode: true,
+    
+              
             }).then((value) => {
                 if (value) {
                $.ajax({

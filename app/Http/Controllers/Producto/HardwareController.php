@@ -98,41 +98,47 @@ class HardwareController extends Controller
         if($hard->is_active == 1){
             $valor = '0';
             $valor2 = '0';
-        }else if($hard->is_active == 0){
+        }else if($hard->is_active==0){
             $valor= '1';
             $valor2= '1';
             
         }
-
+   
         $hard->is_active = $valor;
         $hard->is_deleted= $valor2;
         $hard->save();
-        
 
         return response()->json([
             'success' => true,
             'message' => 'Hardware Desactivado'
-        ]);  
+        ]);
 
 
         
     }
-
     public function apiHardware(){
         $hard = Hardware::orderBy('id','DESC')->get();
         
         return Datatables::of($hard)
             ->addColumn('action',function($hard){
+                if($hard->is_active == 1){
+                    $boton['text'] = 'Desactivar';
+                    $boton['class'] = 'btn-danger';
+                }else{
+                    $boton['text'] = 'Activar';
+                    $boton['class'] = 'btn-primary';
+                }
+
                 return '<td width="10px">
                 <button  class="btn btn-success btn-sm" 
                     onclick="editForm('. $hard->id .')">
                     <i class="fa fa-pencil-square-o"></i> Editar</button>
               </td>' .
               '<td width="10px">
-               <button class="btn btn-danger btn-sm" href="#"
-               onclick="deleteData('. $hard->id .')">
+               <button class="btn '.$boton['class'].' btn-sm" href="#"
+               onclick="deleteData('. $hard->id .', '.$hard->is_active.')">
                 <i class="fa fa-trash"></i> 
-              Desactivar</button>  
+              '.$boton['text'].'</button>  
               </td>';
 
 
