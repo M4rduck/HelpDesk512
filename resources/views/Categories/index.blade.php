@@ -39,7 +39,7 @@
                 <tr>
                     <th width="30px">ID</th>
                     <th>Name</th>
-                    <th>Level</th>
+                    <th>Description</th>
                     <th>Options</th>
                 </tr>
                 </thead>
@@ -79,7 +79,7 @@
                       columns: [
                         {data: 'id', name: 'id'},
                         {data: 'name', name: 'name'},
-                        {data: 'level', name: 'level'},
+                        {data: 'description', name: 'description'},
                         {data: 'action', name: 'action', orderable: false, searchable: false}
                       ]
                     });

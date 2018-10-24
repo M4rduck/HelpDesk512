@@ -14,6 +14,12 @@
                 ]) !!}
 
                 <div class="form-group">
+                    <label for="category" class="control-label">Category</label>
+                    {!! Form::select('category_id',$categories,null, 
+                            ['id'=>'category', 'class'=>'form-control margin','placeholder' => 'Seleccione una Categoria']) !!}
+                </div>
+                
+                <div class="form-group">
                     <label for="name" class="control-label">Title</label>
                     {!! Form::text('name',null,['class'=>'form-control', 'id'=>'name']) !!}
                 </div>

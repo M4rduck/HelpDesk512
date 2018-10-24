@@ -35,13 +35,16 @@
         <section class="content-header">
             <h1><i class="fas fa-database"></i> Base de Conocimiento
             
-            <div class="pull-right">
             
+            <div class="form-inline pull-right">
+
+                <a href="{{ route('baseConocimiento.solutions') }}" class="btn btn-info"><i class="fas fa-cloud-download-alt"></i> Solutions</a>
+
                 {!! Form::button('<i class="fas fa-plus"></i> Create', 
                             ['class'=>'btn btn-info',
                             'data-toggle' =>'modal',
-                            'onclick'=>'addFrom()',
-                            'style'=>'']) !!}
+                            'onclick'=>'addFrom()']) !!}
+            
 
             @can('baseConocimiento.validate')
             <a href="{{ route('baseConocimiento.validate') }}" class="btn btn-primary">Validate <span class="badge badge-pill">{{ $request->count() }}</span></a>
@@ -76,14 +79,29 @@
 <script type="text/javascript">
     var contentBody = $('#content-body');
     var criterio = $('#criterio').val('');
+        
+    CKEDITOR.config.height= 200;
+    CKEDITOR.config.widht='auto';
+    CKEDITOR.replace('solution',{toolbar: [ 
+    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-',] }, 
+    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language' ] }, 
+    { name: 'styles', items: [ 'Styles', 'Format', 'Font', 'FontSize' ] },    
+     ]});
+        
         function addFrom(){
             $('#modal').modal('show');
             $('#modal-title').text('Create Solution');
             $('#modal-btn-save').text('Create');
             $('#modal-body form')[0].reset();
+            $('#category').select2({
+            width:'100%'
+            });
             $('#tags').tagsinput('removeAll');
             $('#tags').tagsinput({
                 maxTags: 5,
+            });
+            CKEDITOR.instances['solution'].setData('',function(){
+            instances.destroy();
             });
         }
 
@@ -104,6 +122,8 @@
             contentBody.LoadingOverlay('hide', true);
             tags = [];
             $('#id').val(data.base.id);
+            $('#category').val(data.base.category_id);
+            $('#category').select2({width:'100%'});
             $('#name').val(data.base.name);
             $('#description').val(data.base.description);
             $.each(data.base.tagged, function(i,item){
@@ -112,7 +132,8 @@
             });
             $('#tags').val(tags);
             $('#tags').tagsinput('refresh');
-            $('#solution').val(data.base.solution);
+            CKEDITOR.instances['solution'].setData(data.base.solution);
+            
           },
           error : function() {
               swal({
@@ -142,7 +163,11 @@
                 }
                 me.find('.help-block').remove();
                 me.find('.form-group').removeClass('has-error');
-                
+            
+                for (instance in CKEDITOR.instances){
+                        CKEDITOR.instances[instance].updateElement();
+                        /*CKEDITOR.instances[$('#description')].setData("");*/
+                    }
                 
             $.ajax({
                 url : url,

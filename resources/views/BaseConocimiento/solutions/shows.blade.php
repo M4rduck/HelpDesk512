@@ -14,9 +14,9 @@
 @section('content')
     <div class="container">
         <div class="col-md-8 col-md-offset-2">
-            @if($bases->count())
-             @foreach($bases as $base)
-               <h1>{{ $base->name }}</h1>
+            @if($solution->count())
+             @foreach($solution as $base)
+               <h1>{{ $base->incidence->theme }}</h1>
             <div class="panel panel-default" data-id="{{ $base->id }}">
                 <div class="panel-heading">
                 @if($base->category)
@@ -32,36 +32,30 @@
                  
                 </div>
                 <div class="panel-body">
-                {{ $base->description}}
+                {{  $base->incidence->description }}
                 <hr>
-                @if($base->solution)
-                {!! $base->solution !!}
+                @if($base->description)
+                {!! $base->description !!}
                 @else
                  <em>No hay Solucción</em>
                 @endif
                 <hr>
                 <div class="row">
-                        <div class="col-md-6"><em>Ultima actualización: {{ $base->updated_at}} </em></div>
-                        <div class="col-md-4"><em>visualizaciones: {{ $base->view }}</em></div>
-                        <div class="col-md-2 pull-right"><em>FAQ( {{ $base->sw_faq }} )</em></div>
+                        <div class="col-md-6"><em>Ultima actualización: {{ $base->incidence->updated_at}} </em></div>
+                        
                 </div>
                 </div>
                 <div class="panel-footer">
-                @forelse($base->tags as $tag)
-                <span class="label label-primary"><a class="sendData" href="{{route('baseConocimiento.tag', $tag->slug)}}">{{ $tag->name }}</a></span>
-                @empty
-                <em>Sin etiquetas</em>
-                @endforelse
+                
+                <span class="label label-primary">{{ $base->incidence->label}}</span>
                 
                 <div class="pull-right">
-                @foreach($base->users as $userbase)
-                Created By <em>{{ $userbase->name }}</em>
-                @endforeach
+                
                  </div>
                  </div>
             </div>
             @endforeach
-            {{ $bases->links() }}
+            
             @endif
         </div>
     </div>
