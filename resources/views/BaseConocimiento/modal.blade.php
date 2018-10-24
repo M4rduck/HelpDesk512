@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header label-info" id="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="modal-title">Form Input</h4>
             </div>
 
@@ -37,7 +37,7 @@
             </div>
             
             <div class="modal-footer" id="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger close-modal" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-info" id="modal-btn-save">Save changes</button>
             </div>
         </div>
