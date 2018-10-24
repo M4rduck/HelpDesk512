@@ -16,12 +16,11 @@
             <h3 class="modal-title"></h3>
              
         </div> 
-      
-        <!-- Body Modal-->
-        <div class="modal-body">
+       <!-- Body Modal-->
+       <div class="modal-body">
             <div class="row">
                 <div class="col-md-12">
-                    <input type="hidden" id="id" name="id"> 
+                    <input type="hidden" id="id" name="id">
                     <!-- Name -->
                     <div class="from-group">
                         {!! Form::label('name', 'Name') !!}
@@ -30,7 +29,7 @@
                                 <i class="fas fa-user"></i>
                             </span>
                             {!! Form::text('name',null, ['class'=>'form-control',
-                                                         'title'=>'Nombre de la categoria',
+                                                         'title'=>'Nombre del usuario',
                                                          'placeholder' => 'Name',
                                                          'id'=>'name',
                                                          'autofocus required']) !!}
