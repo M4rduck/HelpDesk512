@@ -122,7 +122,6 @@ class BaseConocimientoController extends Controller
     public function loadBody(){
         try{
             $request = KnowledgeBase::with('users','category')->where('sw_validate',1)->orderBy('id','desc')->paginate(4);
-            
             $body = View('BaseConocimiento.body')->with(['bases'=>$request])->render();
         }catch(QueryExcetion $queryException){
             return response()->json(['error' => true, 'title' => 'Error', 'text' => 'Ha ocurrido un error al cargar los datos de la base de conocimiento']);
