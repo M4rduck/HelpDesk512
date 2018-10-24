@@ -33,13 +33,21 @@
                     </div>
         @endif
         <section class="content-header">
-            
             <h1><i class="fas fa-database"></i> Base de Conocimiento
-		        {!! Form::button('<i class="fas fa-plus"></i> Create', 
-                            ['class'=>'btn btn-info pull-right',
+            
+            <div class="pull-right">
+            
+                {!! Form::button('<i class="fas fa-plus"></i> Create', 
+                            ['class'=>'btn btn-info',
                             'data-toggle' =>'modal',
                             'onclick'=>'addFrom()',
                             'style'=>'']) !!}
+
+            @can('baseConocimiento.validate')
+            <a href="{{ route('baseConocimiento.validate') }}" class="btn btn-primary">Validate <span class="badge badge-pill">{{ $request->count() }}</span></a>
+            @endcan
+            </div>
+            
             <div class="col-md-3 pull-right">
             
             <div class="input-group">
@@ -52,7 +60,6 @@
                       </span>
                 </div>
             </div>
-            
             </h1>
             
         </section>
@@ -126,7 +133,6 @@
             event.preventDefault();
             idUpdate = $('#id');
             var me = $('#modal-body form');
-                
                 if(idUpdate.val().trim().length == 0){
                     url = me.attr('action');
                     method = 'POST';
