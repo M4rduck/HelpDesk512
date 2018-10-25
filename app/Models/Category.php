@@ -24,7 +24,7 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'level', 'description', 'sw_main', 'created_at', 'updated_at'];
+    protected $fillable = ['name','category_id', 'description', 'sw_main', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

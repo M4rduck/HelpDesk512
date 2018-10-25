@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\KnowledgeBase;
 use App\Models\Category;
+use App\Models\Solution;
 use Yajra\DataTables\DataTables;
 
 
@@ -24,20 +25,10 @@ class BaseConocimientoController extends Controller
     {
         
         $request = KnowledgeBase::where('sw_validate',0)->get();
-        return view('BaseConocimiento.index',compact('request'));
+        $categories = Category::orderBy('name','ASC')->pluck('name','id');
+        return view('BaseConocimiento.index',compact('request','categories'));
     }
     
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-            
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -68,6 +59,7 @@ class BaseConocimientoController extends Controller
     public function show($id)
     {
         $base = KnowledgeBase::with('users','category')->find($id);
+        $base->increment('view');
         return view('baseConocimiento.show',compact('base'));
     }
 
@@ -203,6 +195,13 @@ class BaseConocimientoController extends Controller
         $base = KnowledgeBase::findOrFail($request->id); 
         $base->sw_validate = '1';
         $base->save();
+    }
+
+    public function solution(){
+
+        $solution = Solution::with('incidence')->where('sw_knowledgebase',1)->get();
+        //return (['solution'=>$solution]);
+        return view('BaseConocimiento.solutions.shows',compact('solution'));
     }
 
 }

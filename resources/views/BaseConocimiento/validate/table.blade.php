@@ -2,9 +2,9 @@
                         <thead>
                             <tr>
                                 <th width="10px">ID</th>
-                                <th>Name</th>
-                                <th>description</th>
-                                <th>User</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Usuario</th>
                                 <th colspan="3">&nbsp;</th>
                             </tr>
                         </thead>
@@ -17,7 +17,7 @@
                                 @forelse($base->users as $user)
                                         <td>{{ $user->name }}</td>
                                 @empty
-                                        <td>no user</td>
+                                        <td>No hay Usuario</td>
                                 @endforelse
                                 <td width="10px">
                                     <a href="{{ route('baseConocimiento.show', $base->id )}}" class="btn btn-sm btn-info">show</a>

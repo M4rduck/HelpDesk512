@@ -35,7 +35,7 @@ class KnowledgeBase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['score', 'name', 'solution', 'sw_faq', 'description', 'created_at', 'updated_at'];
+    protected $fillable = ['view', 'name', 'solution', 'sw_faq', 'description', 'category_id', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

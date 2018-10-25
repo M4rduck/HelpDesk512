@@ -119,7 +119,7 @@ class CategoryController extends Controller
     /* api que me traer los datos del datatable*/
     public function apiCategory()
     {
-        $categories = Category::with('category');
+        $categories = Category::all();
           
         
         return Datatables::of($categories)
