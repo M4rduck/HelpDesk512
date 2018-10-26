@@ -164,6 +164,7 @@ $(function(){
             this.element = document.getElementById('incidences_table');
             this.incidences_route = document.getElementById('incidences_route').value;
             this.show_incidence_route = document.getElementById('show_incidence_route') ? document.getElementById('show_incidence_route').value : "";
+            this.show_diagnosis_route = document.getElementById('show_diagnosis_route') ? document.getElementById('show_diagnosis_route').value : "";
             this.datatable = null;
             this.render();
 
@@ -211,7 +212,8 @@ $(function(){
                             //defaultContent: '<a class="btn btn-default btn-block" href=""><i class="fa fa-bars" aria-hidden="true"></i></a>',
                             render: function(data, type, row){
                                 console.log('datatable', row);
-                                return '<a class="btn btn-default btn-block" href="'+ self.show_incidence_route +"/"+ row.id +'"><i class="fa fa-bars" aria-hidden="true"></i></a>';
+                                return `<a class="btn btn-default btn-block" title="Dar Diagnostico" href="${self.show_diagnosis_route}/${row.id}"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+                                        <a class="btn btn-default btn-block" href="${self.show_incidence_route}/${row.id}"><i class="fa fa-bars" aria-hidden="true"></i></a>`;
                             }
                         }
                         

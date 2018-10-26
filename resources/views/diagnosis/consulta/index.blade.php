@@ -7,6 +7,7 @@
 @stop
 
 @push('js')
+     {!! Html::script('./js/diagnosis/consulta/store.js') !!}
 @endpush
 
 @section('content')
@@ -15,10 +16,15 @@
         
         <div class="box box-warning">
 
-            @if (is_null($formulario))
-                <p>No hay diagnosis creado para esta incidencia con solicitud {!! $title_solicitude !!}</p>
+            @if (is_null($formulario))                
+                <div class="alert alert-warning alert-dismissible">                    
+                    {!! Form::button('x', ['class' => "close", 'data-dismiss' => "alert", 'aria-hidden' => "true"]) !!}
+                    <h4><i class="icon fa fa-warning"></i> Alerta!</h4>
+                    No hay diagnosticos creado para esta incidencia con solicitud con nombre: {!! $title_solicitude !!}
+                </div>
             @else
-                {!! Form::open(['route' => 'diganosis.storeDiagnosisTechnic']) !!}
+                {!! Form::open(['route' => 'diganosis.storeDiagnosisTechnic', 'id' => 'form-diagnosis']) !!}
+                {!! Form::hidden('incidence_id', $incidence_id, ['id' => 'incidence_id']) !!}
                 <div class="box-header">
                     <h3 class="box-title">{!! $formulario->name !!}</h3>                
                 </div>

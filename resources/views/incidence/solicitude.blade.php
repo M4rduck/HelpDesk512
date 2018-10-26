@@ -191,7 +191,8 @@
                         <br><br>
                         <div style="padding-left: 20px; padding-right: 20px;" id="table_container">
                             <div>
-                                <input id="show_incidence_route" type="hidden" value="{{ route('incidence.show', ['incidence' => ""]) }}">
+                                <input id="show_incidence_route" type="hidden" value="{{ route('incidence.show', ['incidence' => ""]) }}">                                
+                                {!! Form::hidden('show_diagnosis_route', route('diagnosis.show', ['id' => '']), ['id' => 'show_diagnosis_route']) !!}
                                 <table id="incidences_table" style="width: 100%">
                                     <thead>
                                         <tr>
